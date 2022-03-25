@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 
+
 // Get Route
 app.get('/', (req,res)=>{
   // Sending This is the home page! in the page
@@ -17,8 +18,7 @@ app.listen(PORT)
 
 
 
-// // npm init
-// // npm i express
+
 
 // const express = require('express');
 // const server = express();
