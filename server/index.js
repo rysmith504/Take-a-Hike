@@ -11,7 +11,11 @@ app.get('/', (req,res) => {
 
 // Listening to the port
 let PORT = 5555;
-app.listen(PORT)
+app.listen(PORT, () => {
+  console.log(`
+  Listening at: http://localhost:${PORT}
+  `);
+
 
 // FINISH!
 
