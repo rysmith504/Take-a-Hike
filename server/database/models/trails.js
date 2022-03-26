@@ -52,35 +52,3 @@ const Trails = db.define("trails", {
 module.exports = {
   Trails,
 };
-
-/**
-  * const { Sequelize, DataTypes } = require('sequelize');
-
-// Create sequelize connection to mysql database
-const sequelize = new Sequelize({
-  host: 'localhost',
-  dialect: 'mysql',
-  username: 'root',
-  password: '',
-  database: 'todos'
-});
-
-// Declare our schema. This is the shape of our data
-const Tasks = sequelize.define('Tasks', {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  description: DataTypes.STRING(255),
-  priority: { type: DataTypes.INTEGER, defaultValue: 2 },
-  complete: { type: DataTypes.BOOLEAN, defaultValue: false },
-}, { timestamps: true });
-
-module.exports = {
-  db: sequelize,
-  Tasks,
-};
-
-  */
