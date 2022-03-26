@@ -15,8 +15,7 @@ app.listen(PORT, () => {
   console.log(`
   Listening at: http://localhost:${PORT}
   `);
-
-
+});
 // FINISH!
 
 
@@ -32,7 +31,7 @@ app.listen(PORT, () => {
 // // Body parser
 // server.use(express.json());
 
-// // Homme page
+// // Home page
 // server.get('/', (req, res) => {
 //   return res.send("<h1 style='text-align: center;'>Hello,<br />from the Express.js server!</h1>");
 // })
