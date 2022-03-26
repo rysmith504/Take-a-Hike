@@ -45,9 +45,9 @@ db.sync({ force: true })
 
     Trails.bulkCreate([
       {  id: 1, name: 'Trail-1', rating: 5, description: 'It was a very good trail!' },
-    ]).then(function() {
+    ]).then(() => {
       return Trails.findAll();
-    }).then(function(notes) {
+    }).then((notes) => {
       console.log(notes);
     });
   });
