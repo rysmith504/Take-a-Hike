@@ -4,7 +4,7 @@ const app = express();
 
 
 // Get Route
-app.get('/', (req,res)=>{
+app.get('/', (req,res) => {
   // Sending This is the home page! in the page
   res.send('This is the home page!');
 });
