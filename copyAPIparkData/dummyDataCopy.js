@@ -6,7 +6,7 @@ const dummyParkData = [
     url: 'https://www.singletracks.com/bike-trails/sam-houston-jones-state-park/',
     length: '7.0',
     description:
-      "Winding single track thru forest with lots of small hills. Many smaller loops off the main trail, you may miss the best riding, so explore them - you can't get lost.",
+      'Winding single track thru forest with lots of small hills. Many smaller loops off the main trail, you may miss the best riding, so explore them - you can\'t get lost.',
     directions:
       'Moss Bluff is just North of Lake Charles in SW LA.  Follow the signs to Sam Houston Jones State Park.  There are many trailheads. Most access the trail at the deer pen or boat launch.',
     city: 'Moss Bluff',
@@ -45,7 +45,7 @@ const dummyParkData = [
     url: 'https://www.singletracks.com/bike-trails/chicot-state-park/',
     length: '23.0',
     description:
-      "The trail is a challenge mainly for it's distance.  The first 4 or five mile section (riding the trail clockwise) is fairly technical, it then is a nice singletrack with a few short hills.  It is very well marked, but bring water and food (none on the trail), the whole loop will take about 3 hours.<BR>",
+      'The trail is a challenge mainly for it\'s distance.  The first 4 or five mile section (riding the trail clockwise) is fairly technical, it then is a nice singletrack with a few short hills.  It is very well marked, but bring water and food (none on the trail), the whole loop will take about 3 hours.<BR>',
     directions:
       'You can access the trail head just in Chicot State Park.  Ask for a free map at the entrance station.',
     city: 'Outside Ville Platte',
@@ -124,7 +124,7 @@ const dummyParkData = [
     url: 'https://www.singletracks.com/bike-trails/wild-azalea-trail-7720/',
     length: '26.0',
     description:
-      "Wide singletrack that runs through remote forest. a few creek crossings. This trail route has some nice single track, good climbs, some double wide trails, some good pedaling sections, and some great down hills. There aren't many rocks or roots in the trail, a few roots on the steeper climbs, the biggest obstacles are probably fallen trees, but the trail is kept up well so there are not a lot of those either. There are some spots of sand on the trail to be ready for. The trail passes kincaid lake and there a few loops around the lake that break off of the Azalea Trail. The trail also intersects with the Lakeshore trail at Kincaid Lake, which is at the Kincaid East landing is a little easier and doesn't have as many rooty sections and is a little flatter.",
+      'Wide singletrack that runs through remote forest. a few creek crossings. This trail route has some nice single track, good climbs, some double wide trails, some good pedaling sections, and some great down hills. There aren\'t many rocks or roots in the trail, a few roots on the steeper climbs, the biggest obstacles are probably fallen trees, but the trail is kept up well so there are not a lot of those either. There are some spots of sand on the trail to be ready for. The trail passes kincaid lake and there a few loops around the lake that break off of the Azalea Trail. The trail also intersects with the Lakeshore trail at Kincaid Lake, which is at the Kincaid East landing is a little easier and doesn\'t have as many rooty sections and is a little flatter.',
     directions:
       'From Alexandria go Hwy 28 west to Gardner at flashing light take left, go 1/4 mile take another left Heading towards Valentine Lake Recreation Area., the trailhead is right near the entrance to Valentines Lake camp grounds on your left. ( You can just follow the Forest service signs to the Camp ground from Hwy 28 west) The trail meanders through thewoods and comes out in Woodworth.',
     city: 'Alexandria',
@@ -240,7 +240,7 @@ const dummyParkData = [
     url: 'https://www.singletracks.com/bike-trails/lake-fausse-pointe-trail-system/',
     length: '5.0',
     description:
-      'Trail is actually a system of 3 loops.  There are a few elevation changes, but nothing over a few meters.  Trail can be fairly technical in some places with switchbacks, bridges over the swamp, and the roots running across the trail.  Maps can be obtained at the main gate ($2 day-use fee), trailhead, or Interpretive Center.  To get any kinda mileage/time on the bike, ride all three loops.  Depending on the "dampness" of the trail near the beaver lodges, one may want to take advantage of the "Drier Alternate Route" thru the "Boy Scout Area".  Entire trail can get kinda wet, this is South Louisiana after all.  Good trail for beginner confidence boost.  And a blast for anyone who wants to test their suspension.',
+      'Trail is actually a system of 3 loops.  There are a few elevation changes, but nothing over a few meters.  Trail can be fairly technical in some places with switchbacks, bridges over the swamp, and the roots running across the trail.  Maps can be obtained at the main gate ($2 day-use fee), trailhead, or Interpretive Center. To get any kinda mileage/time on the bike, ride all three loops.  Depending on the "dampness" of the trail near the beaver lodges, one may want to take advantage of the "Drier Alternate Route" thru the "Boy Scout Area".  Entire trail can get kinda wet, this is South Louisiana after all.  Good trail for beginner confidence boost.  And a blast for anyone who wants to test their suspension.',
     directions:
       'Starting on US Hwy 90 from either East or West, take the Cade/St. Martinville exit.  Take the first left, following signs for St. Martinville.  From St. Martinville, take LA 96 to LA 679, then to LA 3083. Turn right onto Levee Road for 8 miles.  Park entrance is on the right.',
     city: 'St. Martinville',
