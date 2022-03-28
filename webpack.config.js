@@ -33,6 +33,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: path.resolve(distDir, "index.html") }),
+    new HtmlWebpackPlugin({ template: path.resolve(srcDir, "index.html") }),
   ],
 };
