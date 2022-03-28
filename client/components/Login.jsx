@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-import "..styles/login.css";
+// import "../styles/login.css";
 
 const Login = () => {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // this.state = { ^^^^^^^^^^^^^^^
+  //   isSubmitted: false,
+  //   errorMessages: {}
+  // }
 
   // User Login info
   const database = [
