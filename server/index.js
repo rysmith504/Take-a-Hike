@@ -2,7 +2,6 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const passport = require('passport');
 
 //handles parsing content in the req.body from post/update requests
 app.use(express.json());
