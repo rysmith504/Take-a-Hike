@@ -1,11 +1,12 @@
 // Import Dependencies
 const { DataTypes } = require('sequelize');
-const db = require('../index.js');
+const { db } = require('../index.js');
 
 // Create Schema
 const PackingList = db.define('packingList', {
-  id: {Type: DataTypes.INTEGER, allowNull: false}, 
-  name: {Type: DataTypes.STRING, allowNull: false}, 
+  _id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true}, 
+  name: {type: DataTypes.STRING, allowNull: false}, 
+  user_id: {type: DataTypes.INTEGER, allowNull: false, foreignKey: true},
  });
 
  // Export Schema
