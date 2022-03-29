@@ -5,6 +5,7 @@
 require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const { Users } = require('../database/models/users.js')
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -13,7 +14,7 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true
 },
   function (request, accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    Users.findOrCreate({ googleId: profile.id }, function (err, user) {
       return done(err, user);
     });
   }
