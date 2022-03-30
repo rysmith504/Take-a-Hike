@@ -7,12 +7,12 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import TrailProfile from './TrailProfile.jsx';
 // Import Components
 // import Login from "./Login.jsx"
-import BirdingCheckList from './BirdingCheckList.jsx';
-import Quartermaster from './Quartermaster.jsx';
+// import BirdingCheckList from './BirdingCheckList.jsx';
+// import Quartermaster from './Quartermaster.jsx';
 // import TrailFeathers from './TrailFeathers.jsx';
 // import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
-import TrailsList from './TrailsList.jsx';
-import UserProfile from './UserProfile.jsx';
+// import TrailsList from './TrailsList.jsx';
+// import UserProfile from './UserProfile.jsx';
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
       <h2>All parks within 500 miles radius</h2>
       {/* <Login/> */}
       {/* <UserProfile /> */}
-      <Quartermaster />
+      {/* <Quartermaster /> */}
       {/* <Trails />
       <TrailFeathers /> */}
       {/* <Link to="/login">Login</Link> */}
