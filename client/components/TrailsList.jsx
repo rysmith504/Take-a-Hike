@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import TrailsListEntry from './TrailsListEntry.jsx'
-import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy";
 
-const TrailsList = () => {
+
+const TrailsList = ({trails, dummyData}) => {
+
+  console.log('Dummy length', dummyData.length);
 
   return (
     <div className='trails-list'>
@@ -17,12 +19,12 @@ const TrailsList = () => {
             <div className='trail-data'>Rating</div>
           </div>
           {
-            dummyParkData.map((trail) => (
-              <TrailsListEntry
+            dummyData.map(trail => {
+              return <TrailsListEntry
                 trail={ trail }
                 key={trail.id}
               />
-            ))
+            })
           }
         </div>
       </div>
