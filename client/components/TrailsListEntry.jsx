@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 const TrailsListEntry = ({trail}) => {
-  console.log('THIS IS A TEST');
   return (
     <>
       {/* <h1 className="Header" alignment="center">

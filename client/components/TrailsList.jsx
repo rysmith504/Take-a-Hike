@@ -4,8 +4,6 @@ import TrailsListEntry from './TrailsListEntry.jsx'
 
 const TrailsList = ({trails, dummyData}) => {
 
-  console.log('Dummy length', dummyData.length);
-
   return (
     <div className='trails-list'>
       <h1 className="Header" alignment="center">Trails List</h1>
