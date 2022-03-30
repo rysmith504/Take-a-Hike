@@ -8,7 +8,7 @@ const db = new Sequelize("TakeAHike", "root", "", {
   dialect: "mysql",
 });
 
-// Use Sequelize Authenticate Method
+// Confirm DB is running
 db.authenticate() // Runs a SELECT query and checks if the database responds correctly
   .then(() => {
     console.log("Connection has been established successfully.");

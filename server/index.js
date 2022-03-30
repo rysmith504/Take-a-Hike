@@ -1,12 +1,20 @@
 // Import Dependencies
 const express = require("express");
-const app = express();
 const path = require("path");
 const router = express.Router();
+
+// // Import DB
+// const { db } = require('./database/index.js')
+
+// // Import Routes
+// const birdListRouter = require('./database/routes/birdListRouter.js')
 
 // Set Distribution Path
 const PORT = 5555;
 const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file of the application as default on load
+
+// Create backend API
+const app = express();
 
 // Use Middleware
 app.use(express.json()); // handles parsing content in the req.body from post/update requests

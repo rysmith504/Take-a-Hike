@@ -1,13 +1,18 @@
+// Import Dependencies
 import React from "react";
 import { useEffect, useState } from "react";
 
+// Create Functional Component
 const BirdingCheckList = () => {
   return (
     <>
       <h1 className="Header" alignment="center">
-      Birding CheckList
+        Birding Checklist
       </h1>
-      <h2>A List of All the bird of Louisiana that a user has seen</h2>
+      <p>
+        A List of all the birds of Louisiana. Just click any birds you've seen on you hikes and well keep track of them for ya! 
+      </p>
+      
     </>
   );
 };
