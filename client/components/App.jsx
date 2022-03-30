@@ -11,6 +11,9 @@ import Trails from "./Trails.jsx"
 import TrailsList from "./TrailsList.jsx"
 import TrailsListEntry from "./TrailsListEntry.jsx"
 import UserProfile from "./UserProfile.jsx"
+import Quartermaster from "./Quartermaster.jsx";
+import BirdingCheckList from "./BirdingCheckList.jsx";
+
 
 const App = () => {
   return (
