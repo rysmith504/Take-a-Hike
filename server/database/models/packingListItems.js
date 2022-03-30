@@ -1,6 +1,6 @@
 // Import Dependencies
-const { DataTypes } = require('sequelize');
-const { db } = require('../index.js');
+const { DataTypes } = require("sequelize");
+const { db } = require("../index.js");
 
 // Create Schema
 const PackingListItems = db.define('packingListItems', {
@@ -10,7 +10,7 @@ const PackingListItems = db.define('packingListItems', {
   user_id: {type: DataTypes.INTEGER, allowNull: false, foreignKey: true},
  });
 
- // Export Schema
- module.exports = {
+// Export Schema
+module.exports = {
   PackingListItems,
- }
+};
