@@ -9,6 +9,7 @@ import Quartermaster from "./Quartermaster.jsx"
 import TrailFeathers from "./TrailFeathers.jsx"
 import Trails from "./Trails.jsx"
 import TrailsList from "./TrailsList.jsx"
+import TrailsListEntry from "./TrailsListEntry.jsx"
 import UserProfile from "./UserProfile.jsx"
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
       {/* <Login/> */}
       <UserProfile/>
       <TrailsList/>
+      <TrailsListEntry/>
       <Trails/>
       <Quartermaster/>
       <TrailFeathers/>
