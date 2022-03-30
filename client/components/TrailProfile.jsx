@@ -9,7 +9,7 @@ const TrailProfile = () => {
 
   // create upload widget
   const widget = window.cloudinary.createUploadWidget(
-    { cloudName: cloudName, uploadPreset: preset },
+    { cloudName: cloudName, uploadPreset: preset, maxFiles: 3 },
     (err, result) => {
       if (!err && result && result.event === 'success') {
         console.log(result);
@@ -25,7 +25,7 @@ const TrailProfile = () => {
   return (
     <div>
       <h1>Trail Profile</h1>
-      <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+      {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
       <button
         onClick={(e) => {
           showWidget(e, widget);
