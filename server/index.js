@@ -22,7 +22,7 @@ app.use(express.static(distPath));
 // });
 
 // Routes
-
+// FIX THIS
 app.get('/', (req, res) => {
   res.send('<a href="/auth/google">Authenticate with google</a>')
 });
