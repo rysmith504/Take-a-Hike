@@ -3,22 +3,22 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../index.js");
 
 // Create Schema
-const PackingListItems = db.define("packingListItems", {
-  _id: {
+const PackingList_PackingListItem = db.define("packingList_PackingListItem", {
+  packingList_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
-  name: { type: DataTypes.STRING, allowNull: false },
-  packingList_id: {
+  packingListItem_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    foreignKey: true,
+    primaryKey: true,
+    autoIncrement: true,
   },
 });
 
 // Export Schema
 module.exports = {
-  PackingListItems,
+  PackingList_PackingListItem,
 };
