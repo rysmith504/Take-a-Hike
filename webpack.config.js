@@ -7,6 +7,10 @@ const distDir = path.resolve(__dirname, 'dist');
 module.exports = {
   mode: 'development',
   watch: true,
+  watchOptions: {
+    aggregateTimeout: 200,
+    poll: 1000,
+  },
   devtool: 'inline-source-map',
   stats: {
     excludeModules: /node_modules/,
@@ -33,9 +37,11 @@ module.exports = {
     ],
   },
   plugins: [
+    // new HtmlWebpackPlugin({ template: path.resolve(srcDir, 'index.html') }),
     new HtmlWebpackPlugin({
       template: path.resolve(srcDir, 'index.html'),
       inject: 'body',
     }),
   ],
 };
+
