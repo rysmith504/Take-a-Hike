@@ -3,24 +3,26 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// Import Components
+// Import Components and Dummy Data
 import BirdProfile from "./BirdProfile.jsx";
+import { dummyBirdData } from "../../copyAPIparkData/dummyBirdData.js";
 
 // Create Functional Component
 const BirdingCheckList = () => {
+  // console.log('Dummy Data:', dummyBirdData[0]);
   const [birdSearch, setBirdSearch] = useState("");
-  const [birdList, setBirdList] = useState(false);
+  const [birdList, setBirdList] = useState(dummyBirdData);
 
   const handelBirdSearchInput = (event) => {
-    const { name, value } = event.target;
-    setBirdSearch((birdSearch) => {
-      return { ...birdSearch, [name]: value};
-    });
+    const { value } = event.target;
+    setBirdSearch((birdSearch) => value);
   };
 
   const handelBirdSearchSubmit = (event) => {
     event.preventDefault();
-    axios.get("/api/birdList")
+    axios.get("/api/birdList", {
+      params: { name: birdSearch }
+    })
       .then((response) => {
         setBirdList(() => {
           return [...response.data.data]
@@ -43,7 +45,6 @@ const BirdingCheckList = () => {
             placeholder="Enter Bird Name Here"
             value={birdSearch}
             onChange={handelBirdSearchInput}
-            name="lat"
           />
         </label>
         <input
@@ -55,7 +56,7 @@ const BirdingCheckList = () => {
       <div className="birds">
         <div className="bird-profile">
           {birdList.map((bird) => {
-            return <BirdProfile bird={bird} key={bird.id} />;
+            return <BirdProfile bird={bird} key={bird.name} />;
           })}
         </div>
       </div>

@@ -12,6 +12,7 @@ import TrailsList from "./TrailsList.jsx"
 import TrailsListEntry from "./TrailsListEntry.jsx"
 import UserProfile from "./UserProfile.jsx"
 import BirdingCheckList from "./BirdingCheckList.jsx";
+import BirdProfile from "./BirdProfile.jsx";
 // import TrailFeathers from './TrailFeathers.jsx';
 // import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
 
@@ -48,6 +49,8 @@ class App extends React.Component {
       return <Quartermaster/>
     } else if (view === 'birdingCheckList') {
       return <BirdingCheckList/>
+    } else if (view === 'userProfile') {
+      return <UserProfile/>
     }
   }
 
@@ -58,22 +61,27 @@ class App extends React.Component {
       <div>
       <div className='nav'>
         <span className='logo' onClick={() => this.changeView('trailsList')}>
-          TrailFeathers     
+          TrailFeathers
         </span>
         <span
           className={view === 'trailsList' ? 'nav-selected' : 'nav-unselected'}
           onClick={() => this.changeView('trailsList')}>
-          Trails List     
+          __Trails List
         </span>
         <span
           className={view === 'quartermaster' ? 'nav-selected' : 'nav-unselected'}
           onClick={() => this.changeView('quartermaster')}>
-          Quartermaster     
+          __Quartermaster
         </span>
         <span
           className={view === 'birdingCheckList' ? 'nav-selected' : 'nav-unselected'}
           onClick={() => this.changeView('birdingCheckList')}>
-          Birding Checklist
+          __Birding Checklist
+        </span>
+        <span
+          className={view === 'userProfile' ? 'nav-selected' : 'nav-unselected'}
+          onClick={() => this.changeView('userProfile')}>
+          __User Profile
         </span>
       </div>
       <div className='main'>{this.renderView()}</div>
