@@ -37,14 +37,11 @@ module.exports = {
     ],
   },
   plugins: [
-<<<<<<< HEAD
-    new HtmlWebpackPlugin({ template: path.resolve(srcDir, 'index.html') }),
-=======
+    // new HtmlWebpackPlugin({ template: path.resolve(srcDir, 'index.html') }),
     new HtmlWebpackPlugin({
       template: path.resolve(srcDir, 'index.html'),
       inject: 'body',
     }),
->>>>>>> a04b96d6a95bb1a89d8c7d59e421b964445e556f
   ],
 };
 
