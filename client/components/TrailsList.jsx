@@ -1,39 +1,42 @@
 import React, { useEffect, useState } from "react";
-import TrailsListEntry from './TrailsListEntry.jsx';
-import axios from 'axios';
+import TrailsListEntry from "./TrailsListEntry.jsx";
+import axios from "axios";
 // import TrailCard from './TrailCard.jsx';
 
-const TrailsList = ({dummyData}) => {
-
-  const [location, setLocation] = useState({ lat: "", lon: ""});
+const TrailsList = ({ dummyData }) => {
+  const [location, setLocation] = useState({ lat: "", lon: "" });
   const [trailList, setTrailList] = useState([]);
 
   const handleLocationInput = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setLocation((location) => {
-      return {...location, [name]: value, [name]: value}
-    })
-  }
+      return { ...location, [name]: value, [name]: value };
+    });
+  };
 
   const handleSubmitLocation = (e) => {
     e.preventDefault();
-    axios.get('/api/TrailsList', {params: { lat: location.lat, lon: location.lon }} )
-    .then((arrayOfObj) => {
-      console.log('Line 21 = ', arrayOfObj);
-      setTrailList((trailList) => {
-        return [...trailList, ...arrayOfObj]
+    axios
+      .get("/api/TrailsList", {
+        params: { lat: location.lat, lon: location.lon },
       })
-    })
-    .catch((err) => {
-      console.error('ERROR:', err);
-    })
+      .then((arrayOfObj) => {
+        console.log("Line 21 = ", arrayOfObj);
+        setTrailList((trailList) => {
+          return [...trailList, ...arrayOfObj];
+        });
+      })
+      .catch((err) => {
+        console.error("ERROR:", err);
+      });
 
-
-  return (
-    <div className='trails-list'>
-      <h1 className="Header" alignment="center">Trails List</h1>
-      <h2>A list of all the hiking trails in Louisiana!</h2>
-      <form className="card">
+    return (
+      <div className="trails-list">
+        <h1 className="Header" alignment="center">
+          Trails List
+        </h1>
+        <h2>A list of all the hiking trails in Louisiana!</h2>
+        <form className="card">
           <label>
             <input
               type="text"
@@ -60,20 +63,16 @@ const TrailsList = ({dummyData}) => {
             onClick={handleSubmitLocation}
           />
         </form>
-      <div className='trails'>
-        <div className='trail-table'>
-          {
-            dummyData.map(trail => {
-              return <TrailsListEntry
-                trail={ trail }
-                key={trail.id}
-              />
-            })
-          }
+        <div className="trails">
+          <div className="trail-table">
+            {dummyData.map((trail) => {
+              return <TrailsListEntry trail={trail} key={trail.id} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 };
 
 export default TrailsList;
