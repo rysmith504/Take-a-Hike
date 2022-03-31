@@ -1,4 +1,5 @@
 // Import Dependencies
+const axios = require("axios");
 const { query } = require("express");
 const express = require("express");
 const app = express();
@@ -29,6 +30,30 @@ app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays an
 // router.get('/login', function(req, res, next) { // Login GET ROUTE
 //   res.render('login')
 // });
+
+////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
+
+//GET req for trail data by latitude/longitude
+app.get("/api/TrailsList", (req, res) => {
+  axios
+    .get(
+      `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
+      {
+        headers: {
+          'X-RapidAPI-Host': 'trailapi-trailapi.p.rapidapi.com',
+          'X-RapidAPI-Key': 'a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c'
+        }
+      }
+    )
+    .then((response) => {
+      // console.log(response.data); - returns array of objects of trail data
+      res.json(response.data);
+    })
+    .catch((err) => {
+      console.error("ERROR: ", err);
+      res.sendStatus(404);
+    });
+});
 
 //////////////////////////////////////// Cloudinary routes //////////////////////////////////////
 
