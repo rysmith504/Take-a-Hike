@@ -1,9 +1,13 @@
 // Import Dependencies
+const axios = require("axios");
+const { query } = require("express");
 const express = require("express");
 const app = express();
 const path = require("path");
+const { PackingLists } = require("./database/models/packingLists");
+// PackingLists.sync();
+// const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
-const axios = require("axios");
 const { cloudinary } = require("./utils/coudinary");
 
 // Set Distribution Path
@@ -71,25 +75,24 @@ app.get("/api/images", async (req, res) => {
   res.json(secureImageUrls);
 });
 
-// // get request to get all images (this will later be trail specific)
-// app.get(`/api/images/}`, async (req, res) => {
-//   // NEED TO CHANGE ENDPOINT TO INCLUDE TRAIL SPECIFIC PARAM SO PHOTOS CAN BE UPLOADED + RENDERED PROPERLY
-
-//   // Can create new folder with upload from TrailProfile component. Need to modify get request to filter based on folder param (which will be equal to the trail name)
-//   const { resources } = await cloudinary.search
-//     .expression(`resource_type:image`)
-//     .sort_by('created_at', 'asc')
-//     .max_results(30)
-//     .execute();
-//   // console.log(
-//   //   'SERVER INDEX.JS || CLOUDINARY GET || LINE 38 || resources ==>',
-//   //   resources
-//   // );
-//   const secureImageUrls = resources
-//     // .filter((image) => (image.folder = 'trailName'))
-//     .map((image) => image.secure_url);
-//   res.json(secureImageUrls);
-// });
+/**
+ * Routes for packing list
+ */
+app.post("/api/packingLists", (req, res) => {
+  console.log(req.body, "Server index.js LINE 55");
+  PackingLists.create({
+    listName: req.body.listName,
+    packingListDescription: req.body.packingListDescription,
+  })
+    .then((data) => {
+      console.log("LINE 63", data.dataValues);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err, "Something went wrong");
+      res.sendStatus(500);
+    });
+});
 
 // launches the server from localhost on port 5555
 app.listen(PORT, () => {

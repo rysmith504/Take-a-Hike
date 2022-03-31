@@ -1,10 +1,10 @@
 // Import Dependencies
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // import { useEffect, useState } from 'react';
 // import Login from './Login.jsx';
-import TrailProfile from './TrailProfile.jsx';
+import TrailProfile from "./TrailProfile.jsx";
 // Import Components
 // import Login from "./Login.jsx"
 import Quartermaster from "./Quartermaster.jsx"
@@ -17,8 +17,9 @@ import BirdingCheckList from "./BirdingCheckList.jsx";
 // import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
 
 
-const App = () => {
 
+const App = () => {
+console.log('testing')
   return (
     <div>
       <h1 className="Header" alignment="center">
@@ -28,10 +29,18 @@ const App = () => {
       {/* <Login/> */}
       {/* <UserProfile/> */}
       <TrailsList />
-      {/* <Trails/>
-      <BirdingCheckList /> */}
+      {/* <Trails />
+      <TrailFeathers /> */}
+      {/* <BirdingCheckList /> */}
       <Quartermaster/>
       <TrailProfile />
+      {/* <Link to="/login">Login</Link> */}
+      {/* <Routes>
+        <Route path="/" element={<TrailsList />} />
+        <Route path="login" element={<Login />} />
+        <Route path="profile" element={<UserProfile />} />
+        <Route path="trail/:id" element={<TrailProfile />} />
+      </Routes> */}
     </div>
   );
 };
