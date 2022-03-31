@@ -1,26 +1,32 @@
 // Import Dependencies
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-// import { useEffect, useState } from 'react';
+import { Link, Outlet } from "react-router-dom";
 
-// Import Components
-// import Login from './Login.jsx';
-import TrailProfile from "./TrailProfile.jsx";
-import Quartermaster from "./Quartermaster.jsx"
-// import Trails from "./Trails.jsx"
-import TrailsList from "./TrailsList.jsx"
-import TrailsListEntry from "./TrailsListEntry.jsx"
-import UserProfile from "./UserProfile.jsx"
-import BirdingCheckList from "./BirdingCheckList.jsx";
-import BirdProfile from "./BirdProfile.jsx";
-// import TrailFeathers from './TrailFeathers.jsx';
-// import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
+const App = () => {
 
-
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+  return (
+    <div>
+      <h1 className="Header" alignment="center">
+        Trail Feathers
+      </h1>
+      <nav
+        style={{
+          borderBottom: 'solid 1px',
+          paddingBottom: '1rem',
+        }}
+      >
+        <Link to="/login">Login</Link> |{' '}
+        <Link to="/trailslist">Trails List</Link> |{' '}
+        <Link to="/trailprofile">Trail Profile</Link> |{' '}
+        <Link to="/quartermaster">Quartermaster</Link> |{' '}
+        <Link to="/packinglist">Packing List</Link> |{' '}
+        <Link to="/birdingchecklist">Birding Checklist</Link> |{' '}
+        <Link to="/userprofile">User Profile</Link> |{' '}
+      </nav>
+      <Outlet />
+    </div>
+  );
+};
 
     this.state = {
       view: 'trailsList',
