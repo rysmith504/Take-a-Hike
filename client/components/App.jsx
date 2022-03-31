@@ -22,22 +22,8 @@ import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy.js";
 
 const App = () => {
 
-//   const [trail, setTrail] = useState({firstTrail: {}, trails: []});
-//   // const [count, setCount] = useState(0);
-//   //initial state will be an empty object
-
-//   // console.log(trail);
-// //get request
-
-
-//   const trailsData = () => {
-//     setTrail((trail) => {
-//       return {...trail, count: 1 }
-//     })
-//   }
-
   return (
-    <>
+    <div>
       <h1 className="Header" alignment="center">
         Take a Hike in Louisiana
       </h1>
@@ -49,7 +35,8 @@ const App = () => {
       {/* <Trails/>
       <Quartermaster/>
       <BirdingCheckList /> */}
-    </>
+      <TrailProfile />
+    </div>
   );
 };
 

@@ -21,14 +21,15 @@ const TrailsList = ({ dummyData }) => {
         params: { lat: location.lat, lon: location.lon },
       })
       .then((arrayOfObj) => {
-        console.log("Line 21 = ", arrayOfObj);
+        // console.log("Line 21 = ", arrayOfObj);
         setTrailList((trailList) => {
-          return [...trailList, ...arrayOfObj];
+          return trailList = arrayOfObj;
         });
       })
       .catch((err) => {
         console.error("ERROR:", err);
       });
+    };
 
     return (
       <div className="trails-list">
@@ -73,6 +74,6 @@ const TrailsList = ({ dummyData }) => {
       </div>
     );
   };
-};
+
 
 export default TrailsList;
