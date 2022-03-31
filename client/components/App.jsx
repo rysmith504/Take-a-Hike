@@ -33,8 +33,8 @@ const App = () => {
       <TrailsList />
       {/* <TrailsListEntry/> */}
       {/* <Trails/>
-      <Quartermaster/>
       <BirdingCheckList /> */}
+      <Quartermaster/>
       <TrailProfile />
     </div>
   );

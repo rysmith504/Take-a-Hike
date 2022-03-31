@@ -41,7 +41,7 @@ const TrailsList = () => {
           <label>
             <input
               type="text"
-              placeholder="lat"
+              placeholder="latitude"
               className="card"
               value={location.lat}
               onChange={handleLocationInput}
@@ -51,7 +51,7 @@ const TrailsList = () => {
           <label>
             <input
               type="text"
-              placeholder="lon"
+              placeholder="longitude"
               className="card"
               value={location.lon}
               onChange={handleLocationInput}
