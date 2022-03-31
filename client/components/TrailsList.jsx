@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TrailsListEntry from './TrailsListEntry.jsx';
 import axios from 'axios';
+// import TrailCard from './TrailCard.jsx';
 
 const TrailsList = ({dummyData}) => {
 
@@ -26,7 +27,7 @@ const TrailsList = ({dummyData}) => {
     .catch((err) => {
       console.error('ERROR:', err);
     })
-  }
+
 
   return (
     <div className='trails-list'>

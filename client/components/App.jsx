@@ -1,8 +1,10 @@
 // Import Dependencies
-import React from "react";
-import { useEffect, useState } from "react";
-import Login from "./Login.jsx"
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+// import { useEffect, useState } from 'react';
+// import Login from './Login.jsx';
+import TrailProfile from './TrailProfile.jsx';
 // Import Components
 // import Login from "./Login.jsx"
 import Quartermaster from "./Quartermaster.jsx"
@@ -13,6 +15,10 @@ import UserProfile from "./UserProfile.jsx"
 import BirdingCheckList from "./BirdingCheckList.jsx";
 
 import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy.js";
+
+// import TrailFeathers from './TrailFeathers.jsx';
+// import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
+
 
 const App = () => {
 
@@ -32,7 +38,6 @@ const App = () => {
 
   return (
     <>
-    <Login/>
       <h1 className="Header" alignment="center">
         Take a Hike in Louisiana
       </h1>
