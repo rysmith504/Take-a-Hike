@@ -21,7 +21,7 @@ const TrailsList = () => {
         params: { lat: location.lat, lon: location.lon },
       })
       .then((response) => {
-        console.log("Line 24 = ", response.data.data);
+        // console.log("Line 24 = ", response.data.data); - returns array of objects of trail data
         setTrailList(() => {
           return [...response.data.data]
         });

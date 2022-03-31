@@ -29,7 +29,6 @@ app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays an
 
 //GET req all LA trail data from external API
 app.get("/api/TrailsList", (req, res) => {
-  // res.send();
   // console.log('Line 31 = ', req.query);
   axios
     .get(
@@ -42,7 +41,7 @@ app.get("/api/TrailsList", (req, res) => {
       }
     )
     .then((response) => {
-      console.log("Line 34 = ", response.data);
+      // console.log("Line 34 = ", response.data); - returns array of objects of trail data
       res.json(response.data);
     })
     .catch((err) => {
