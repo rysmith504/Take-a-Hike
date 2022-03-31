@@ -13,9 +13,6 @@ import TrailsList from "./TrailsList.jsx"
 import TrailsListEntry from "./TrailsListEntry.jsx"
 import UserProfile from "./UserProfile.jsx"
 import BirdingCheckList from "./BirdingCheckList.jsx";
-
-// import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy.js";
-
 // import TrailFeathers from './TrailFeathers.jsx';
 // import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
 
@@ -31,7 +28,6 @@ const App = () => {
       {/* <Login/> */}
       {/* <UserProfile/> */}
       <TrailsList />
-      {/* <TrailsListEntry/> */}
       {/* <Trails/>
       <BirdingCheckList /> */}
       <Quartermaster/>

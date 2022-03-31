@@ -36,7 +36,6 @@ const TrailsList = () => {
         <h1 className="Header" alignment="center">
           Trails List
         </h1>
-        <h2>A list of all the hiking trails in Louisiana!</h2>
         <form className="card">
           <label>
             <input

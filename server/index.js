@@ -27,9 +27,10 @@ app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays an
 //   res.render('login')
 // });
 
-//GET req all LA trail data from external API
+////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
+
+//GET req for trail data by latitude/longitude
 app.get("/api/TrailsList", (req, res) => {
-  // console.log('Line 31 = ', req.query);
   axios
     .get(
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
@@ -41,7 +42,7 @@ app.get("/api/TrailsList", (req, res) => {
       }
     )
     .then((response) => {
-      // console.log("Line 34 = ", response.data); - returns array of objects of trail data
+      // console.log(response.data); - returns array of objects of trail data
       res.json(response.data);
     })
     .catch((err) => {
