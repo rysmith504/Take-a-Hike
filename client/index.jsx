@@ -16,8 +16,6 @@ import BirdingCheckList from "../client/components/BirdingCheckList.jsx";
 import PackingList from "../client/components/PackingList.jsx";
 import Login from '../client/components/Login.jsx';
 
-
-
 // Render Components to DOM 'app' element
 ReactDOM.render(
   <BrowserRouter>
