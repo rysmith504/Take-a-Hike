@@ -15,8 +15,6 @@ app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays an
 
 // Create API Routes
 
-
-
 // app.get('/', (req, res) => { // Main Page GET ROUTE
 //   res.send('<a href="/auth/google">Authenticate with google</a>')
 // });
@@ -26,6 +24,11 @@ app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays an
 // router.get('/login', function(req, res, next) { // Login GET ROUTE
 //   res.render('login')
 // });
+
+//GET req all LA trail data from external API
+app.get('/', (req, res) => {
+  res.send();
+})
 
 
 // launches the server from localhost on port 5555
