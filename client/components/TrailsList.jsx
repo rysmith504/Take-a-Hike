@@ -17,7 +17,7 @@ const TrailsList = () => {
   const handleSubmitLocation = (e) => {
     e.preventDefault();
     axios
-      .get("/api/TrailsList", {
+      .get("/api/trailslist", {
         params: { lat: location.lat, lon: location.lon },
       })
       .then((response) => {
@@ -27,7 +27,7 @@ const TrailsList = () => {
         });
       })
       .catch((err) => {
-        console.error("ERROR:", err);
+        console.error("ERROR: ", err);
       });
     };
 
