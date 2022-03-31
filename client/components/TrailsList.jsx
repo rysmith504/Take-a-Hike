@@ -3,7 +3,7 @@ import TrailsListEntry from "./TrailsListEntry.jsx";
 import axios from "axios";
 // import TrailCard from './TrailCard.jsx';
 
-const TrailsList = ({ dummyData }) => {
+const TrailsList = () => {
   const [location, setLocation] = useState({ lat: "", lon: "" });
   const [trailList, setTrailList] = useState([]);
 
@@ -20,10 +20,10 @@ const TrailsList = ({ dummyData }) => {
       .get("/api/TrailsList", {
         params: { lat: location.lat, lon: location.lon },
       })
-      .then((arrayOfObj) => {
-        // console.log("Line 21 = ", arrayOfObj);
-        setTrailList((trailList) => {
-          return trailList = arrayOfObj;
+      .then((response) => {
+        console.log("Line 24 = ", response.data.data);
+        setTrailList(() => {
+          return [...response.data.data]
         });
       })
       .catch((err) => {
@@ -66,7 +66,7 @@ const TrailsList = ({ dummyData }) => {
         </form>
         <div className="trails">
           <div className="trail-table">
-            {dummyData.map((trail) => {
+            {trailList.map((trail) => {
               return <TrailsListEntry trail={trail} key={trail.id} />;
             })}
           </div>

@@ -14,7 +14,7 @@ import TrailsListEntry from "./TrailsListEntry.jsx"
 import UserProfile from "./UserProfile.jsx"
 import BirdingCheckList from "./BirdingCheckList.jsx";
 
-import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy.js";
+// import { dummyParkData } from "../../copyAPIparkData/dummyDataCopy.js";
 
 // import TrailFeathers from './TrailFeathers.jsx';
 // import TrailCard from './TrailCard.jsx'; // COMMENTED OUT BY RENE
@@ -30,7 +30,7 @@ const App = () => {
       <h2>All parks within 500 miles radius</h2>
       {/* <Login/> */}
       {/* <UserProfile/> */}
-      <TrailsList  dummyData={dummyParkData}/>
+      <TrailsList />
       {/* <TrailsListEntry/> */}
       {/* <Trails/>
       <Quartermaster/>
