@@ -1,15 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-const Trails = () => {
+const BirdingCheckList = () => {
   return (
     <>
       <h1 className="Header" alignment="center">
-        Trails
+      Birding CheckList
       </h1>
-      <h2>Everything you want to know about a particular trail!</h2>
+      <h2>A List of All the bird of Louisiana that a user has seen</h2>
     </>
   );
 };
 
-export default Trails;
+export default BirdingCheckList;
