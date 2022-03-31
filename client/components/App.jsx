@@ -1,17 +1,11 @@
 // Import Dependencies
 import React from "react";
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route} from "react-router-dom";
-=======
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
->>>>>>> 7bf66ca3c53ab8ba81ada773b37d0b8bff78e9a7
-
 // import { useEffect, useState } from 'react';
+
+// Import Components
 // import Login from './Login.jsx';
 import TrailProfile from "./TrailProfile.jsx";
-// Import Components
-// import Login from "./Login.jsx"
 import Quartermaster from "./Quartermaster.jsx"
 // import Trails from "./Trails.jsx"
 import TrailsList from "./TrailsList.jsx"
@@ -23,34 +17,101 @@ import BirdingCheckList from "./BirdingCheckList.jsx";
 
 
 
-const App = () => {
-console.log('testing')
-  return (
-    <div>
-      <h1 className="Header" alignment="center">
-        Take a Hike in Louisiana
-      </h1>
-      <h2>All parks within 500 miles radius</h2>
-      {/* <Login/> */}
-      {/* <UserProfile/> */}
-      <TrailsList />
-      {/* <Trails />
-      <TrailFeathers /> */}
-      {/* <BirdingCheckList /> */}
-      <Quartermaster/>
-      <TrailProfile />
-      {/* <Link to="/login">Login</Link> */}
-      {/* <Routes>
-        <Route path="/" element={<TrailsList />} />
-        <Route path="login" element={<Login />} />
-        <Route path="profile" element={<UserProfile />} />
-        <Route path="trail/:id" element={<TrailProfile />} />
-      </Routes> */}
-    </div>
-  );
-};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      view: 'trailsList',
+    }
+  this.changeView = this.changeView.bind(this);
+  this.renderView = this.renderView.bind(this);
+  }
+
+  // componentDidMount() {
+  //   axios.get('/')
+  //     .then(( responseObj) => {
+  //       this.setState({ trailsArr: responseObj.data });
+  //     })
+  //     .catch((err) => console.log(err));
+  // },
+
+  changeView(view) {
+    this.setState({ view })
+  }
+
+  renderView() {
+    const { view } = this.state;
+    if (view === 'trailsList') {
+      return <TrailsList trailsArr={this.state.trailsArr} />
+    } else if (view === 'quartermaster') {
+      return <Quartermaster/>
+    } else if (view === 'birdingCheckList') {
+      return <BirdingCheckList/>
+    }
+  }
+
+  render() {
+    const { view } = this.state;
+
+    return (
+      <div>
+      <div className='nav'>
+        <span className='logo' onClick={() => this.changeView('trailsList')}>
+          TrailFeathers     
+        </span>
+        <span
+          className={view === 'trailsList' ? 'nav-selected' : 'nav-unselected'}
+          onClick={() => this.changeView('trailsList')}>
+          Trails List     
+        </span>
+        <span
+          className={view === 'quartermaster' ? 'nav-selected' : 'nav-unselected'}
+          onClick={() => this.changeView('quartermaster')}>
+          Quartermaster     
+        </span>
+        <span
+          className={view === 'birdingCheckList' ? 'nav-selected' : 'nav-unselected'}
+          onClick={() => this.changeView('birdingCheckList')}>
+          Birding Checklist
+        </span>
+      </div>
+      <div className='main'>{this.renderView()}</div>
+    </div>
+    );
+  }
+}
+
+// Export Component
 export default App;
+
+
+
+
+
+// <div>
+// <h1 className="Header" alignment="center">
+//   Take a Hike in Louisiana
+// </h1>
+// <h2>All parks within 500 miles radius</h2>
+// {/* <Login/> */}
+// {/* <UserProfile/> */}
+// <TrailsList />
+// {/* <Trails />
+// <TrailFeathers /> */}
+// {/* <BirdingCheckList /> */}
+// <Quartermaster/>
+// <TrailProfile />
+// {/* <Link to="/login">Login</Link> */}
+// {/* <Routes>
+//   <Route path="/" element={<TrailsList />} />
+//   <Route path="login" element={<Login />} />
+//   <Route path="profile" element={<UserProfile />} />
+//   <Route path="trail/:id" element={<TrailProfile />} />
+// </Routes> */}
+// </div>
+
+
 
 
 
