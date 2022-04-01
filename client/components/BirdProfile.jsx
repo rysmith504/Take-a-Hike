@@ -10,8 +10,12 @@ const BirdProfile = ({bird}) => {
   return (
     <div>
       <input type="checkbox" />
-      <div>{bird.name}</div>
-      <div>{bird.thumbnail}</div>
+      <div>Scientific Name: {bird[0]}</div>
+      <div>Common Name: {bird[1]}</div>
+      <div>Common Family Name: {bird[2]}</div>
+      <div>Scientific Family Name: {bird[3]}</div>
+      <div>Order: {bird[4]}</div>
+      <div>Catagory: {bird[5]}</div>
       {/* <div>{bird.sound}</div> */}
     </div>
   );
