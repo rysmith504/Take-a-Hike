@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 const Login = () => {
 
-  render(
+  return (
     <div>
       <h1>Welcome to Trail Feathers</h1>
       <form action="/auth/google" method="GET">

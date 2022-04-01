@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import Components and Styles
-import App from "./components/App.jsx";
+import App from "../client/components/App.jsx";
 import "./styles/main.css";
 import TrailsList from "../client/components/TrailsList.jsx";
 import Quartermaster from "../client/components/Quartermaster.jsx"
@@ -21,7 +21,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        {/* <Route path="login" element={<Login />} /> */}
+        <Route path="login" element={<Login />} />
         <Route path="trailslist" element={<TrailsList />} />
         <Route path="trailprofile" element={<TrailProfile />} />
         <Route path="quartermaster" element={<Quartermaster />} />
