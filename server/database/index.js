@@ -8,7 +8,6 @@ const db = new Sequelize("TakeAHike", "root", "", {
   dialect: "mysql",
 });
 
-
 // Use Sequelize Authenticate Method
 db.authenticate() // Runs a SELECT query and checks if the database responds correctly
   .then(() => {
@@ -17,9 +16,9 @@ db.authenticate() // Runs a SELECT query and checks if the database responds cor
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
   });
+db.query("set foreign_key_checks = 0");
 
 // Export DB
 module.exports = {
   db,
 };
-
