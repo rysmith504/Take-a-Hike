@@ -1,5 +1,4 @@
 // Import Dependencies
-<<<<<<< HEAD
 const axios = require("axios");
 const { query } = require("express");
 const express = require("express");
@@ -7,14 +6,6 @@ const path = require("path");
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
-=======
-const axios = require('axios');
-const { query } = require('express');
-const express = require('express');
-const path = require('path');
-const { PackingLists } = require('./database/models/packingLists');
-// PackingLists.sync();
->>>>>>> 408110bc8f4981a21cac31a8f93f93f81ff88987
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
 const session = require('express-session');
@@ -110,15 +101,9 @@ app.get('/api/trailslist', (req, res) => {
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
       {
         headers: {
-<<<<<<< HEAD
-          "X-RapidAPI-Host": "trailapi-trailapi.p.rapidapi.com",
-          "X-RapidAPI-Key":
-            "a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c",
-=======
           'X-RapidAPI-Host': 'trailapi-trailapi.p.rapidapi.com',
           'X-RapidAPI-Key':
             'a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c',
->>>>>>> 408110bc8f4981a21cac31a8f93f93f81ff88987
         },
       }
     )
