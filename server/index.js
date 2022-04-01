@@ -1,10 +1,11 @@
 // Import Dependencies
-const axios = require('axios');
-const { query } = require('express');
-const express = require('express');
-const path = require('path');
-const { PackingLists } = require('./database/models/packingLists');
-// PackingLists.sync();
+const axios = require("axios");
+const { query } = require("express");
+const express = require("express");
+const path = require("path");
+const { PackingLists } = require("./database/models/packingLists");
+const { PackingListItems } = require("./database/models/packingListItems");
+
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
 const session = require('express-session');
@@ -155,6 +156,25 @@ app.post('/api/packingLists', (req, res) => {
     })
     .catch((err) => {
       console.error(err, 'Something went wrong');
+      res.sendStatus(500);
+    });
+});
+
+/**
+ * post reques to the packingListItems
+ */
+app.post("/api/packingListItems", (req, res) => {
+  console.log(
+    "Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n",
+    req.body
+  );
+  PackingListItems.create({ listItem: req.body.listItem })
+    .then((data) => {
+      console.log("from lINE 106 INDEX.js || DATA \n", data);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error("Failed to create FROM 113", err);
       res.sendStatus(500);
     });
 });
