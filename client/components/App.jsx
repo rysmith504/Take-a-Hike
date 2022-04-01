@@ -44,7 +44,7 @@ const App = () => {
           paddingBottom: '1rem',
         }}
       >
-        {/* <Link to="/login">Login</Link> |{' '} */}
+        <Link to="/login">Login</Link> |{' '}
         <Link to="/trailslist">Trails List</Link> |{' '}
         {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
         <Link to="/quartermaster">Quartermaster</Link> |{' '}
@@ -63,6 +63,7 @@ const App = () => {
             />
           }
         />
+        <Route path="login" element={<Login />} />
         <Route
           path="trailprofile/:id"
           element={<TrailProfile trailList={trailList} />}
