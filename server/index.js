@@ -29,12 +29,19 @@ const app = express();
 app.use(express.json()); // handles parsing content in the req.body from post/update requests
 app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 app.use(passport.initialize());
-app.use(passport.session());
 // Create API Routes
+app.use(passport.session());
 
 //Auth Routes
 const checkAuthenticated = (req, res, next) => {
+  console.log(session)
   if (req.isAuthenticated()) { return next() }
   res.redirect("/login")
 }

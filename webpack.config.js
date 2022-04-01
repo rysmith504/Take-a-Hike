@@ -1,8 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const srcDir = path.resolve(__dirname, "client");
 const distDir = path.resolve(__dirname, "dist");
+
+
 
 module.exports = {
   mode: "development",
@@ -45,8 +47,14 @@ module.exports = {
       template: path.resolve(srcDir, "index.html"),
       inject: "body",
     }),
+    new NodePolyfillPlugin()
   ],
-  target: 'node',
+  resolve: {
+    fallback: {
+        "fs": false
+    },
+}
+  // target: 'node',
 };
 
 
