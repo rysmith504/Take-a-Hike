@@ -71,7 +71,7 @@ app.post("/logout", (req,res) => {
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
 //GET req for trail data by latitude/longitude
-app.get("/api/TrailsList", (req, res) => {
+app.get("/api/trailslist", (req, res) => {
   axios
     .get(
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,

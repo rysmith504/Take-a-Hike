@@ -45,3 +45,6 @@ module.exports = {
   ],
 };
 
+module.exports = {
+  target: 'node',
+};
