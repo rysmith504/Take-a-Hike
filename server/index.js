@@ -2,7 +2,6 @@
 const axios = require("axios");
 const { query } = require("express");
 const express = require("express");
-const app = express();
 const path = require("path");
 const { PackingLists } = require("./database/models/packingLists");
 // PackingLists.sync();
@@ -10,9 +9,18 @@ const { PackingLists } = require("./database/models/packingLists");
 const router = express.Router();
 const { cloudinary } = require("./utils/coudinary");
 
+// // Import DB
+// const { db } = require('./database/index.js')
+
+// // Import Routes
+// const birdListRouter = require('./database/routes/birdListRouter.js')
+
 // Set Distribution Path
 const PORT = 5555;
 const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file of the application as default on load
+
+// Create backend API
+const app = express();
 
 // Use Middleware
 app.use(express.json()); // handles parsing content in the req.body from post/update requests
