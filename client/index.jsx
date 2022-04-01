@@ -21,7 +21,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        {/* <Route path="login" element={<Login />} /> */}
+        <Route path="login" element={<Login />} />
         <Route path="trailslist" element={<TrailsList />} />
         <Route path="trailprofile" element={<TrailProfile />} />
         <Route path="quartermaster" element={<Quartermaster />} />
