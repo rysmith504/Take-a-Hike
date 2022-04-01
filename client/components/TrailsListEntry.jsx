@@ -8,6 +8,7 @@ const TrailsListEntry = ({trail}) => {
       <div className='trail-data'>{trail.name}</div>
       <div className='trail-data'>{trail.city}</div>
       <div className='trail-data'>{trail.region}</div>
+      <div className='trail-data'>{trail.description}</div>
       <div className='trail-data'>{trail.rating}</div>
     </div>
     </>
