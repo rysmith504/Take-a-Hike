@@ -13,7 +13,7 @@ const TrailProfile = () => {
   const trailName = 'Trail 2';
   // Can I attach a tag to the uploaded image, and filter photos from get requests using the tags param as an identifier for different trails?
 
-  console.log(`TRAIL PROFILE || LINE 8 || image `, image);
+  // console.log(`TRAIL PROFILE || LINE 8 || image `, image);
 
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ const TrailProfile = () => {
     },
     (err, result) => {
       if (!err && result && result.event === 'success') {
-        console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
+        // console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
       }
     }
   );
@@ -48,10 +48,10 @@ const TrailProfile = () => {
     try {
       const res = await fetch(`/api/images/`);
       const data = await res.json();
-      console.log('TRAILPROFILE || LOADIMAGES || LINE 48 || data', data);
+      // console.log('TRAILPROFILE || LOADIMAGES || LINE 48 || data', data);
       setTrailImageURLs(data);
     } catch (error) {
-      console.error('TRAILPROFILE || LOADIMAGES || LINE 51 || error', error);
+      // console.error('TRAILPROFILE || LOADIMAGES || LINE 51 || error', error);
     }
   };
   useEffect(() => {

@@ -58,7 +58,7 @@ app.get("/api/trailslist", (req, res) => {
       res.json(response.data);
     })
     .catch((err) => {
-      console.error("ERROR: ", err);
+      console.error("Whoopsie Daisy: ", err);
       res.sendStatus(404);
     });
 });

@@ -27,7 +27,7 @@ const TrailsList = () => {
         });
       })
       .catch((err) => {
-        console.error("ERROR: ", err);
+        console.error("Danger Roy Robinson: ", err);
       });
     };
 
