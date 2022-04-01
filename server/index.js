@@ -4,7 +4,8 @@ const { query } = require("express");
 const express = require("express");
 const path = require("path");
 const { PackingLists } = require("./database/models/packingLists");
-// PackingLists.sync();
+const { PackingListItems } = require("./database/models/packingListItems");
+
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
 const { cloudinary } = require("./utils/coudinary");
@@ -48,9 +49,10 @@ app.get("/api/trailslist", (req, res) => {
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
       {
         headers: {
-          'X-RapidAPI-Host': 'trailapi-trailapi.p.rapidapi.com',
-          'X-RapidAPI-Key': 'a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c'
-        }
+          "X-RapidAPI-Host": "trailapi-trailapi.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c",
+        },
       }
     )
     .then((response) => {
@@ -98,6 +100,25 @@ app.post("/api/packingLists", (req, res) => {
     })
     .catch((err) => {
       console.error(err, "Something went wrong");
+      res.sendStatus(500);
+    });
+});
+
+/**
+ * post reques to the packingListItems
+ */
+app.post("/api/packingListItems", (req, res) => {
+  console.log(
+    "Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n",
+    req.body
+  );
+  PackingListItems.create({ listItem: req.body.listItem })
+    .then((data) => {
+      console.log("from lINE 106 INDEX.js || DATA \n", data);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error("Failed to create FROM 113", err);
       res.sendStatus(500);
     });
 });

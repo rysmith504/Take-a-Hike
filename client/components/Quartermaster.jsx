@@ -1,13 +1,7 @@
-//import React from "react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PackingList from "./PackingList.jsx";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import UserProfile from "./UserProfile.jsx";
 
 const Quartermaster = () => {
   // assign the state variable to an object with listName and items, and array
@@ -32,18 +26,13 @@ const Quartermaster = () => {
     });
     console.log(packingList);
   };
-  /**
-   *
-   * handleState (state) {
-   *   setState({...state, listName:""})
-   * }
-   */
+
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
     event.preventDefault();
 
     axios
-      //
+      //send the user list to the server
       .post("/api/packingLists", {
         listName: packingList.listName,
         packingListDescription: packingList.packingListDescription,
@@ -52,22 +41,16 @@ const Quartermaster = () => {
         console.log("Line 47 => this code block was reached", data);
         setPackingList((state) => ({
           ...state,
-          packingListNames: state.packingListNames.concat(state.listName),
-          listName: "",
-          packingListDescription: "",
+          packingListNames: [...state.packingListNames, state.listName],
+          // listName: "",
+          // packingListDescription: "",
         }));
       })
       .catch((err) => {
-        console.log("Line 50 => this code block was reached", err);
+        console.log("Line 56 => this code block was reached", err);
       });
-
     alert("Packing list saved successfully!");
-
-    console.log("plus the packingList itself", packingList);
   };
-
-  //maps and dysplays the packing list
-  console.log(packingList.packingListNames, "Running or what?");
 
   return (
     <>
@@ -86,9 +69,9 @@ const Quartermaster = () => {
         />
         <br></br>
         <br></br>
-        <input
+        <textarea
           type="text"
-          placeholder="What's this list for?"
+          placeholder="Description"
           onChange={handleChange}
           name="packingListDescription"
           value={packingList.packingListDescription}
@@ -100,31 +83,18 @@ const Quartermaster = () => {
       <br></br>
       <br></br>
       <div>
+        {packingList.packingListNames.map((listName) => {
+          return <li>{listName}</li>;
+        })}
+      </div>
+      <div>
         {/* <h4>My packing lists</h4>
         {packingList.packingListNames === undefined ? null : listNames} */}
       </div>
-      {/* <PackingList /> */}
+      <PackingList packingListNames={packingList.packingListNames} />
+      <UserProfile packingListNames={packingList.packingListNames} />
     </>
   );
 };
 
 export default Quartermaster;
-
-//list items
-{
-  /* <br></br>
-      <br></br>
-      <div>My packing lists:</div>
-      <select
-        id="isListName"
-        value={packingList.listName}
-        onChange={handlePopulateDropDown}
-        name="isListName"
-      >
-        {packingList.listName.split(" ").map((listName) => {
-          return <option value="listName">{listName}</option>;
-        })}
-      </select> */
-}
-
-// };
