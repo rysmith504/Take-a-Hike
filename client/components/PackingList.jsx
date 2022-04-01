@@ -22,6 +22,7 @@ const PackingListItems = () => {
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
     event.preventDefault();
+    console.log(packingListItems.listItem, "FROM LINE 25");
     axios
       //send the user list to the server
       .post("/api/packingListItems", {
@@ -31,7 +32,7 @@ const PackingListItems = () => {
         setPackingListItems((state) => ({
           ...state,
           listItems: [...state.listItems, state.listItem],
-          listItem: "",
+          // listItem: "",
         }));
       });
   };
