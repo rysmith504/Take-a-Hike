@@ -40,10 +40,10 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: ["", ".js", ".jsx", ".css"],
-    modulesDirectories: ["node_modules"],
-  },
+  // resolve: {
+  //   extensions: [".js", ".jsx", ".css"],
+  //   modulesDirectories: ["node_modules"],
+  // }, //
   plugins: [
     // new HtmlWebpackPlugin({ template: path.resolve(srcDir, 'index.html') }),
     new HtmlWebpackPlugin({
