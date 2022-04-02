@@ -4,6 +4,7 @@ const { query } = require("express");
 const express = require("express");
 const path = require("path");
 const passport = require('passport');
+const { BirdList } = require("./database/models/birdList.js")
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
@@ -12,6 +13,7 @@ const router = express.Router();
 const session = require('express-session');
 require('./middleware/auth.js');
 const { cloudinary } = require('./utils/coudinary');
+const { Users } = require("./database/models/users");
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -60,6 +62,18 @@ app.get("/auth/google/callback",
       res.send("thank you for signing in!");
     }
 )
+
+app.get('/profile', (req, res) => {
+  Users.findOne()
+    .then((data) => {
+      console.log("data", data)
+      res.send(data).status(200)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.sendStatus(500);
+    })
+})
 // const checkAuthenticated = (req, res, next) => {
 //   console.log(session);
 //   if (req.isAuthenticated()) {
@@ -198,6 +212,19 @@ app.post("/api/packingListItems", (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////Bird Sightings 
+
+//GET req for all birdList data
+app.get('/api/birdList/', (req, res) => {
+  BirdList.findAll()
+    .then((response) => {
+      // console.log(response.data); - returns array of objects of bird
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
 
 // launches the server from localhost on port 5555
 app.listen(PORT, () => {

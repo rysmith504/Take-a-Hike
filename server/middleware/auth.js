@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true
 },
   async (req, accessToken, refreshToken, profile, done) => {
-  console.log(20, "profile\n", profile)
+  // console.log(20, "profile\n", profile)
   const defaultUser = {
     fullName: `${profile.name.givenName} ${profile.name.familyName}`,
     email: profile.emails[0].value,
@@ -38,12 +38,12 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-  console.log("Serializing User:", user)
+  // console.log("Serializing User:", user)
   done(null, user._id);
 });
 
 passport.deserializeUser(async(id, done) => {
-  console.log()
+  
   const user = await Users.findOne({ where: { id } }).catch((err) => {
     console.log("error deserializing", err);
 
