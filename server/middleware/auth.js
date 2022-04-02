@@ -3,6 +3,7 @@
 // then i will be given a client ID and client secret which must be provided to passport
 // then i will need to configure a redirect URI with matches the rout in our application.
 require('dotenv').config();
+const { application } = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { Users } = require('../database/models/users.js')
@@ -12,11 +13,11 @@ const { Users } = require('../database/models/users.js')
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:5555/google/callback",
+  callbackURL: "http://localhost:5555/auth/google/callback",
   passReqToCallback: true
 },
   async (req, accessToken, refreshToken, profile, done) => {
-  // console.log(profile)
+  console.log(20, "profile\n", profile)
   const defaultUser = {
     fullName: `${profile.name.givenName} ${profile.name.familyName}`,
     email: profile.emails[0].value,
@@ -24,9 +25,10 @@ passport.use(new GoogleStrategy({
     googleId: profile.id,
   }
 
-  const user = await Users.findOrCreate({ where: { google: profile.id }, defaults: defaultUser}).catch((err) => {
-    console.log("Error signing up", err)
-    done(err, null)
+  const user = await Users.findOrCreate({ where: { googleId: profile.id }, defaults: defaultUser})
+    .catch((err) => {
+      console.log("Error signing up", err)
+      done(err, null)
   });
 
   if(user && user[0]){
@@ -51,3 +53,4 @@ passport.deserializeUser(async(id, done) => {
   })
   done(null, user);
 });
+
