@@ -6,6 +6,7 @@ const { PackingLists } = require("./models/packingLists.js");
 const { PackingListItems } = require("./models/packingListItems.js");
 const { Users } = require("./models/users.js");
 const { async } = require("regenerator-runtime");
+const birdsOfLA = require("./data/eBirdData.js")
 
 db.options.logging = false;
 
@@ -60,6 +61,14 @@ const seedSqlize = () => {
         "\x1b[37m"
       )
     )
+    // .then(() => Promise.all(birdsOfLA.map((bird) => BirdList.create(bird))))
+    // .then((arr) =>
+    //   console.log(
+    //     "\x1b[32m",
+    //     `\nDatabase (MySQL): Successfully seeded birdList with ${arr.length} entries!\n`,
+    //     "\x1b[37m"
+    //   )
+    // )
     .then(process.exit);
 };
 
