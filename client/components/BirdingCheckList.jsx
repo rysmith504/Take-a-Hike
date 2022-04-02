@@ -6,13 +6,13 @@ import axios from "axios";
 // Import Components and Dummy Data
 import BirdProfile from "./BirdProfile.jsx";
 import { dummyBirdData } from "../../copyAPIparkData/dummyBirdData.js";
-// import filteredLABirdsArray from "../../copyAPIparkData/eBirdData.js";
+import birdsOfLA from "../../server/database/data/eBirdData.js";
 
 // Create Functional Component
 const BirdingCheckList = () => {
-  // console.log('Dummy Data:', filteredLABirdsArray);
+  // console.log('Dummy Data:', birdsOfLA);
   const [birdSearch, setBirdSearch] = useState("");
-  const [birdList, setBirdList] = useState(dummyBirdData);
+  const [birdList, setBirdList] = useState(birdsOfLA);
 
   const handelBirdSearchInput = (event) => {
     const { value } = event.target;
@@ -57,7 +57,7 @@ const BirdingCheckList = () => {
       <div className="birds">
         <div className="bird-profile">
           {birdList.map((bird) => {
-            return <BirdProfile bird={bird} key={bird.name} />;
+            return <BirdProfile bird={bird} key={bird[0]} />;
           })}
         </div>
       </div>
