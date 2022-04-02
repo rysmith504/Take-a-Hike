@@ -66,8 +66,8 @@ const PackingListItems = ({
         <h2>{listName}</h2>
         <p>{packingListDescription}</p>
         <ul>
-          {listItems.map((item) => {
-            return <li>{item}</li>;
+          {listItems.map((item, index) => {
+            return <li key={item || index}>{item}</li>;
           })}
         </ul>
       </div>

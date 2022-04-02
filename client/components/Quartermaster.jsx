@@ -54,6 +54,7 @@ const Quartermaster = () => {
         console.log("Line 56 => this code block was reached", err);
       });
     //alert("Packing list saved successfully!");
+    //event.target.reset();
   };
 
   const getAllPackingLists = () => {
@@ -61,17 +62,14 @@ const Quartermaster = () => {
       .get("/api/packingLists")
       .then((response) => {
         console.log("ALL LISTS FROM DATABASE LINE 59 ||", response.data);
-        useEffect(() => {
-          console.log("IS THIS EVER REACHED? ||", 64);
-          setPackingList((state) => {
-            return {
-              ...state,
-              listName: "",
-              packingListDescription: "",
-              packingListNames: [...state.response.data],
-            };
-          });
-        }, []);
+        setPackingList((state) => {
+          return {
+            ...state,
+            listName: "",
+            packingListDescription: "",
+            packingListNames: [...state.packingListNames, ...response.data],
+          };
+        });
         console.log(packingList);
       })
       .catch((err) => {
@@ -82,10 +80,14 @@ const Quartermaster = () => {
   const { packingListDescription, listName, packingListNames } = packingList;
 
   handleSubmit();
-  // .then(() =>
-  getAllPackingLists();
-  // .then((data) => {
-  //   console.log("LINE 78 data", data);
+
+  useEffect(() => {
+    getAllPackingLists();
+  }, []);
+
+  const packingListsDB = packingListNames.map((packingList, index) => {
+    return <li key={packingList._id || index}>{packingList.listName}</li>;
+  });
 
   return (
     <>
@@ -119,10 +121,8 @@ const Quartermaster = () => {
       <br></br>
       <div>
         <h3>My packing Lists</h3>
-        {packingList.packingListNames.map((listName) => {
-          return <li>{listName}</li>;
-        })}
       </div>
+      <div>{packingListsDB}</div>
       <div></div>
       <PackingList
         packingListNames={packingListDescription}
