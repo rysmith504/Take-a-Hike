@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PackingListItems = () => {
+const PackingListItems = ({
+  listName,
+  packingListNames,
+  packingListDescription,
+}) => {
   //create state variable
   const [packingListItems, setPackingListItems] = useState({
     listItem: "",
@@ -22,7 +26,7 @@ const PackingListItems = () => {
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
     event.preventDefault();
-    console.log(packingListItems.listItem, "FROM LINE 25");
+    console.log(packingListItems.listItem, "FROM LINE 29");
     axios
       //send the user list to the server
       .post("/api/packingListItems", {
@@ -36,7 +40,8 @@ const PackingListItems = () => {
         }));
       });
   };
-
+  //distructure all state variables for usage
+  const { listItem, listItems } = packingListItems;
   return (
     <div>
       {/* { //display the listname} */}
@@ -51,10 +56,21 @@ const PackingListItems = () => {
           onChange={handleChange}
           // onKeyPress={handleKeypress}
           //name="listItem"
-          value={packingListItems.listItem}
+          value={listItem}
         />
         <button onClick={handleSubmit}> save</button>
       </form>
+      <br></br>
+      <br></br>
+      <div>
+        <h2>{listName}</h2>
+        <p>{packingListDescription}</p>
+        <ul>
+          {listItems.map((item) => {
+            return <li>{item}</li>;
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

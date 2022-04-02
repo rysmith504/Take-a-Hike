@@ -8,10 +8,10 @@ const { PackingListItems } = require("./database/models/packingListItems");
 
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
-const session = require('express-session');
-const passport = require('passport');
-require('./middleware/auth.js');
-const { cloudinary } = require('./utils/coudinary');
+const session = require("express-session");
+const passport = require("passport");
+require("./middleware/auth.js");
+const { cloudinary } = require("./utils/coudinary");
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -21,7 +21,7 @@ const { cloudinary } = require('./utils/coudinary');
 
 // Set Distribution Path
 const PORT = 5555;
-const distPath = path.resolve(__dirname, '..', 'dist'); //serves the hmtl file of the application as default on load
+const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file of the application as default on load
 
 // Create backend API
 const app = express();
@@ -32,7 +32,7 @@ app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
@@ -48,39 +48,39 @@ const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect("/login");
 };
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send('<a href="/auth/google">Authenticate with google</a>');
 });
 
 app.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] })
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
 app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
   })
 );
 
-app.get('/auth/failure', (req, res) => {
-  res.send('did not authenticate');
+app.get("/auth/failure", (req, res) => {
+  res.send("did not authenticate");
 });
 
-app.get('/dashboard', checkAuthenticated, (req, res) => {
-  res.render('index', (err, html) => {
+app.get("/dashboard", checkAuthenticated, (req, res) => {
+  res.render("index", (err, html) => {
     res.send(html);
   });
 });
 
-app.post('/logout', (req, res) => {
+app.post("/logout", (req, res) => {
   req.logOut();
-  res.redirect('/login');
+  res.redirect("/login");
   console.log(`-------> User Logged out`);
 });
 
@@ -95,15 +95,15 @@ app.post('/logout', (req, res) => {
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
 //GET req for trail data by latitude/longitude
-app.get('/api/trailslist', (req, res) => {
+app.get("/api/trailslist", (req, res) => {
   axios
     .get(
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
       {
         headers: {
-          'X-RapidAPI-Host': 'trailapi-trailapi.p.rapidapi.com',
-          'X-RapidAPI-Key':
-            'a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c',
+          "X-RapidAPI-Host": "trailapi-trailapi.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c",
         },
       }
     )
@@ -112,7 +112,7 @@ app.get('/api/trailslist', (req, res) => {
       res.json(response.data);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
@@ -120,14 +120,14 @@ app.get('/api/trailslist', (req, res) => {
 //////////////////////////////////////// Cloudinary routes //////////////////////////////////////
 
 // get request to get all images (this will later be trail specific)
-app.post('/api/images', async (req, res) => {
+app.post("/api/images", async (req, res) => {
   console.log(`server index.js || LINE 70`, req.body);
   // NEED TO CHANGE ENDPOINT TO INCLUDE TRAIL SPECIFIC PARAM SO PHOTOS CAN BE UPLOADED + RENDERED PROPERLY
 
   // Can create new folder with upload from TrailProfile component. Need to modify get request to filter based on folder param (which will be equal to the trail name)
   const resources = await cloudinary.search
     .expression(`resource_type:image AND folder:${req.body.trailFolderName}/*`)
-    .sort_by('created_at', 'asc')
+    .sort_by("created_at", "asc")
     .max_results(30)
     .execute();
   // console.log(
@@ -144,19 +144,34 @@ app.post('/api/images', async (req, res) => {
 /**
  * Routes for packing list
  */
-app.post('/api/packingLists', (req, res) => {
-  console.log(req.body, 'Server index.js LINE 55');
+app.post("/api/packingLists", (req, res) => {
+  console.log(req.body, "Server index.js LINE 55");
   PackingLists.create({
     listName: req.body.listName,
     packingListDescription: req.body.packingListDescription,
   })
     .then((data) => {
-      console.log('LINE 63', data.dataValues);
+      console.log("LINE 63", data.dataValues);
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.error(err, 'Something went wrong');
+      console.error(err, "Something went wrong");
       res.sendStatus(500);
+    });
+});
+/**
+ * Routes for packing list GET ALL LISTS
+ */
+app.get("/api/packingLists", (req, res) => {
+  console.log("Server index.js LINE 166", req.body);
+  PackingLists.find()
+    .then((data) => {
+      console.log("LINE 169", data);
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      console.error(err, "Something went wrong");
+      res.sendStatus(404);
     });
 });
 
@@ -164,11 +179,12 @@ app.post('/api/packingLists', (req, res) => {
  * post reques to the packingListItems
  */
 app.post("/api/packingListItems", (req, res) => {
+  const listItem = req.body;
   console.log(
     "Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n",
-    req.body
+    listItem
   );
-  PackingListItems.create({ listItem: req.body.listItem })
+  PackingListItems.create(listItem)
     .then((data) => {
       console.log("from lINE 106 INDEX.js || DATA \n", data);
       res.sendStatus(200);

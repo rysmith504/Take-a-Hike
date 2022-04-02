@@ -29,7 +29,7 @@ const Quartermaster = () => {
 
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
-    event.preventDefault();
+    //event.preventDefault();
 
     axios
       //send the user list to the server
@@ -38,7 +38,8 @@ const Quartermaster = () => {
         packingListDescription: packingList.packingListDescription,
       })
       .then((data) => {
-        console.log("Line 47 => this code block was reached", data);
+        
+        console.log("Line 41 => this code block was reached", data);
         setPackingList((state) => ({
           ...state,
           packingListNames: [...state.packingListNames, state.listName],
@@ -49,8 +50,25 @@ const Quartermaster = () => {
       .catch((err) => {
         console.log("Line 56 => this code block was reached", err);
       });
-    alert("Packing list saved successfully!");
+    //alert("Packing list saved successfully!");
   };
+
+  
+  const getAllPackingLists = () => {
+    axios
+      .get("/api/packingLists")
+      .then((response) => {
+        console.log("ALL LISTS FROM DATABASE LINE 59 ||", response);
+      })
+      .catch((err) => {
+        console.error("LINE 62 ERROR ON THE SERVER SIDE", err);
+      });
+  };
+
+  const { packingListDescription, listName, packingListNames } = packingList;
+
+  console.log(packingList.listName);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -83,16 +101,18 @@ const Quartermaster = () => {
       <br></br>
       <br></br>
       <div>
+        <h3>My packing Lists</h3>
         {packingList.packingListNames.map((listName) => {
           return <li>{listName}</li>;
         })}
       </div>
-      <div>
-        {/* <h4>My packing lists</h4>
-        {packingList.packingListNames === undefined ? null : listNames} */}
-      </div>
-      <PackingList packingListNames={packingList.packingListNames} />
-      <UserProfile packingListNames={packingList.packingListNames} />
+      <div></div>
+      <PackingList
+        packingListNames={packingListDescription}
+        packingListDescription={packingListDescription}
+        listName={listName}
+      />
+      <UserProfile packingListNames={packingListNames} />
     </>
   );
 };
