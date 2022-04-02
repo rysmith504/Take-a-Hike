@@ -8,6 +8,7 @@ const { PackingListItems } = require("./models/packingListItems.js");
 const { Users } = require("./models/users.js");
 const { async } = require("regenerator-runtime");
 const birdsOfLA = require("./data/eBirdData.js")
+const { BirdList } = require("./models/birdList.js")
 
 db.options.logging = false;
 
@@ -38,6 +39,13 @@ const seedSqlize = () => {
         "\nDatabase (MySQL): 'PackingLists' table successfully created!"
       )
     )
+    .then(() => BirdList.sync())
+    .then(() =>
+      console.log(
+        "\x1b[36m",
+        "\nDatabase (MySQL): 'Users' table successfully created!"
+      )
+    )
     .then(() => {
       return PackingListItems.sync();
     })
@@ -63,14 +71,14 @@ const seedSqlize = () => {
         "\x1b[37m"
       )
     )
-    // .then(() => Promise.all(birdsOfLA.map((bird) => BirdList.create(bird))))
-    // .then((arr) =>
-    //   console.log(
-    //     "\x1b[32m",
-    //     `\nDatabase (MySQL): Successfully seeded birdList with ${arr.length} entries!\n`,
-    //     "\x1b[37m"
-    //   )
-    // )
+    .then(() => Promise.all(birdsOfLA.map((bird) => BirdList.create(bird))))
+    .then((arr) =>
+      console.log(
+        "\x1b[32m",
+        `\nDatabase (MySQL): Successfully seeded birdList with ${arr.length} entries!\n`,
+        "\x1b[37m"
+      )
+    )
     .catch(err => console.log(72, 'error', err))
     .then(process.exit);
 };
