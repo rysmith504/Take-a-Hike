@@ -27,11 +27,10 @@ const Quartermaster = () => {
     console.log(packingList);
   };
 
-  //Data packing lists are being feched by can't state e not resetting.
-  const handleSubmit = (event) => {
+  //Data packing lists are being feched by can't state e not resetting
+  const handleSubmit = (e) => {
     //allow react to control the state variables changed on change
-    //event.preventDefault();
-
+    //e.preventDefault();
     axios
       //send the user list to the server
       .post("/api/packingLists", {
@@ -54,14 +53,14 @@ const Quartermaster = () => {
         console.log("Line 56 => this code block was reached", err);
       });
     //alert("Packing list saved successfully!");
-    //event.target.reset();
+    //e.target.reset();
   };
 
   const getAllPackingLists = () => {
     axios
       .get("/api/packingLists")
       .then((response) => {
-        console.log("ALL LISTS FROM DATABASE LINE 59 ||", response.data);
+        console.log("ALL LISTS FROM DATABASE LINE 64 ||", response.data);
         setPackingList((state) => {
           return {
             ...state,
@@ -70,7 +69,7 @@ const Quartermaster = () => {
             packingListNames: [...state.packingListNames, ...response.data],
           };
         });
-        console.log(packingList);
+        console.log("LINE 73 || \n", packingList);
       })
       .catch((err) => {
         console.error("LINE 62 ERROR ON THE SERVER SIDE", err);
@@ -79,16 +78,16 @@ const Quartermaster = () => {
 
   const { packingListDescription, listName, packingListNames } = packingList;
 
-  handleSubmit();
+  //handleSubmit();
 
   useEffect(() => {
     getAllPackingLists();
   }, []);
 
-  const packingListsDB = packingListNames.map((packingList, index) => {
-    return <li key={packingList._id || index}>{packingList.listName}</li>;
-  });
-
+  // const packingListsDB = packingListNames.map((packingList, index) => {
+  //   return <li key={packingList._id || index}>{packingList.listName}</li>;
+  // });
+  //console.log(packingListsDB);
   return (
     <>
       <h3 className="header">Quartermaster</h3>
@@ -122,13 +121,21 @@ const Quartermaster = () => {
       <div>
         <h3>My packing Lists</h3>
       </div>
-      <div>{packingListsDB}</div>
+      <div>
+        <ul>
+          {packingListNames.map((packingList, index) => {
+            return (
+              <li key={packingList._id || index}>{packingList.listName}</li>
+            );
+          })}
+        </ul>
+      </div>
       <div></div>
-      <PackingList
+      {/* <PackingList
         packingListNames={packingListDescription}
         packingListDescription={packingListDescription}
         listName={listName}
-      />
+      /> */}
       <UserProfile packingListNames={packingListNames} />
     </>
   );

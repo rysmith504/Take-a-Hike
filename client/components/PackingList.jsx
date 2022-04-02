@@ -33,6 +33,7 @@ const PackingListItems = ({
         listItem: packingListItems.listItem,
       })
       .then((data) => {
+        console.log(data);
         setPackingListItems((state) => ({
           ...state,
           listItems: [...state.listItems, state.listItem],
@@ -67,7 +68,7 @@ const PackingListItems = ({
         <p>{packingListDescription}</p>
         <ul>
           {listItems.map((item, index) => {
-            return <li key={item || index}>{item}</li>;
+            return <li key={index}>{item}</li>;
           })}
         </ul>
       </div>
