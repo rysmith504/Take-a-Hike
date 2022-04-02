@@ -4,6 +4,7 @@ const { query } = require("express");
 const express = require("express");
 const path = require("path");
 const passport = require('passport');
+const { BirdList } = require("./database/models/birdList.js")
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
@@ -211,6 +212,19 @@ app.post("/api/packingListItems", (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////Bird Sightings 
+
+//GET req for all birdList data
+app.get('/api/birdList/', (req, res) => {
+  BirdList.findAll()
+    .then((response) => {
+      // console.log(response.data); - returns array of objects of bird
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
 
 // launches the server from localhost on port 5555
 app.listen(PORT, () => {

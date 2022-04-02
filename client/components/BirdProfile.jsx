@@ -7,15 +7,17 @@ import axios from "axios";
 const BirdProfile = ({bird}) => {
   const [checked, setChecked] = useState(false);
 
+
+
   return (
-    <div>
+    <div className="trail-card">
       <input type="checkbox" />
-      <div>Scientific Name: {bird[0]}</div>
-      <div>Common Name: {bird[1]}</div>
-      <div>Common Family Name: {bird[2]}</div>
-      <div>Scientific Family Name: {bird[3]}</div>
-      <div>Order: {bird[4]}</div>
-      <div>Catagory: {bird[5]}</div>
+      <div>Scientific Name: {bird.scientificName}</div>
+      <div>Common Name: {bird.commonName}</div>
+      <div>Common Family Name: {bird.commonFamilyName}</div>
+      <div>Scientific Family Name: {bird.scientificFamilyName}</div>
+      <div>Order: {bird.order}</div>
+      <div>Catagory: {bird.category}</div>
       {/* <div>{bird.sound}</div> */}
     </div>
   );

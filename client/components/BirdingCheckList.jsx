@@ -3,20 +3,29 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// Import Components and Dummy Data
+// Import Components
 import BirdProfile from "./BirdProfile.jsx";
-import { dummyBirdData } from "../../copyAPIparkData/dummyBirdData.js";
-import birdsOfLA from "../../server/database/data/eBirdData.js";
 
 // Create Functional Component
 const BirdingCheckList = () => {
-  // console.log('Dummy Data:', birdsOfLA);
   const [birdSearch, setBirdSearch] = useState("");
-  const [birdList, setBirdList] = useState(birdsOfLA);
+  const [birdList, setBirdList] = useState([]);
+
+  useEffect(() => {
+    axios.get("/api/birdList")
+      .then((response) => {
+        console.log("API Called")
+        setBirdList(response.data);
+      })
+      .catch((err) => {
+        console.error("ERROR:", err);
+      })
+  }, []);
 
   const handelBirdSearchInput = (event) => {
     const { value } = event.target;
-    setBirdSearch((birdSearch) => value);
+    console.log(value);
+    setBirdSearch(() => value);
   };
 
   const handelBirdSearchSubmit = (event) => {
@@ -50,14 +59,14 @@ const BirdingCheckList = () => {
         </label>
         <input
           type="submit"
-          value="Send Bird"
+          value="Check for Bird"
           onClick={handelBirdSearchSubmit}
         />
       </form>
       <div className="birds">
-        <div className="bird-profile">
+        <div className="trail-profile">
           {birdList.map((bird) => {
-            return <BirdProfile bird={bird} key={bird[0]} />;
+            return <BirdProfile bird={bird} key={bird.scientificName} />;
           })}
         </div>
       </div>
