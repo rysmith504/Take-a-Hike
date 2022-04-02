@@ -7,8 +7,15 @@ const birdsOfLALong = eBirdData.filter(bird => louisianaBirdCodesArray.includes(
 // console.log(birdsOfLALong);
 
 const birdsOfLA = birdsOfLALong.map(bird => {
-  return [bird.SCIENTIFIC_NAME, bird.COMMON_NAME, bird.FAMILY_COM_NAME, bird.FAMILY_SCI_NAME, bird.ORDER, bird.CATEGORY];
+  return {
+    scientificName: bird.SCIENTIFIC_NAME, 
+    commonName:bird.COMMON_NAME, 
+    commonFamilyName:bird.FAMILY_COM_NAME, 
+    scientificFamilyName:bird.FAMILY_SCI_NAME, 
+    order:bird.ORDER, 
+    category:bird.CATEGORY,
+  };
 })
-// console.log(birdsOfLA);
+console.log(birdsOfLA);
 
 module.exports = birdsOfLA;
