@@ -27,10 +27,11 @@ const Quartermaster = () => {
     console.log(packingList);
   };
 
-  //Data packing lists are being feched by can't state e not resetting
-  const handleSubmit = (e) => {
+  //Data packing lists are being feched by can't state e not resetting.
+  const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
-    //e.preventDefault();
+    //event.preventDefault();
+
     axios
       //send the user list to the server
       .post("/api/packingLists", {
@@ -53,23 +54,25 @@ const Quartermaster = () => {
         console.log("Line 56 => this code block was reached", err);
       });
     //alert("Packing list saved successfully!");
-    //e.target.reset();
   };
 
   const getAllPackingLists = () => {
     axios
       .get("/api/packingLists")
       .then((response) => {
-        console.log("ALL LISTS FROM DATABASE LINE 64 ||", response.data);
-        setPackingList((state) => {
-          return {
-            ...state,
-            listName: "",
-            packingListDescription: "",
-            packingListNames: [...state.packingListNames, ...response.data],
-          };
-        });
-        console.log("LINE 73 || \n", packingList);
+        console.log("ALL LISTS FROM DATABASE LINE 59 ||", response.data);
+        useEffect(() => {
+          console.log("IS THIS EVER REACHED? ||", 64);
+          setPackingList((state) => {
+            return {
+              ...state,
+              listName: "",
+              packingListDescription: "",
+              packingListNames: [...state.response.data],
+            };
+          });
+        }, []);
+        console.log(packingList);
       })
       .catch((err) => {
         console.error("LINE 62 ERROR ON THE SERVER SIDE", err);
@@ -78,16 +81,12 @@ const Quartermaster = () => {
 
   const { packingListDescription, listName, packingListNames } = packingList;
 
-  //handleSubmit();
+  handleSubmit();
+  // .then(() =>
+  getAllPackingLists();
+  // .then((data) => {
+  //   console.log("LINE 78 data", data);
 
-  useEffect(() => {
-    getAllPackingLists();
-  }, []);
-
-  // const packingListsDB = packingListNames.map((packingList, index) => {
-  //   return <li key={packingList._id || index}>{packingList.listName}</li>;
-  // });
-  //console.log(packingListsDB);
   return (
     <>
       <h3 className="header">Quartermaster</h3>
@@ -120,22 +119,16 @@ const Quartermaster = () => {
       <br></br>
       <div>
         <h3>My packing Lists</h3>
-      </div>
-      <div>
-        <ul>
-          {packingListNames.map((packingList, index) => {
-            return (
-              <li key={packingList._id || index}>{packingList.listName}</li>
-            );
-          })}
-        </ul>
+        {packingList.packingListNames.map((listName) => {
+          return <li>{listName}</li>;
+        })}
       </div>
       <div></div>
-      {/* <PackingList
+      <PackingList
         packingListNames={packingListDescription}
         packingListDescription={packingListDescription}
         listName={listName}
-      /> */}
+      />
       <UserProfile packingListNames={packingListNames} />
     </>
   );
