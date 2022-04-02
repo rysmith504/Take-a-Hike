@@ -27,8 +27,10 @@ const TrailProfile = ({ trailList }) => {
         console.error('TRAILPROFILE || LOADIMAGES || LINE 27 || error', error);
       }
     };
-    loadImages();
-  }, [id]);
+    if (displayTrail) {
+      loadImages();
+    }
+  }, [id, displayTrail]);
 
   // temp variable to test tagging functionality with cloudinary upload widget
   // const trailName = 'Trail 2';
@@ -40,23 +42,25 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
   // create upload widget
-  const widget = cloudinary.createUploadWidget(
-    // NEED TO ADD FOLDER TO UPLOAD PATH. IF NO FOLDER CREATE ONE?
-    {
-      cloudName: cloudName,
-      uploadPreset: preset,
-      maxFiles: 3,
-      folder: displayTrail.name, // substitute with trail name passed through props from TrailList Component
-      // add userId tag to filter by user
-      tags: [displayTrail.name],
-    },
-    (err, result) => {
-      if (!err && result && result.event === 'success') {
-        console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
+  let widget;
+  if (displayTrail) {
+    widget = cloudinary.createUploadWidget(
+      // NEED TO ADD FOLDER TO UPLOAD PATH. IF NO FOLDER CREATE ONE?
+      {
+        cloudName: cloudName,
+        uploadPreset: preset,
+        maxFiles: 3,
+        folder: displayTrail.name, // substitute with trail name passed through props from TrailList Component
+        // add userId tag to filter by user
+        tags: [displayTrail.name],
+      },
+      (err, result) => {
+        if (!err && result && result.event === 'success') {
+          console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
+        }
       }
-    }
-  );
-
+    );
+  }
   const showWidget = (event, widget) => {
     event.preventDefault();
     widget.open();
@@ -92,8 +96,10 @@ const TrailProfile = ({ trailList }) => {
       >
         Upload
       </button>
+
       <div>
-        {trailImageURLs &&
+        {trailImageURLs ? (
+          // <div> div to house images for css styling
           trailImageURLs.map((trailImageURL, index) => (
             <Image
               key={index}
@@ -102,7 +108,10 @@ const TrailProfile = ({ trailList }) => {
               width="300"
               crop="scale"
             />
-          ))}
+          )) // </div>
+        ) : (
+          <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
+        )}
       </div>
     </div>
   );
