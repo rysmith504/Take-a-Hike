@@ -27,6 +27,7 @@ const Quartermaster = () => {
     console.log(packingList);
   };
 
+  //Data packing lists are being feched by can't state e not resetting.
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
     //event.preventDefault();
@@ -38,14 +39,16 @@ const Quartermaster = () => {
         packingListDescription: packingList.packingListDescription,
       })
       .then((data) => {
-        
         console.log("Line 41 => this code block was reached", data);
-        setPackingList((state) => ({
-          ...state,
-          packingListNames: [...state.packingListNames, state.listName],
-          // listName: "",
-          // packingListDescription: "",
-        }));
+        // useEffect(() => {
+        //   console.log("Nothing happened");
+        // });
+        // setPackingList((state) => ({
+        //   ...state,
+        //   packingListNames: [...state.packingListNames, state.listName],
+        //   // listName: "",
+        //   // packingListDescription: "",
+        // }));
       })
       .catch((err) => {
         console.log("Line 56 => this code block was reached", err);
@@ -53,12 +56,23 @@ const Quartermaster = () => {
     //alert("Packing list saved successfully!");
   };
 
-  
   const getAllPackingLists = () => {
     axios
       .get("/api/packingLists")
       .then((response) => {
-        console.log("ALL LISTS FROM DATABASE LINE 59 ||", response);
+        console.log("ALL LISTS FROM DATABASE LINE 59 ||", response.data);
+        useEffect(() => {
+          console.log("IS THIS EVER REACHED? ||", 64);
+          setPackingList((state) => {
+            return {
+              ...state,
+              listName: "",
+              packingListDescription: "",
+              packingListNames: [...state.response.data],
+            };
+          });
+        }, []);
+        console.log(packingList);
       })
       .catch((err) => {
         console.error("LINE 62 ERROR ON THE SERVER SIDE", err);
@@ -67,8 +81,11 @@ const Quartermaster = () => {
 
   const { packingListDescription, listName, packingListNames } = packingList;
 
-  console.log(packingList.listName);
-  useEffect(() => {}, []);
+  handleSubmit();
+  // .then(() =>
+  getAllPackingLists();
+  // .then((data) => {
+  //   console.log("LINE 78 data", data);
 
   return (
     <>

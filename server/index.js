@@ -164,7 +164,7 @@ app.post("/api/packingLists", (req, res) => {
  */
 app.get("/api/packingLists", (req, res) => {
   console.log("Server index.js LINE 166", req.body);
-  PackingLists.find()
+  PackingLists.findAll()
     .then((data) => {
       console.log("LINE 169", data);
       res.status(200).send(data);
