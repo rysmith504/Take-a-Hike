@@ -13,7 +13,7 @@ const PackingLists = db.define("packingLists", {
   listName: { type: DataTypes.STRING, allowNull: false },
   packingListDescription: { type: DataTypes.STRING, allowNull: false },
   //remember to switch allowNull to false when we have user data
-  user_id: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true },
+  user_id: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: { model: 'users', key: '_id' }},
 });
 
 

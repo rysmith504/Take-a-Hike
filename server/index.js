@@ -3,15 +3,15 @@ const axios = require("axios");
 const { query } = require("express");
 const express = require("express");
 const path = require("path");
+const passport = require('passport');
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
-const session = require("express-session");
-const passport = require("passport");
-require("./middleware/auth.js");
-const { cloudinary } = require("./utils/coudinary");
+const session = require('express-session');
+require('./middleware/auth.js');
+const { cloudinary } = require('./utils/coudinary');
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -42,47 +42,64 @@ app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
 
+const successLoginUrl = "http://localhost:5555/login/success";
+const errorLoginUrl = "http://localhost:5555/login/error"
+
 //Auth Routes
-const checkAuthenticated = (req, res, next) => {
-  console.log(session);
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-};
+app.get("/login/google", passport.authenticate("google", { scope: ["profile", "email"]}))
 
-app.get("/", (req, res) => {
-  res.send('<a href="/auth/google">Authenticate with google</a>');
-});
+app.get("/auth/google/callback", 
+  passport.authenticate("google", 
+    { 
+      failureMessage: "cannot login to Google",
+      failureRedirect: errorLoginUrl,
+      successRedirect: successLoginUrl
+    }),
+    (req, res) => {
+      console.log("User: ", req.user)
+      res.send("thank you for signing in!");
+    }
+)
+// const checkAuthenticated = (req, res, next) => {
+//   console.log(session);
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/login');
+// };
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
-);
+// app.get('/', (req, res) => {
+//   res.send('<a href="/auth/google">Authenticate with google</a>');
+// });
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
-  })
-);
+// app.get(
+//   '/auth/google',
+//   passport.authenticate('google', { scope: ['email', 'profile'] })
+// );
 
-app.get("/auth/failure", (req, res) => {
-  res.send("did not authenticate");
-});
+// app.get(
+//   '/auth/google/callback',
+//   passport.authenticate('google', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/login',
+//   })
+// );
 
-app.get("/dashboard", checkAuthenticated, (req, res) => {
-  res.render("index", (err, html) => {
-    res.send(html);
-  });
-});
+// app.get('/auth/failure', (req, res) => {
+//   res.send('did not authenticate');
+// });
 
-app.post("/logout", (req, res) => {
-  req.logOut();
-  res.redirect("/login");
-  console.log(`-------> User Logged out`);
-});
+// app.get('/dashboard', checkAuthenticated, (req, res) => {
+//   res.render('index', (err, html) => {
+//     res.send(html);
+//   });
+// });
+
+// app.post('/logout', (req, res) => {
+//   req.logOut();
+//   res.redirect('/login');
+//   console.log(`-------> User Logged out`);
+// });
 
 //Auth Routes end
 
@@ -133,7 +150,7 @@ app.post("/api/images", async (req, res) => {
   // console.log(
   //   'SERVER INDEX.JS || CLOUDINARY GET || LINE 38 || resources ==>',
   //   resources
-  // );
+  // ;
   // try to filter before map
   const secureImageUrls = resources.resources
     .filter((imageObj) => imageObj.folder === req.body.trailFolderName)

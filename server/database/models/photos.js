@@ -12,8 +12,8 @@ const Photos = db.define('photos', {
   },
   img: { type: DataTypes.BLOB, allowNull: false }, // (RENE !!!!!!!!)
   description: { type: DataTypes.STRING(2000), allowNull: false },
-  user_id: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
-  trail_id: { type: DataTypes.INTEGER, allowNull: false },
+  user_id: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: { model: 'users', key: '_id' } },
+  trail_id: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: { model: 'trails', key: '_id' } },
 });
 
 // Export Schema
