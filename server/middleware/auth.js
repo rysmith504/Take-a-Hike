@@ -15,8 +15,8 @@ passport.use(new GoogleStrategy({
   callbackURL: "http://localhost:5555/google/callback",
   passReqToCallback: true
 },
-function (accessToken, refreshToken, profile, done) {
-  console.log(profile)
+  async (req, accessToken, refreshToken, profile, done) => {
+  // console.log(profile)
   Users.findOrCreate({ googleId: profile.id }, function (err, user) {
     return done(err, user);
   });
