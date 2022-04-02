@@ -42,7 +42,7 @@ app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
 
-const successLoginUrl = "http://localhost:5555/login/success";
+const successLoginUrl = "http://localhost:5555/#/trailslist";
 const errorLoginUrl = "http://localhost:5555/login/error"
 
 //Auth Routes
