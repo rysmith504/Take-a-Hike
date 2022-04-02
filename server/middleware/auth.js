@@ -17,16 +17,37 @@ passport.use(new GoogleStrategy({
 },
   async (req, accessToken, refreshToken, profile, done) => {
   // console.log(profile)
-  Users.findOrCreate({ googleId: profile.id }, function (err, user) {
-    return done(err, user);
+  const defaultUser = {
+    fullName: `${profile.name.givenName} ${profile.name.familyName}`,
+    email: profile.emails[0].value,
+    picture: profile.photos[0].value,
+    googleId: profile.id,
+  }
+
+  const user = await Users.findOrCreate({ where: { google: profile.id }, defaults: defaultUser}).catch((err) => {
+    console.log("Error signing up", err)
+    done(err, null)
   });
+
+  if(user && user[0]){
+    return done(null, user && user[0])
+  }
 }
 ));
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
+passport.serializeUser((user, done) => {
+  console.log("Serializing User:", user)
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(async(id, done) => {
+  console.log()
+  const user = await Users.findOne({ where: { id} }).catch((err) => {
+    console.log("error deserializing", err);
+
+    if(user){
+      done(null, user);
+    }
+  })
   done(null, user);
 });
