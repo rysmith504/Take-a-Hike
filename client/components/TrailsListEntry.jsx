@@ -5,18 +5,18 @@ import { useEffect, useState } from "react";
 const TrailsListEntry = ({ trail }) => {
   return (
     <Link to={`/trailprofile/${trail.id}`}>
-      <div className="contacts">
+      <div className="trails">
         <div className="trail-card">
           <img src={trail.thumbnail} />
           <h3>{trail.name}</h3>
           <div className="info-group">
-            <p>{trail.city}</p>
+            <p>City: {trail.city}</p>
           </div>
           <div className="info-group">
-            <p>{trail.region}</p>
+            <p>State: {trail.region}</p>
           </div>
           <div className="info-group">
-            <p>{trail.rating}</p>
+            <p>Rating: {trail.rating}</p>
           </div>
         </div>
       </div>

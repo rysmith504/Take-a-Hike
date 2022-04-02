@@ -42,21 +42,6 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
   // create upload widget
-<<<<<<< HEAD
-  const widget = cloudinary.createUploadWidget(
-    // NEED TO ADD FOLDER TO UPLOAD PATH. IF NO FOLDER CREATE ONE?
-    {
-      cloudName: cloudName,
-      uploadPreset: preset,
-      maxFiles: 3,
-      folder: displayTrail.name, // substitute with trail name passed through props from TrailList Component
-      // add userId tag to filter by user
-      tags: [displayTrail.name],
-    },
-    (err, result) => {
-      if (!err && result && result.event === 'success') {
-        // console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
-=======
   let widget;
   if (displayTrail) {
     widget = cloudinary.createUploadWidget(
@@ -73,7 +58,6 @@ const TrailProfile = ({ trailList }) => {
         if (!err && result && result.event === 'success') {
           console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
         }
->>>>>>> 6aa23a52843b1a2faf4c39f2c719d6d4acfc5fd2
       }
     );
   }

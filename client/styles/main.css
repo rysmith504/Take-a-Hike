@@ -11,14 +11,14 @@ body {
   background-color: whitesmoke;
 }
 
-.contacts {
+.trails {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
 }
 
-.contact-card {
+.trail-card {
   flex-basis: 225px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -29,7 +29,7 @@ body {
   background-color: white;
 }
 
-.contact-card > img {
+.trail-card > img {
   width: 100%;
   height: auto;
   align-self: center;
@@ -37,7 +37,7 @@ body {
   object-fit: cover;
 }
 
-.contact-card > h3 {
+.trail-card > h3 {
   font-weight: 700;
   font-size: 18px;
 }
