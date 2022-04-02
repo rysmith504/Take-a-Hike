@@ -9,6 +9,7 @@ const Quartermaster = () => {
     listName: "",
     packingListNames: [],
     packingListDescription: "",
+    listItem: "",
   });
 
   //captures input list name from the user
@@ -67,6 +68,7 @@ const Quartermaster = () => {
             return {
               ...state,
               listName: "",
+              listItem: "",
               packingListDescription: "",
               packingListNames: [...state.response.data],
             };
@@ -81,11 +83,11 @@ const Quartermaster = () => {
 
   const { packingListDescription, listName, packingListNames } = packingList;
 
-  handleSubmit();
-  // .then(() =>
-  getAllPackingLists();
-  // .then((data) => {
-  //   console.log("LINE 78 data", data);
+
+  useEffect(() => {
+    console.log("LINE 78 data");
+    getAllPackingLists();
+  }, []);
 
   return (
     <>
@@ -113,6 +115,17 @@ const Quartermaster = () => {
         />
         <br></br>
         <br></br>
+        <>List Items bellow:</>
+        <br></br>
+        <textarea
+          type="text"
+          placeholder="listItem"
+          onChange={handleChange}
+          name="listItem"
+          value={packingList.listItem}
+        />
+        <br></br>
+        <br></br>
         <button type="submit">Create and save</button>
       </form>
       <br></br>
@@ -124,11 +137,11 @@ const Quartermaster = () => {
         })}
       </div>
       <div></div>
-      <PackingList
+      {/* <PackingList
         packingListNames={packingListDescription}
         packingListDescription={packingListDescription}
         listName={listName}
-      />
+      /> */}
       <UserProfile packingListNames={packingListNames} />
     </>
   );

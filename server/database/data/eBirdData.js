@@ -16,6 +16,6 @@ const birdsOfLA = birdsOfLALong.map(bird => {
     category:bird.CATEGORY,
   };
 })
-console.log(birdsOfLA);
+//console.log(birdsOfLA);
 
 module.exports = birdsOfLA;
