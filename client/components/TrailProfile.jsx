@@ -36,7 +36,7 @@ const TrailProfile = ({ trailList }) => {
   // const trailName = 'Trail 2';
   // Can I attach a tag to the uploaded image, and filter photos from get requests using the tags param as an identifier for different trails?
 
-  console.log(`TRAIL PROFILE || LINE 8 || image `, image);
+  // console.log(`TRAIL PROFILE || LINE 8 || image `, image);
 
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
