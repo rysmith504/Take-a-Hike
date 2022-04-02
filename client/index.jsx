@@ -3,7 +3,7 @@
 // Import Dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 
 // Import Components and Styles
 import App from './components/App.jsx';
@@ -18,7 +18,7 @@ import Login from '../client/components/Login.jsx';
 
 // Render Components to DOM 'app' element
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
       <Route path="*" element={<App />}>
         {/* <Route path="login" element={<Login />} />
@@ -30,6 +30,6 @@ ReactDOM.render(
         <Route path="userprofile" element={<UserProfile />} /> */}
       </Route>
     </Routes>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById('app')
 );
