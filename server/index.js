@@ -176,7 +176,7 @@ app.get("/api/packingLists", (req, res) => {
 });
 
 /**
- * post reques to the packingListItems
+ * post request to the packingListItems
  */
 app.post("/api/packingListItems", (req, res) => {
   const listItem = req.body;
@@ -194,6 +194,9 @@ app.post("/api/packingListItems", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////Bird Sightings 
 
 // launches the server from localhost on port 5555
 app.listen(PORT, () => {
