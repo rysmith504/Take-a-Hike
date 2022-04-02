@@ -12,6 +12,7 @@ const router = express.Router();
 const session = require('express-session');
 require('./middleware/auth.js');
 const { cloudinary } = require('./utils/coudinary');
+const { Users } = require("./database/models/users");
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -60,6 +61,18 @@ app.get("/auth/google/callback",
       res.send("thank you for signing in!");
     }
 )
+
+app.get('/profile', (req, res) => {
+  Users.findOne()
+    .then((data) => {
+      console.log("data", data)
+      res.send(data).status(200)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.sendStatus(500);
+    })
+})
 // const checkAuthenticated = (req, res, next) => {
 //   console.log(session);
 //   if (req.isAuthenticated()) {
