@@ -1,15 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const TrailsListEntry = ({ trail }) => {
   return (
     <Link to={`/trailprofile/${trail.id}`}>
-      <div className="trail-row">
-        <div className="trail-data">{trail.name}</div>
-        <div className="trail-data">{trail.city}</div>
-        <div className="trail-data">{trail.region}</div>
-        <div className="trail-data">{trail.rating}</div>
+      <div className="trails">
+        <div className="trail-card">
+          <img src={trail.thumbnail} />
+          <h3>{trail.name}</h3>
+          <div className="info-group">
+            <p>City: {trail.city}</p>
+          </div>
+          <div className="info-group">
+            <p>State: {trail.region}</p>
+          </div>
+          <div className="info-group">
+            <p>Rating: {trail.rating}</p>
+          </div>
+        </div>
       </div>
     </Link>
   );
