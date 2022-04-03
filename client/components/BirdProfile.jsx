@@ -16,7 +16,7 @@ const BirdProfile = ({bird}) => {
   // };
 
   return (
-    <div className="trail-card">
+    <div className="list-item-card">
       <input type="checkbox" />
       <div>Scientific Name: {bird.scientificName}</div>
       <div>Common Name: {bird.commonName}</div>

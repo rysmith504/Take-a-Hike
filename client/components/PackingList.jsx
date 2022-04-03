@@ -37,7 +37,7 @@ const PackingListItems = () => {
   };
 
   return (
-    <div>
+    <div className="profile-card"> 
       {/* { //display the listname} */}
       {/* <h3>{packingListItems.listName}</h3> */}
       {/* { //display the list description} */}
