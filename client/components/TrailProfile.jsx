@@ -115,7 +115,8 @@ const TrailProfile = ({ trailList }) => {
         UPLOAD PHOTOS
       </button>
 
-      <div className="icons">
+      </figcaption>
+      <div className="profile-card">
         {trailImageURLs ? (
           // <div> div to house images for css styling
           trailImageURLs.map((trailImageURL, index) => (
@@ -131,7 +132,6 @@ const TrailProfile = ({ trailList }) => {
           <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
         )}
       </div>
-      </figcaption>
     </figure>
   );
 };
