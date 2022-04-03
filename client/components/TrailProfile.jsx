@@ -100,22 +100,22 @@ const TrailProfile = ({ trailList }) => {
             <li>Difficulty Level: {displayTrail.difficulty}</li>
             <li>Features: {displayTrail.features}</li>
             <li>Rating: {displayTrail.rating}</li>
-            <li>Length: (miles) {displayTrail.length}</li>
-            <li>Latitude/Longitude: {displayTrail.lat} {displayTrail.lon}</li>
-            <a href={`${displayTrail.url}`}>Trail Website</a>
+            <li>Length (miles): {displayTrail.length}</li>
+            <li>Latitude: {displayTrail.lat}</li>
+            <li>Longitude: {displayTrail.lon}</li>
+            <a href={`${displayTrail.url}`} target="_blank">Trail Website</a>
           </ul>
         </div>
-      </figcaption>
       {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
-      <button
+      <button className="icons"
         onClick={(e) => {
           showWidget(e, widget);
         }}
       >
-        Upload Photos
+        UPLOAD PHOTOS
       </button>
 
-      <div>
+      <div className="icons">
         {trailImageURLs ? (
           // <div> div to house images for css styling
           trailImageURLs.map((trailImageURL, index) => (
@@ -131,6 +131,7 @@ const TrailProfile = ({ trailList }) => {
           <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
         )}
       </div>
+      </figcaption>
     </figure>
   );
 };

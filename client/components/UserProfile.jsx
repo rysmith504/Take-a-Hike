@@ -13,7 +13,7 @@ const UserProfile = ({ packingListNames }) => {
     axios.get('/profile')
     .then((profile) => {
       const user = profile.data;
-      console.log(user)
+      // console.log(user)
       setProfileName(user.fullName)
       setPicture(user.picture)
       setEmail(user.email)
@@ -23,8 +23,8 @@ const UserProfile = ({ packingListNames }) => {
   
   
   return (
-    <div>
-      <h1>welcome {profileName}</h1>
+    <div className="profile-card">
+      <h1>Welcome {profileName}</h1>
       <a href={picture}></a>
       <p>{email}</p>
     </div>
