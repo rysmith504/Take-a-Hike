@@ -107,7 +107,7 @@ app.get('/api/trailslist', (req, res) => {
 
 // get request to get all images (this will later be trail specific)
 app.post('/api/images', async (req, res) => {
-  console.log(`server index.js || LINE 70`, req.body);
+  // console.log(`server index.js || LINE 70`, req.body);
   // NEED TO CHANGE ENDPOINT TO INCLUDE TRAIL SPECIFIC PARAM SO PHOTOS CAN BE UPLOADED + RENDERED PROPERLY
 
   // Can create new folder with upload from TrailProfile component. Need to modify get request to filter based on folder param (which will be equal to the trail name)

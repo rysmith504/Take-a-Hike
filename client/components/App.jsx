@@ -43,10 +43,10 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="Header" alignment="center">
+      <h1 className="profile-card" alignment="center">
         Trail Feathers
       </h1>
-      <nav
+      <nav className='profile-card'
         style={{
           borderBottom: 'solid 1px',
           paddingBottom: '1rem',

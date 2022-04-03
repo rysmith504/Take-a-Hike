@@ -25,7 +25,7 @@ const BirdProfile = ({bird, userId}) => {
 
   // Return Component Template
   return (
-    <div className="trail-card">
+    <div className="list-item-card">
       <input type="checkbox" checked={checked} onChange={handelCheckboxClick}/>
       <div> BirdId:{bird._id} userId:{userId}</div>
       <div>Scientific Name: {bird.scientificName}</div>

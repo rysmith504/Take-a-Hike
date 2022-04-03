@@ -54,8 +54,8 @@ const Quartermaster = () => {
 
   return (
     <>
-      <h3 className="header">Quartermaster</h3>
-      <div className="quart-description">
+      <h3 className="profile-card">Quartermaster</h3>
+      <div className="profile-card">
         <p>Make and save the lists you'll need for your hiking adventures</p>
       </div>
       <form onSubmit={handleSubmit}>
