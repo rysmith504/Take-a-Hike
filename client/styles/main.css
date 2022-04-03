@@ -39,14 +39,21 @@
   background-image: -webkit-linear-gradient(top, transparent 0%, #ffffff 100%);
   background-image: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
 }
-.profile-card h2,h3, h5, h6
+.profile-card h2,h3,ul,li
 .profile-card p {
   margin: 0 0 10px;
 }
-.profile-card h2,h3, h5, h6 {
+.profile-card h2,h3 {
   font-weight: 300;
   font-size: 1.5em;
   line-height: 1.2em;
+  font-family: 'Oswald', Arial, sans-serif;
+  text-transform: uppercase;
+}
+.profile-card ul, li, a {
+  font-weight: 100;
+  font-size: 1em;
+  line-height: 1em;
   font-family: 'Oswald', Arial, sans-serif;
   text-transform: uppercase;
 }
@@ -134,49 +141,5 @@ body {
   font-size: 12px;
   color: #2B283A;
 }
-/* <!-- HTML !-->
-<button class="button-21" role="button">Button 21</button> */
 
-/* CSS */
-.button-21 {
-  align-items: center;
-  appearance: none;
-  background-color: #3EB2FD;
-  background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
-  background-size: calc(100% + 20px) calc(100% + 20px);
-  border-radius: 100px;
-  border-width: 0;
-  box-shadow: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: CircularStd,sans-serif;
-  font-size: 1rem;
-  height: auto;
-  justify-content: center;
-  line-height: 1.5;
-  padding: 6px 20px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color .2s,background-position .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-}
 
-.button-21:active,
-.button-21:focus {
-  outline: none;
-}
-
-.button-21:hover {
-  background-position: -20px -20px;
-}
-
-.button-21:focus:not(:active) {
-  box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
-}

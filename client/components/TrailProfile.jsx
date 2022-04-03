@@ -8,6 +8,7 @@ const preset = 'hikeimages';
 const cloudName = 'dbwbxubwi';
 
 const TrailProfile = ({ trailList }) => {
+  console.log(trailList)
   const { id } = useParams();
   const displayTrail = trailList.find((trail) => trail.id == id);
   // console.log(`TRAILPROFILE || LINE 11 || displayTrail`, displayTrail); // access params
@@ -94,9 +95,15 @@ const TrailProfile = ({ trailList }) => {
           <h2>{displayTrail.city}</h2>
           <h3>{displayTrail.region}</h3>
           <p>{displayTrail.description}</p>
-          <h5>Difficulty Level: {displayTrail.difficulty}</h5>
-          <h6>Features: {displayTrail.features}</h6>
-          <a href={`${displayTrail.url}`}>Trail Website</a>
+          <p>{displayTrail.directions}</p>
+          <ul>
+            <li>Difficulty Level: {displayTrail.difficulty}</li>
+            <li>Features: {displayTrail.features}</li>
+            <li>Rating: {displayTrail.rating}</li>
+            <li>Length: (miles) {displayTrail.length}</li>
+            <li>Latitude/Longitude: {displayTrail.lat} {displayTrail.lon}</li>
+            <a href={`${displayTrail.url}`}>Trail Website</a>
+          </ul>
         </div>
       </figcaption>
       {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
