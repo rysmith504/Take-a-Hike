@@ -3,7 +3,7 @@ import axios from "axios";
 
 const PackingListItems = ({
   listName,
-  //packingListNames,
+  packingListNames,
   packingListDescription,
 }) => {
   //create state variable
@@ -11,6 +11,27 @@ const PackingListItems = ({
     listItem: "",
     listItems: [],
   });
+  console.log(packingListNames);
+  useEffect(() => {
+    axios
+      .get("/api/packingListItems")
+      .then((response) => {
+        console.log("ALL LISTS FROM DATABASE LINE 79 ||", response.data);
+        setPackingList((state) => {
+          return {
+            ...state,
+            listName: "",
+            listItem: "",
+            packingListDescription: "",
+            packingListNames: response.data,
+          };
+        });
+      })
+      .catch((err) => {
+        console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
+      });
+  }, []);
+
   //captures input list name from the user
   const handleChange = (e) => {
     //set name in state
@@ -29,7 +50,7 @@ const PackingListItems = ({
     console.log(packingListItems.listItem, "FROM LINE 29");
     axios
       //send the user list to the server
-      .post("/api/packingListItems", {
+      .post(`/api/packingListItems`, {
         listItem: packingListItems.listItem,
       })
       .then((data) => {
@@ -40,22 +61,27 @@ const PackingListItems = ({
         }));
       });
   };
+
+  //saves item to the database on enter key press
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      () => handleSubmit();
+    }
+  };
+
   //distructure all state variables for usage
   const { listItem, listItems } = packingListItems;
   return (
     <div>
-      {/* { //display the listname} */}
-      {/* <h3>{packingListItems.listName}</h3> */}
-      {/* { //display the list description} */}
-      {/* <p>{packingListItems.listDescription}</p> */}
       <form onSubmit={handleSubmit}>
         <br />
         <input
           type="text"
           placeholder="List item"
           onChange={handleChange}
-          // onKeyPress={handleKeypress}
-          //name="listItem"
+          onKeyPress={handleKeypress}
+          name="listItem"
           value={listItem}
         />
         <button onClick={handleSubmit}> save</button>

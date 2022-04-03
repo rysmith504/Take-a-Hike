@@ -31,6 +31,7 @@ const Quartermaster = () => {
       .catch((err) => {
         console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
       });
+    return <PackingList packingListNames={packingListNames} />;
   }, []);
 
   //captures input list name from the user
@@ -96,13 +97,7 @@ const Quartermaster = () => {
         <br></br>
         <>List Items bellow:</>
         <br></br>
-        {/* <textarea
-          type="text"
-          placeholder="listItem"
-          onChange={handleChange}
-          name="listItem"
-          value={listItem}
-        /> */}
+
         <br></br>
         <br></br>
         <button type="submit">Create and save</button>
@@ -118,11 +113,7 @@ const Quartermaster = () => {
         })}
       </div>
       <div></div>
-      {/* <PackingList
-        packingListNames={packingListDescription}
-        packingListDescription={packingListDescription}
-        listName={listName}
-      /> */}
+      {/* <PackingList packingListNames={packingListNames} /> */}
       {/* <UserProfile packingListNames={packingListNames} /> */}
     </>
   );
