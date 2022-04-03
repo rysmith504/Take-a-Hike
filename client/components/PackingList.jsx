@@ -3,7 +3,7 @@ import axios from "axios";
 
 const PackingListItems = ({
   listName,
-  packingListNames,
+  //packingListNames,
   packingListDescription,
 }) => {
   //create state variable
