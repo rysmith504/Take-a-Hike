@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PackingList from "./PackingList.jsx";
+import { Link, Outlet } from "react-router-dom";
+//import PackingList from "./PackingList.jsx";
 //mport UserProfile from "./UserProfile.jsx";
 
 const Quartermaster = () => {
@@ -31,7 +32,7 @@ const Quartermaster = () => {
       .catch((err) => {
         console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
       });
-    return <PackingList packingListNames={packingListNames} />;
+    //return <PackingList packingListNames={packingListNames} />;
   }, []);
 
   //captures input list name from the user
@@ -68,7 +69,7 @@ const Quartermaster = () => {
   };
 
   const { packingListDescription, listName, packingListNames } = packingList;
-
+  //console.log("LINE 71 ||", packingListNames[0]._id);
   return (
     <>
       <h3 className="header">Quartermaster</h3>
@@ -100,7 +101,13 @@ const Quartermaster = () => {
 
         <br></br>
         <br></br>
-        <button type="submit">Create and save</button>
+        <Link
+          to={`/packinglist/${packingListNames.map(
+            (packingList) => packingList._id
+          )}`}
+        >
+          <button type="submit">Create and save</button>
+        </Link>
       </form>
       <br></br>
       <br></br>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, Outlet } from "react-router-dom";
 
 const PackingListItems = ({
   listName,
@@ -12,6 +13,7 @@ const PackingListItems = ({
     listItems: [],
   });
   console.log(packingListNames);
+  console.log(packingListDescription);
   useEffect(() => {
     axios
       .get("/api/packingListItems")
@@ -74,6 +76,7 @@ const PackingListItems = ({
   const { listItem, listItems } = packingListItems;
   return (
     <div>
+      <h3></h3>
       <form onSubmit={handleSubmit}>
         <br />
         <input
@@ -103,10 +106,22 @@ const PackingListItems = ({
 
 export default PackingListItems;
 
-//saves item to the database on enter key press
-// const handleKeypress = (e) => {
-//   //it triggers by pressing the enter key
-//   if (e.keyCode === 13) {
-//     () => handleSubmit();
-//   }
-// };
+{
+  /* <Link to={`/trailprofile/${trail.id}`}>
+  <div className="trails">
+    <div className="trail-card">
+      <img src={trail.thumbnail} />
+      <h3>{trail.name}</h3>
+      <div className="info-group">
+        <p>City: {trail.city}</p>
+      </div>
+      <div className="info-group">
+        <p>State: {trail.region}</p>
+      </div>
+      <div className="info-group">
+        <p>Rating: {trail.rating}</p>
+      </div>
+    </div>
+  </div>
+</Link>; */
+}

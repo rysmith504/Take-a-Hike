@@ -56,7 +56,7 @@ const App = () => {
         <Link to="/trailslist">Trails List</Link> |{" "}
         {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
         <Link to="/quartermaster">Quartermaster</Link> |{" "}
-        <Link to="/packinglist">Packing List</Link> |{" "}
+        {/* <Link to="/packinglist">Packing List</Link> |{" "} */}
         <Link to="/birdingchecklist">Birding Checklist</Link> |{" "}
         <Link to="/profile">User Profile</Link> |{" "}
       </nav>
@@ -77,7 +77,7 @@ const App = () => {
           element={<TrailProfile trailList={trailList} />}
         />
         <Route path="quartermaster" element={<Quartermaster />} />
-        <Route path="packinglist" element={<PackingList />} />
+        <Route path="packinglist/:id" element={<PackingList />} />
         <Route path="birdingchecklist" element={<BirdingCheckList />} />
         <Route path="profile" element={<UserProfile />} />
       </Routes>
