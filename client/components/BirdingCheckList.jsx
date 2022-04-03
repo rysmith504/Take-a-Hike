@@ -10,7 +10,10 @@ import BirdProfile from "./BirdProfile.jsx";
 const BirdingCheckList = () => {
   const [birdSearch, setBirdSearch] = useState("");
   const [birdList, setBirdList] = useState([]);
+  const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState();
 
+  // Call useEffect on Page Load
   useEffect(() => {
     axios.get("/api/birdList")
       .then((response) => {
@@ -19,35 +22,40 @@ const BirdingCheckList = () => {
       })
       .catch((err) => {
         console.error("ERROR:", err);
-      })
-  }, []);
-
-  const handelBirdSearchInput = (event) => {
-    const { value } = event.target;
-    console.log(value);
-    setBirdSearch(() => value);
-  };
-
-  const handelBirdSearchSubmit = (event) => {
-    event.preventDefault();
-    axios.get("/api/birdList", {
-      params: { name: birdSearch }
-    })
-      .then((response) => {
-        setBirdList(() => {
-          return [...response.data.data]
-        });
+      });
+      axios.get('/profile')
+        .then((profile) => {
+          const user = profile.data;
+          setUserId(user._id)
+          setUserName(user.fullName)
       })
       .catch((err) => {
         console.error("ERROR:", err);
-      })
+      });
+  }, []);
+
+  // Create Search Input Handler
+  const handelBirdSearchInput = (event) => {
+    setBirdSearch(event.target.value);
+  };
+
+  // Create Search Submit Handler
+  const handelBirdSearchSubmit = (event) => {
+    event.preventDefault();
+    setBirdList(birdList.filter(bird => bird.scientificName.toLowerCase().includes(birdSearch) || bird.commonName.toLowerCase().includes(birdSearch) || bird.commonFamilyName.toLowerCase().includes(birdSearch) || bird.scientificFamilyName.toLowerCase().includes(birdSearch))
+    );    
   }
 
+  //
   return (
     <div className="birding-checklist">
       <h1 className="Header" alignment="center">
-        Birding Checklist
+        {userName}'s Birding Checklist
       </h1>
+      <div>
+        A one stop shop to keep track of all your Louisiana bird sightings! Louisiana is one of the most diverse and extraordinary ecosystems in the entire world, and there is no better way to celebrate and take part in it's splendor than spotting all the wonderful birds of our state. So get to hiking!
+      </div>
+
       <form>
         <label>
           <input
@@ -66,7 +74,7 @@ const BirdingCheckList = () => {
       <div className="birds">
         <div className="trail-profile">
           {birdList.map((bird) => {
-            return <BirdProfile bird={bird} key={bird.scientificName} />;
+            return <BirdProfile bird={bird} key={bird._id} userId={userId} />;
           })}
         </div>
       </div>
