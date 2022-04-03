@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import TrailsListEntry from './TrailsListEntry.jsx';
 <<<<<<< Updated upstream
@@ -43,6 +44,16 @@ import { dummyParkData } from '../../copyAPIparkData/dummyDataCopy';
 
 const TrailsList = () => {
 >>>>>>> Stashed changes
+=======
+import React, { useEffect, useState } from "react";
+import TrailsListEntry from './TrailsListEntry.jsx'
+
+
+const TrailsList = ({trails, dummyData}) => {
+
+  console.log('Dummy length', dummyData.length);
+
+>>>>>>> 51d5d7e (dummydata rendering in TrailsList.jsx/TrailsListEntry.jsx)
   return (
     <div className="profile-card">
       <h1 className="Header" alignment="center">
@@ -87,10 +98,21 @@ const TrailsList = () => {
             <div className="trail-data">State</div>
             <div className="trail-data">Rating</div>
           </div>
+<<<<<<< HEAD
           {dummyParkData.map((trail) => (
             <TrailsListEntry trail={trail} key={trail.id} />
           ))}
 >>>>>>> Stashed changes
+=======
+          {
+            dummyData.map(trail => {
+              return <TrailsListEntry
+                trail={ trail }
+                key={trail.id}
+              />
+            })
+          }
+>>>>>>> 51d5d7e (dummydata rendering in TrailsList.jsx/TrailsListEntry.jsx)
         </div>
       </div>
     </div>
