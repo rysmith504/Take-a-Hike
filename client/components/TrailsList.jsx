@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TrailsListEntry from './TrailsListEntry.jsx';
+<<<<<<< Updated upstream
 import axios from 'axios';
 // import TrailCard from './TrailCard.jsx';
 
@@ -37,11 +38,17 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
     handleGetTrails(location);
   };
 
+=======
+import { dummyParkData } from '../../copyAPIparkData/dummyDataCopy';
+
+const TrailsList = () => {
+>>>>>>> Stashed changes
   return (
     <div className="profile-card">
       <h1 className="Header" alignment="center">
         Trails List
       </h1>
+<<<<<<< Updated upstream
       <form onSubmit={handleSubmitLocation} className="card">
         <label>
           <input
@@ -70,6 +77,20 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
           {trailList.map((trail) => {
             return <TrailsListEntry trail={trail} key={trail.id} />;
           })}
+=======
+      <h2>A list of all the hiking trails in Louisiana!</h2>
+      <div className="trails">
+        <div className="trail-table">
+          <div className="trail-header trail-row">
+            <div className="trail-data">Trail Name</div>
+            <div className="trail-data">City</div>
+            <div className="trail-data">State</div>
+            <div className="trail-data">Rating</div>
+          </div>
+          {dummyParkData.map((trail) => (
+            <TrailsListEntry trail={trail} key={trail.id} />
+          ))}
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>
