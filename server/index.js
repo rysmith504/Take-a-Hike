@@ -6,6 +6,7 @@ const express = require("express");
 const path = require("path");
 const passport = require('passport');
 const { BirdList } = require("./database/models/birdList.js")
+const { BirdSightings } = require("./database/models/birdSightings.js")
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
@@ -165,7 +166,7 @@ app.post("/api/packingListItems", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////Bird Sightings 
+//////////////////////////////////////////////////////////////Bird List Routes
 
 //GET req for all birdList data
 app.get('/api/birdList/', (req, res) => {
@@ -179,11 +180,8 @@ app.get('/api/birdList/', (req, res) => {
     });
 });
 
-// /api/birdList/:search
 //GET req for all select birdList data
 app.get('/api/birdList/birdSearch', (req, res) => {
-  // console.log('Line 184 - BODY:', req.query) ==> {search: <searchInput> }
-
   BirdList.findAll({
     where: {
       scientificName: sequelize.where(sequelize.fn('LOWER', sequelize.col('scientificName')), 'LIKE', '%' + req.query.search.toLowerCase() + '%') }})
@@ -193,6 +191,55 @@ app.get('/api/birdList/birdSearch', (req, res) => {
     .catch((err) => {
       console.error('ERROR: ', err);
       res.sendStatus(404);
+    });
+});
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////Bird Sightings Routes 
+
+//GET req for all birdSightings data
+app.get('/api/birdSightings/', (req, res) => {
+  BirdSightings.findAll()
+    .then((birdSightings) => {
+      res.json(birdSightings);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
+
+//POST req to birdSightings database
+app.post('/api/packingLists', (req, res) => {
+  console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
+  // BirdSightings.create({
+  //   bird_id: req.body.bird_id,
+  //   user_id: req.body.user_id,
+  // })
+  //   .then((data) => {
+  //     console.log('LINE 220', data);
+  //     res.sendStatus(201);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err, 'Something went wrong');
+  //     res.sendStatus(500);
+  //   });
+});
+
+//Delete req to birdSightings database
+app.delete('/api/packingLists', (req, res) => {
+  console.log('Line 231 - Back End Bird Sightings Delete Request: ', req.body);
+  BirdSightings.create({
+    bird_id: req.body.bird_id,
+    user_id: req.body.user_id,
+  })
+    .then((data) => {
+      console.log('LINE 220', data);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err, 'Something went wrong');
+      res.sendStatus(500);
     });
 });
 

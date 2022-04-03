@@ -4,20 +4,30 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // Create Functional Component
-const BirdProfile = ({bird}) => {
+const BirdProfile = ({bird, userId}) => {
   const [checked, setChecked] = useState(false);
 
-  // // const handelCheckboxClick = () => {
-  //   if (!checked === true) {
-  //     setChecked(true);
-  //   } else {
-  //     setChecked(false);
-  //   }
-  // };
+  useEffect(() => {
+  })
 
+  // Create Checkbox Click Handler
+  const handelCheckboxClick = () => {
+    console.log(bird._id, userId)
+    axios.post('api/birdSightings', {params: { bird_id: bird._id, user_id: userId}})
+      .then(() => setChecked(true))
+      .catch((err) => console.error('ERROR: ', err));
+    // if (!checked === true) {
+    //   setChecked(true);
+    // } else {
+    //   setChecked(false);
+    // }
+  };
+
+  // Return Component Template
   return (
     <div className="trail-card">
-      <input type="checkbox" />
+      <input type="checkbox" checked={checked} onChange={handelCheckboxClick}/>
+      <div> BirdId:{bird._id} userId:{userId}</div>
       <div>Scientific Name: {bird.scientificName}</div>
       <div>Common Name: {bird.commonName}</div>
       <div>Common Family Name: {bird.commonFamilyName}</div>
@@ -29,24 +39,5 @@ const BirdProfile = ({bird}) => {
   );
 };
 
+// Export Component
 export default BirdProfile;
-
-
-// const handelCheckboxClick = () => {
-//   console.log('Line 11 - Checked: ', checked);
-//   if(!checked) {
-//    setChecked(true);
-//   //   // axios.post('api/birdSightings', {params: { bird_id: , user_id: }})
-//   //   //   .then(() => setChecked(true))
-//   //   //   .catch((err) => console.error('ERROR: ', err));
-//   } else {
-//     setChecked('false');
-//   // //   axios.delete('api/birdSightings', {params: { search: birdSearch }})
-//   // //     .then(() => setChecked(false))
-//   // //     .catch((err) => console.error('ERROR: ', err));
-//   // }
-// }
-
-// return (
-//   <div className="trail-card">
-//     <input type="checkbox" checked={checked} onChange={handelCheckboxClick} />
