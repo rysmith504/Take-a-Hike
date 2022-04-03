@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const TrailsListEntry = ({ trail }) => {
   return (
     <Link to={`/trailprofile/${trail.id}`}>
-      <div className="trails">
+      <div className="profile-card">
         <div className="trail-card">
           <img src={trail.thumbnail} />
           <h3>{trail.name}</h3>

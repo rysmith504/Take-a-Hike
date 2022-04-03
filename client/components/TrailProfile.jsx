@@ -10,7 +10,7 @@ const cloudName = 'dbwbxubwi';
 const TrailProfile = ({ trailList }) => {
   const { id } = useParams();
   const displayTrail = trailList.find((trail) => trail.id == id);
-  console.log(`TRAILPROFILE || LINE 11 || displayTrail`, displayTrail); // access params
+  // console.log(`TRAILPROFILE || LINE 11 || displayTrail`, displayTrail); // access params
 
   const [image, setImage] = useState('');
   const [trailImageURLs, setTrailImageURLs] = useState();
@@ -21,10 +21,10 @@ const TrailProfile = ({ trailList }) => {
         const { data } = await axios.post(`/api/images/`, {
           trailFolderName: displayTrail.name,
         });
-        console.log('TRAILPROFILE || LOADIMAGES || LINE 24 || data', data);
+        // console.log('TRAILPROFILE || LOADIMAGES || LINE 24 || data', data);
         setTrailImageURLs(data);
       } catch (error) {
-        console.error('TRAILPROFILE || LOADIMAGES || LINE 27 || error', error);
+        // console.error('TRAILPROFILE || LOADIMAGES || LINE 27 || error', error);
       }
     };
     if (displayTrail) {
@@ -56,7 +56,7 @@ const TrailProfile = ({ trailList }) => {
       },
       (err, result) => {
         if (!err && result && result.event === 'success') {
-          console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
+          // console.log('TRAILPROFILE || WIDGET || LINE 21 || result', result);
         }
       }
     );
@@ -86,15 +86,26 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
 
   return (
-    <div>
-      <h1>Trail Profile</h1>
+    <figure className="profile-card">
+      <img src={`${displayTrail.thumbnail}`} />
+      <figcaption>
+      <h1>{displayTrail.name}</h1>
+        <div>
+          <h2>{displayTrail.city}</h2>
+          <h3>{displayTrail.region}</h3>
+          <p>{displayTrail.description}</p>
+          <h5>Difficulty Level: {displayTrail.difficulty}</h5>
+          <h6>Features: {displayTrail.features}</h6>
+          <a href={`${displayTrail.url}`}>Trail Website</a>
+        </div>
+      </figcaption>
       {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
       <button
         onClick={(e) => {
           showWidget(e, widget);
         }}
       >
-        Upload
+        Upload Photos
       </button>
 
       <div>
@@ -113,7 +124,7 @@ const TrailProfile = ({ trailList }) => {
           <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
         )}
       </div>
-    </div>
+    </figure>
   );
 };
 
