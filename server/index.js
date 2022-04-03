@@ -212,18 +212,18 @@ app.get('/api/birdSightings/', (req, res) => {
 //POST req to birdSightings database
 app.post('/api/packingLists', (req, res) => {
   console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
-  // BirdSightings.create({
-  //   bird_id: req.body.bird_id,
-  //   user_id: req.body.user_id,
-  // })
-  //   .then((data) => {
-  //     console.log('LINE 220', data);
-  //     res.sendStatus(201);
-  //   })
-  //   .catch((err) => {
-  //     console.error(err, 'Something went wrong');
-  //     res.sendStatus(500);
-  //   });
+  BirdSightings.create({
+    bird_id: req.body.bird_id,
+    user_id: req.body.user_id,
+  })
+    .then((data) => {
+      console.log('LINE 220', data);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err, 'Something went wrong');
+      res.sendStatus(500);
+    });
 });
 
 //Delete req to birdSightings database

@@ -49,7 +49,7 @@ const BirdingCheckList = () => {
   // Return Component Template
   return (
     <div className="birding-checklist">
-      <h1 className="Header" alignment="center">
+      <h1 className="profile-card" alignment="center">
         {userName}'s Birding Checklist
       </h1>
       <div>
@@ -71,7 +71,7 @@ const BirdingCheckList = () => {
         />
       </form>
       <div className="birds">
-        <div className="trail-profile">
+        <div className="profile-card">
           {birdList.map((bird) => {
             return <BirdProfile 
               bird={bird} 
