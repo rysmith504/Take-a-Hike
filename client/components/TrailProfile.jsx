@@ -95,7 +95,7 @@ const TrailProfile = ({ trailList }) => {
           <h2>{displayTrail.city}</h2>
           <h3>{displayTrail.region}</h3>
           <p>{displayTrail.description}</p>
-          <p>{displayTrail.directions}</p>
+          <p>Directions: {displayTrail.directions}</p>
           <ul>
             <li>Difficulty Level: {displayTrail.difficulty}</li>
             <li>Features: {displayTrail.features}</li>
