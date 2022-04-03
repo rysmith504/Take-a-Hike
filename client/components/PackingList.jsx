@@ -3,8 +3,9 @@ import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
 
 const PackingListItems = ({
-  listName,
+  userId,
   packingListNames,
+  listName,
   packingListDescription,
 }) => {
   //create state variable
@@ -14,91 +15,72 @@ const PackingListItems = ({
   });
   console.log(packingListNames);
   console.log(packingListDescription);
+  console.log(userId);
+
   useEffect(() => {
     axios
       .get("/api/packingListItems")
       .then((response) => {
         console.log("ALL LISTS FROM DATABASE LINE 79 ||", response.data);
         setPackingList((state) => {
-          return {
-            ...state,
-            listName: "",
-            listItem: "",
-            packingListDescription: "",
-            packingListNames: response.data,
-          };
+          return { ...state, listItems: response.data, listItem: "" };
         });
       })
       .catch((err) => {
         console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
       });
+    console.log(packingListItems.listItems);
   }, []);
 
   //captures input list name from the user
   const handleChange = (e) => {
     //set name in state
-    setPackingListItems((state) => {
-      //reset the state obj
-      return {
-        ...state,
-        listItem: e.target.value, //the name property set in the jsx
-      };
-    });
+    setPackingListItems({ listItem: e.target.value });
   };
 
   const handleSubmit = (event) => {
     //allow react to control the state variables changed on change
     event.preventDefault();
-    console.log(packingListItems.listItem, "FROM LINE 29");
     axios
       //send the user list to the server
-      .post(`/api/packingListItems`, {
+      .post("/api/packingListItems", {
         listItem: packingListItems.listItem,
       })
       .then((data) => {
-        setPackingListItems((state) => ({
-          ...state,
-          listItems: [...state.listItems, state.listItem],
-          // listItem: "",
-        }));
+        console.log(packingListItems.listItem, "FROM LINE 52", data);
+      })
+      .catch((err) => {
+        console.error("Something went really Wrong", err);
       });
   };
 
-  //saves item to the database on enter key press
-  const handleKeypress = (e) => {
-    //it triggers by pressing the enter key
-    if (e.keyCode === 13) {
-      () => handleSubmit();
-    }
-  };
-
   //distructure all state variables for usage
-  const { listItem, listItems } = packingListItems;
+  let { listItem, listItems } = packingListItems;
   return (
     <div>
-      <h3></h3>
+      <h3>Enter your list Items bellow</h3>
       <form onSubmit={handleSubmit}>
         <br />
         <input
           type="text"
           placeholder="List item"
           onChange={handleChange}
-          onKeyPress={handleKeypress}
+          //onKeyPress={handleKeypress}
           name="listItem"
           value={listItem}
         />
-        <button onClick={handleSubmit}> save</button>
+        <button type="submit"> save</button>
       </form>
       <br></br>
       <br></br>
       <div>
-        <h2>{listName}</h2>
+        {/* <h2>{listName}</h2>
         <p>{packingListDescription}</p>
         <ul>
           {listItems.map((item) => {
             return <li>{item}</li>;
           })}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

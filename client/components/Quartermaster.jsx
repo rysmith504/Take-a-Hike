@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
-//import PackingList from "./PackingList.jsx";
+import PackingList from "./PackingList.jsx";
 //mport UserProfile from "./UserProfile.jsx";
 
 const Quartermaster = () => {
   // assign the state variable to an object with listName and items, and array
-  const [packingList, setPackingList] = useState({
-    listName: "",
-    packingListNames: [],
-    packingListDescription: "",
-    //listItem: "",
-  });
+  const [listNameAndPnkListDescription, setListNameAndPankListDescription] =
+    useState({ listName: "", packingListDescription: "" });
+  const [packingListsNames, setPackingListsNames] = useState([]);
+  const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState();
 
   useEffect(() => {
     console.log("LINE 78 data");
@@ -19,34 +18,29 @@ const Quartermaster = () => {
       .get("/api/packingLists")
       .then((response) => {
         console.log("ALL LISTS FROM DATABASE LINE 79 ||", response.data);
-        setPackingList((state) => {
-          return {
-            ...state,
-            listName: "",
-            listItem: "",
-            packingListDescription: "",
-            packingListNames: response.data,
-          };
-        });
+        setPackingListsNames([...response.data]);
       })
       .catch((err) => {
-        console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
+        console.error("LINE 34 ERROR ON THE SERVER SIDE", err);
       });
-    //return <PackingList packingListNames={packingListNames} />;
+    axios
+      .get("/profile")
+      .then((profile) => {
+        const user = profile.data;
+        setUserId(user._id);
+        setUserName(user.fullName);
+      })
+      .catch((err) => {
+        console.error("ERROR:", err);
+      });
   }, []);
 
   //captures input list name from the user
-  const handleChange = (e) => {
-    //set name in state
-    setPackingList((state) => {
-      const { name, value } = e.target;
-      //reset the state obj
-      return {
-        ...state,
-        [name]: value, //the name property set in the jsx
-      };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setListNameAndPankListDescription((state) => {
+      return { ...state, [name]: value };
     });
-    console.log(packingList);
   };
 
   //Data packing lists are being feched by can't state e not resetting.
@@ -56,23 +50,25 @@ const Quartermaster = () => {
     axios
       //send the user list to the server
       .post("/api/packingLists", {
-        listName: packingList.listName,
-        packingListDescription: packingList.packingListDescription,
+        listName: listName,
+        packingListDescription: packingListDescription,
       })
       .then((data) => {
         console.log("Line 61 => this code block was reached", data);
+        setListNameAndPankListDescription((state) => {
+          return { ...state, listName: "", packingListDescription: "" };
+        });
       })
       .catch((err) => {
         console.log("Line 64 => this code block was reached", err);
       });
     alert("Packing list saved successfully!");
   };
-
-  const { packingListDescription, listName, packingListNames } = packingList;
-  //console.log("LINE 71 ||", packingListNames[0]._id);
+  console.log(packingListsNames);
+  const { packingListDescription, listName } = listNameAndPnkListDescription;
   return (
     <>
-      <h3 className="header">Quartermaster</h3>
+      <h3 className="header">{userName}'s Quartermaster</h3>
       <div className="quart-description">
         <p>Make and save the lists you'll need for your hiking adventures</p>
       </div>
@@ -81,19 +77,21 @@ const Quartermaster = () => {
         <input
           type="text"
           placeholder="Packing list name"
-          onChange={handleChange}
+          onChange={handleInputChange}
           name="listName"
           value={listName}
         />
         <br></br>
         <br></br>
-        <textarea
-          type="text"
-          placeholder="Description"
-          onChange={handleChange}
-          name="packingListDescription"
-          value={packingListDescription}
-        />
+        <label>
+          <textarea
+            type="text"
+            placeholder="Description"
+            onChange={handleInputChange}
+            name="packingListDescription"
+            value={packingListDescription}
+          />
+        </label>
         <br></br>
         <br></br>
         <>List Items bellow:</>
@@ -102,7 +100,7 @@ const Quartermaster = () => {
         <br></br>
         <br></br>
         <Link
-          to={`/packinglist/${packingListNames.map(
+          to={`/packinglist/${packingListsNames.map(
             (packingList) => packingList._id
           )}`}
         >
@@ -113,14 +111,14 @@ const Quartermaster = () => {
       <br></br>
       <div>
         <h3>My packing Lists</h3>
-        {packingListNames.map((listName) => {
+        {packingListsNames.map((listName) => {
           //console.log("LINE 124", listName);
           //console.log(packingList.packingListNames);
           return <div key={listName._id}>{listName.listName}</div>;
         })}
       </div>
       <div></div>
-      {/* <PackingList packingListNames={packingListNames} /> */}
+
       {/* <UserProfile packingListNames={packingListNames} /> */}
     </>
   );

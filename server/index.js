@@ -4,16 +4,16 @@ const sequelize = require("sequelize");
 const { query } = require("express");
 const express = require("express");
 const path = require("path");
-const passport = require('passport');
-const { BirdList } = require("./database/models/birdList.js")
+const passport = require("passport");
+const { BirdList } = require("./database/models/birdList.js");
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
 
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
-const session = require('express-session');
-require('./middleware/auth.js');
-const { cloudinary } = require('./utils/coudinary');
+const session = require("express-session");
+require("./middleware/auth.js");
+const { cloudinary } = require("./utils/coudinary");
 const { Users } = require("./database/models/users");
 
 // // Import DB
@@ -46,36 +46,38 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const successLoginUrl = "http://localhost:5555/#/trailslist";
-const errorLoginUrl = "http://localhost:5555/login/error"
+const errorLoginUrl = "http://localhost:5555/login/error";
 
 //Auth Routes
-app.get("/login/google", passport.authenticate("google", { scope: ["profile", "email"]}))
+app.get(
+  "/login/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
-app.get("/auth/google/callback", 
-  passport.authenticate("google", 
-    { 
-      failureMessage: "cannot login to Google",
-      failureRedirect: errorLoginUrl,
-      successRedirect: successLoginUrl
-    }),
-    (req, res) => {
-      console.log("User: ", req.user)
-      res.send("thank you for signing in!");
-    }
-)
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureMessage: "cannot login to Google",
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
+  }),
+  (req, res) => {
+    console.log("User: ", req.user);
+    res.send("thank you for signing in!");
+  }
+);
 
-app.get('/profile', (req, res) => {
+app.get("/profile", (req, res) => {
   Users.findOne()
     .then((data) => {
-      console.log("data", data)
-      res.send(data).status(200)
+      console.log("data", data);
+      res.send(data).status(200);
     })
     .catch((err) => {
-      console.error(err)
+      console.error(err);
       res.sendStatus(500);
-    })
-})
-
+    });
+});
 
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
@@ -181,33 +183,39 @@ app.post("/api/packingListItems", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////Bird Sightings 
+//////////////////////////////////////////////////////////////Bird Sightings
 
 //GET req for all birdList data
-app.get('/api/birdList/', (req, res) => {
+app.get("/api/birdList/", (req, res) => {
   BirdList.findAll()
     .then((birds) => {
       res.json(birds);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
 
 // /api/birdList/:search
 //GET req for all select birdList data
-app.get('/api/birdList/birdSearch', (req, res) => {
+app.get("/api/birdList/birdSearch", (req, res) => {
   // console.log('Line 184 - BODY:', req.query) ==> {search: <searchInput> }
 
   BirdList.findAll({
     where: {
-      scientificName: sequelize.where(sequelize.fn('LOWER', sequelize.col('scientificName')), 'LIKE', '%' + req.query.search.toLowerCase() + '%') }})
+      scientificName: sequelize.where(
+        sequelize.fn("LOWER", sequelize.col("scientificName")),
+        "LIKE",
+        "%" + req.query.search.toLowerCase() + "%"
+      ),
+    },
+  })
     .then((birds) => {
       res.json(birds);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
