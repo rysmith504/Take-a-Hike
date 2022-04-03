@@ -1,5 +1,6 @@
 // Import Dependencies
 const axios = require("axios");
+const sequelize = require("sequelize");
 const { query } = require("express");
 const express = require("express");
 const path = require("path");
@@ -74,54 +75,7 @@ app.get('/profile', (req, res) => {
       res.sendStatus(500);
     })
 })
-// const checkAuthenticated = (req, res, next) => {
-//   console.log(session);
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.redirect('/login');
-// };
 
-// app.get('/', (req, res) => {
-//   res.send('<a href="/auth/google">Authenticate with google</a>');
-// });
-
-// app.get(
-//   '/auth/google',
-//   passport.authenticate('google', { scope: ['email', 'profile'] })
-// );
-
-// app.get(
-//   '/auth/google/callback',
-//   passport.authenticate('google', {
-//     successRedirect: '/dashboard',
-//     failureRedirect: '/login',
-//   })
-// );
-
-// app.get('/auth/failure', (req, res) => {
-//   res.send('did not authenticate');
-// });
-
-// app.get('/dashboard', checkAuthenticated, (req, res) => {
-//   res.render('index', (err, html) => {
-//     res.send(html);
-//   });
-// });
-
-// app.post('/logout', (req, res) => {
-//   req.logOut();
-//   res.redirect('/login');
-//   console.log(`-------> User Logged out`);
-// });
-
-//Auth Routes end
-
-// app.get('/!!user')
-
-// router.get('/login', function(req, res, next) { // Login GET ROUTE
-//   res.render('login')
-// });
 
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
@@ -232,9 +186,25 @@ app.post("/api/packingListItems", (req, res) => {
 //GET req for all birdList data
 app.get('/api/birdList/', (req, res) => {
   BirdList.findAll()
-    .then((response) => {
-      // console.log(response.data); - returns array of objects of bird
-      res.json(response);
+    .then((birds) => {
+      res.json(birds);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
+
+// /api/birdList/:search
+//GET req for all select birdList data
+app.get('/api/birdList/birdSearch', (req, res) => {
+  // console.log('Line 184 - BODY:', req.query) ==> {search: <searchInput> }
+
+  BirdList.findAll({
+    where: {
+      scientificName: sequelize.where(sequelize.fn('LOWER', sequelize.col('scientificName')), 'LIKE', '%' + req.query.search.toLowerCase() + '%') }})
+    .then((birds) => {
+      res.json(birds);
     })
     .catch((err) => {
       console.error('ERROR: ', err);

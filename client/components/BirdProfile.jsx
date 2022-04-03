@@ -7,7 +7,13 @@ import axios from "axios";
 const BirdProfile = ({bird}) => {
   const [checked, setChecked] = useState(false);
 
-
+  // // const handelCheckboxClick = () => {
+  //   if (!checked === true) {
+  //     setChecked(true);
+  //   } else {
+  //     setChecked(false);
+  //   }
+  // };
 
   return (
     <div className="trail-card">
@@ -24,3 +30,23 @@ const BirdProfile = ({bird}) => {
 };
 
 export default BirdProfile;
+
+
+// const handelCheckboxClick = () => {
+//   console.log('Line 11 - Checked: ', checked);
+//   if(!checked) {
+//    setChecked(true);
+//   //   // axios.post('api/birdSightings', {params: { bird_id: , user_id: }})
+//   //   //   .then(() => setChecked(true))
+//   //   //   .catch((err) => console.error('ERROR: ', err));
+//   } else {
+//     setChecked('false');
+//   // //   axios.delete('api/birdSightings', {params: { search: birdSearch }})
+//   // //     .then(() => setChecked(false))
+//   // //     .catch((err) => console.error('ERROR: ', err));
+//   // }
+// }
+
+// return (
+//   <div className="trail-card">
+//     <input type="checkbox" checked={checked} onChange={handelCheckboxClick} />
