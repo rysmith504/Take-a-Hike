@@ -66,6 +66,13 @@ const Quartermaster = () => {
   };
   console.log(packingListsNames);
   const { packingListDescription, listName } = listNameAndPnkListDescription;
+
+  const onClickPackingListName = () => {
+    console.log("CLicked");
+      axios.get('/api/packingLists', {params: {}})
+   
+  };
+
   return (
     <>
       <h3 className="header">{userName}'s Quartermaster</h3>
@@ -114,7 +121,11 @@ const Quartermaster = () => {
         {packingListsNames.map((listName) => {
           //console.log("LINE 124", listName);
           //console.log(packingList.packingListNames);
-          return <div key={listName._id}>{listName.listName}</div>;
+          return (
+            <div key={listName._id} onClick={onClickPackingListName}>
+              {listName.listName}
+            </div>
+          );
         })}
       </div>
       <div></div>
