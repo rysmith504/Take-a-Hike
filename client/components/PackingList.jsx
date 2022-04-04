@@ -1,21 +1,40 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, Outlet } from "react-router-dom";
 
-const PackingListItems = () => {
+const PackingListItems = ({
+  userId,
+  packingListNames,
+  listName,
+  packingListDescription,
+}) => {
   //create state variable
   const [packingListItems, setPackingListItems] = useState({
     listItem: "",
     listItems: [],
   });
+
+  useEffect(() => {
+    axios
+      .get("/api/packingListItems")
+      .then((response) => {
+        console.log("ALL LISTS FROM DATABASE LINE 79 ||", response.data);
+        setPackingListItems((state) => {
+          return { ...state, listItems: response.data };
+        });
+      })
+      .catch((err) => {
+        console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
+      });
+    return packingListItems;
+  }, []);
+
   //captures input list name from the user
   const handleChange = (e) => {
     //set name in state
+    console.log(e);
     setPackingListItems((state) => {
-      //reset the state obj
-      return {
-        ...state,
-        listItem: e.target.value, //the name property set in the jsx
-      };
+      return { ...state, listItem: e.target.value };
     });
   };
 
@@ -28,42 +47,69 @@ const PackingListItems = () => {
         listItem: packingListItems.listItem,
       })
       .then((data) => {
-        setPackingListItems((state) => ({
-          ...state,
-          listItems: [...state.listItems, state.listItem],
-          listItem: "",
-        }));
+        console.log(packingListItems.listItem, "FROM LINE 52", data);
+      })
+      .catch((err) => {
+        console.error("Something went really Wrong", err);
       });
   };
+  //console.log(packingListItems.listItems);
 
+  //distructure all state variables for usage
+  let { listItem } = packingListItems;
   return (
-    <div className="profile-card"> 
-      {/* { //display the listname} */}
-      {/* <h3>{packingListItems.listName}</h3> */}
-      {/* { //display the list description} */}
-      {/* <p>{packingListItems.listDescription}</p> */}
+    <div>
+      <div>
+        <h2>{listName}</h2>
+        <p>{packingListDescription}</p>
+        <li>{listItem}</li>;
+      </div>
+      <h3>Enter your list Items bellow</h3>
       <form onSubmit={handleSubmit}>
         <br />
         <input
+          className="input is-info"
           type="text"
           placeholder="List item"
           onChange={handleChange}
-          // onKeyPress={handleKeypress}
-          //name="listItem"
-          value={packingListItems.listItem}
+          name="listItem"
+          value={listItem}
         />
-        <button onClick={handleSubmit}> save</button>
+        <button type="submit"> save</button>
       </form>
+      <br></br>
+      <br></br>
+      <div>
+        <h2>{listName}</h2>
+        <p>{packingListDescription}</p>
+        {/* <ul>
+          {listItems.map((item) => {
+            return <li>{item}</li>;
+          })}
+        </ul> */}
+      </div>
     </div>
   );
 };
 
 export default PackingListItems;
 
-//saves item to the database on enter key press
-// const handleKeypress = (e) => {
-//   //it triggers by pressing the enter key
-//   if (e.keyCode === 13) {
-//     () => handleSubmit();
-//   }
-// };
+{
+  /* <Link to={`/trailprofile/${trail.id}`}>
+  <div className="trails">
+    <div className="trail-card">
+      <img src={trail.thumbnail} />
+      <h3>{trail.name}</h3>
+      <div className="info-group">
+        <p>City: {trail.city}</p>
+      </div>
+      <div className="info-group">
+        <p>State: {trail.region}</p>
+      </div>
+      <div className="info-group">
+        <p>Rating: {trail.rating}</p>
+      </div>
+    </div>
+  </div>
+</Link>; */
+}
