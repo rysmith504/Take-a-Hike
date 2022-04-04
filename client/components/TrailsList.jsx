@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TrailsListEntry from "./TrailsListEntry.jsx";
-import axios from "axios";
-// import TrailCard from './TrailCard.jsx';
 
 const TrailsList = ({ handleGetTrails, trailList }) => {
   const [location, setLocation] = useState({ lat: "", lon: "" });

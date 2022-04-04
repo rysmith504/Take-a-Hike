@@ -25,13 +25,11 @@ const App = () => {
 
   // were in trail list
   const handleGetTrails = (location) => {
-    // e.preventDefault(); // don't need
     axios
       .get('/api/trailslist', {
         params: { lat: location.lat, lon: location.lon },
       })
       .then((response) => {
-        // console.log("Line 24 = ", response.data.data); - returns array of objects of trail data
         setTrailList(response.data.data);
         // add data to local storage
         localStorage.setItem('TrailList', JSON.stringify(response.data.data));
@@ -54,7 +52,6 @@ const App = () => {
       >
         <Link to="/login">Login</Link> |{' '}
         <Link to="/trailslist">Trails List</Link> |{' '}
-        {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
         <Link to="/quartermaster">Quartermaster</Link> |{' '}
         <Link to="/packinglist">Packing List</Link> |{' '}
         <Link to="/birdingchecklist">Birding Checklist</Link> |{' '}
