@@ -21,12 +21,12 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
   return (
     <div className="profile-card">
       <h1 className="Header" alignment="center">
-        Trails List
+        Find a Trail!
       </h1>
-      <form class="box" onSubmit={handleSubmitLocation} className="card">
-        <div class="field">
-          <label class="label">Latitude</label>
-          <div class="control">
+      <form className="box" onSubmit={handleSubmitLocation}>
+        <div className="field">
+          <label className="label">Latitude</label>
+          <div className="control">
             <input
               type="text"
               placeholder="latitude"
@@ -38,9 +38,9 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
           </div>
         </div>
 
-        <div class="field">
-          <label class="label">Longitude</label>
-          <div class="control">
+        <div className="field">
+          <label className="label">Longitude</label>
+          <div className="control">
             <input
               type="text"
               placeholder="longitude"

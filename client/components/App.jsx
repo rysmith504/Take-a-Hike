@@ -43,7 +43,7 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="profile-card" alignment="center">
+      <h1 className="Header" alignment="center">
         Trail Feathers
       </h1>
       <nav className='profile-card'

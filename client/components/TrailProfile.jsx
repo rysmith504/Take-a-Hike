@@ -87,7 +87,7 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
 
   return (
-    <section  class="section is-medium">
+    // <section  class="section is-medium">
     <figure className="profile-card">
       <img src={`${displayTrail.thumbnail}`} />
       <figcaption>
@@ -104,7 +104,7 @@ const TrailProfile = ({ trailList }) => {
             <li>Length (miles): {displayTrail.length}</li>
             <li>Latitude: {displayTrail.lat}</li>
             <li>Longitude: {displayTrail.lon}</li>
-            <a href={`${displayTrail.url}`} target="_blank">Trail Website</a>
+            <a href={`${displayTrail.url}`} target="blank">Trail Website</a>
           </ul>
         </div>
       {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
@@ -134,7 +134,7 @@ const TrailProfile = ({ trailList }) => {
         )}
       </div>
     </figure>
-    </section>
+    // </section>
   );
 };
 
