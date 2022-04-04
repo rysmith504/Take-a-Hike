@@ -13,29 +13,29 @@ const PackingListItems = ({
     listItem: "",
     listItems: [],
   });
-  console.log(packingListNames);
-  console.log(packingListDescription);
-  console.log(userId);
 
   useEffect(() => {
     axios
       .get("/api/packingListItems")
       .then((response) => {
         console.log("ALL LISTS FROM DATABASE LINE 79 ||", response.data);
-        setPackingList((state) => {
-          return { ...state, listItems: response.data, listItem: "" };
+        setPackingListItems((state) => {
+          return { ...state, listItems: response.data };
         });
       })
       .catch((err) => {
         console.error("LINE 68 ERROR ON THE SERVER SIDE", err);
       });
-    console.log(packingListItems.listItems);
+    return packingListItems;
   }, []);
 
   //captures input list name from the user
   const handleChange = (e) => {
     //set name in state
-    setPackingListItems({ listItem: e.target.value });
+    console.log(e);
+    setPackingListItems((state) => {
+      return { ...state, listItem: e.target.value };
+    });
   };
 
   const handleSubmit = (event) => {
@@ -53,19 +53,25 @@ const PackingListItems = ({
         console.error("Something went really Wrong", err);
       });
   };
+  //console.log(packingListItems.listItems);
 
   //distructure all state variables for usage
-  let { listItem, listItems } = packingListItems;
+  let { listItem } = packingListItems;
   return (
     <div>
+      <div>
+        <h2>{listName}</h2>
+        <p>{packingListDescription}</p>
+        <li>{listItem}</li>;
+      </div>
       <h3>Enter your list Items bellow</h3>
       <form onSubmit={handleSubmit}>
         <br />
         <input
+          className="input is-info"
           type="text"
           placeholder="List item"
           onChange={handleChange}
-          //onKeyPress={handleKeypress}
           name="listItem"
           value={listItem}
         />
@@ -74,9 +80,9 @@ const PackingListItems = ({
       <br></br>
       <br></br>
       <div>
-        {/* <h2>{listName}</h2>
+        <h2>{listName}</h2>
         <p>{packingListDescription}</p>
-        <ul>
+        {/* <ul>
           {listItems.map((item) => {
             return <li>{item}</li>;
           })}

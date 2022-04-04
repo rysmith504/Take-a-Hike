@@ -11,6 +11,7 @@ const Quartermaster = () => {
   const [packingListsNames, setPackingListsNames] = useState([]);
   const [userId, setUserId] = useState();
   const [userName, setUserName] = useState();
+  const [bool, setBool] = useState(false);
 
   useEffect(() => {
     console.log("LINE 78 data");
@@ -33,6 +34,7 @@ const Quartermaster = () => {
       .catch((err) => {
         console.error("ERROR:", err);
       });
+    return setBool((bool) => !bool);
   }, []);
 
   //captures input list name from the user
@@ -71,11 +73,15 @@ const Quartermaster = () => {
     console.log("CLicked");
     axios.get("/api/packingLists", { params: {} });
   };
+  const handleState = () => {
+    setPackingListsNames(packingListsNames);
+    console.log("76, packinglists", packingListsNames);
+  };
 
   return (
     <>
       <h3
-        className="container is-max-desktop"
+        className="content has-text-centered"
         padding="20px 40px"
         margin-left="40px"
       >
@@ -83,11 +89,11 @@ const Quartermaster = () => {
       </h3>
       <br></br>
 
-      <div className="quart-description">
+      <div className="content has-text-centered">
         <p>Make and save the lists you'll need for your hiking adventures</p>
       </div>
       <br></br>
-      <form onSubmit={handleSubmit} className="box">
+      <form onSubmit={handleSubmit} className="content has-text-centered">
         <br />
         <input
           className="input is-info"
@@ -121,15 +127,29 @@ const Quartermaster = () => {
         </button>
         {/* </Link> */}
       </form>
+      <Link
+        to={`/packinglist/${packingListsNames.map(
+          (packingList) => packingList._id
+        )}`}
+      >
+        {/* <button type="submit" className="button is-info">
+          Create and save
+        </button> */}
+      </Link>
       <br></br>
       <br></br>
-      <div>
+      <div className="content has-text-centered">
         <h3>My packing Lists</h3>
         {packingListsNames.map((listName) => {
           //console.log("LINE 124", listName);
           //console.log(packingList.packingListNames);
           return (
             <div
+              //       {/* <Link
+              //   to={`/packinglist/${packingListsNames.map(
+              //     (packingList) => packingList._id
+              //   )}`}
+              // > */}
               key={listName._id}
               onClick={onClickPackingListName}
               className="content"
@@ -140,7 +160,6 @@ const Quartermaster = () => {
         })}
       </div>
       <div></div>
-
       {/* <UserProfile packingListNames={packingListNames} /> */}
     </>
   );
