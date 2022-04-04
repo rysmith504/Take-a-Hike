@@ -198,7 +198,7 @@ app.get('/api/birdList/birdSearch', (req, res) => {
 ///////////////////////////////////////////////////////Bird Sightings Routes 
 
 //GET req for all birdSightings data
-app.get('/api/birdSightings/', (req, res) => {
+app.get('/api/birdsightings', (req, res) => {
   BirdSightings.findAll()
     .then((birdSightings) => {
       res.json(birdSightings);
@@ -210,7 +210,7 @@ app.get('/api/birdSightings/', (req, res) => {
 });
 
 //POST req to birdSightings database
-app.post('/api/packingLists', (req, res) => {
+app.post('/api/birdsightings', (req, res) => {
   console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
   BirdSightings.create({
     bird_id: req.body.bird_id,
@@ -227,7 +227,7 @@ app.post('/api/packingLists', (req, res) => {
 });
 
 //Delete req to birdSightings database
-app.delete('/api/packingLists', (req, res) => {
+app.delete('/api/birdsightings', (req, res) => {
   console.log('Line 231 - Back End Bird Sightings Delete Request: ', req.body);
   BirdSightings.create({
     bird_id: req.body.bird_id,
