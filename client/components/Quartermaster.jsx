@@ -69,19 +69,28 @@ const Quartermaster = () => {
 
   const onClickPackingListName = () => {
     console.log("CLicked");
-      axios.get('/api/packingLists', {params: {}})
-   
+    axios.get("/api/packingLists", { params: {} });
   };
 
   return (
     <>
-      <h3 className="header">{userName}'s Quartermaster</h3>
+      <h3
+        className="container is-max-desktop"
+        padding="20px 40px"
+        margin-left="40px"
+      >
+        {userName}'s Quartermaster
+      </h3>
+      <br></br>
+
       <div className="quart-description">
         <p>Make and save the lists you'll need for your hiking adventures</p>
       </div>
-      <form onSubmit={handleSubmit}>
+      <br></br>
+      <form onSubmit={handleSubmit} className="box">
         <br />
         <input
+          className="input is-info"
           type="text"
           placeholder="Packing list name"
           onChange={handleInputChange}
@@ -92,6 +101,7 @@ const Quartermaster = () => {
         <br></br>
         <label>
           <textarea
+            className="textarea is-info"
             type="text"
             placeholder="Description"
             onChange={handleInputChange}
@@ -101,18 +111,15 @@ const Quartermaster = () => {
         </label>
         <br></br>
         <br></br>
-        <>List Items bellow:</>
-        <br></br>
-
-        <br></br>
-        <br></br>
-        <Link
+        {/* <Link
           to={`/packinglist/${packingListsNames.map(
             (packingList) => packingList._id
           )}`}
-        >
-          <button type="submit">Create and save</button>
-        </Link>
+        > */}
+        <button type="submit" className="button is-info">
+          Create and save
+        </button>
+        {/* </Link> */}
       </form>
       <br></br>
       <br></br>
@@ -122,8 +129,12 @@ const Quartermaster = () => {
           //console.log("LINE 124", listName);
           //console.log(packingList.packingListNames);
           return (
-            <div key={listName._id} onClick={onClickPackingListName}>
-              {listName.listName}
+            <div
+              key={listName._id}
+              onClick={onClickPackingListName}
+              className="content"
+            >
+              <li>{listName.listName}</li>
             </div>
           );
         })}
