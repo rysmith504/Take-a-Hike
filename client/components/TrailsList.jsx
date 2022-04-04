@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import TrailsListEntry from './TrailsListEntry.jsx';
-import axios from 'axios';
-// import TrailCard from './TrailCard.jsx';
+import React, { useState } from "react";
+import TrailsListEntry from "./TrailsListEntry.jsx";
 
 const TrailsList = ({ handleGetTrails, trailList }) => {
-  const [location, setLocation] = useState({ lat: '', lon: '' });
-  // const [trailList, setTrailList] = useState([]);
+  const [location, setLocation] = useState({ lat: "", lon: "" });
 
   const handleLocationInput = (e) => {
     const { name, value } = e.target;
@@ -13,24 +10,6 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
       return { ...location, [name]: value, [name]: value };
     });
   };
-
-  // moving handlesubmitlocation to App.jsx component
-  // const handleSubmitLocation = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .get("/api/trailslist", {
-  //       params: { lat: location.lat, lon: location.lon },
-  //     })
-  //     .then((response) => {
-  //       // console.log("Line 24 = ", response.data.data); - returns array of objects of trail data
-  //       setTrailList(() => {
-  //         return [...response.data.data]
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.error("ERROR: ", err);
-  //     });
-  //   };
 
   const handleSubmitLocation = (e) => {
     e.preventDefault();
@@ -40,30 +19,42 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
   return (
     <div className="trails-list">
       <h1 className="Header" alignment="center">
-        Trails List
+        Find a Trail!
       </h1>
-      <form onSubmit={handleSubmitLocation} className="card">
-        <label>
-          <input
-            type="text"
-            placeholder="latitude"
-            className="card"
-            value={location.lat}
-            onChange={handleLocationInput}
-            name="lat"
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            placeholder="longitude"
-            className="card"
-            value={location.lon}
-            onChange={handleLocationInput}
-            name="lon"
-          />
-        </label>
-        <input type="submit" value="Send Location" />
+      <form className="box" onSubmit={handleSubmitLocation}>
+        <div className="field">
+          <label className="label">Latitude</label>
+          <div className="control">
+            <input
+              type="text"
+              placeholder="latitude"
+              className="card"
+              value={location.lat}
+              onChange={handleLocationInput}
+              name="lat"
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Longitude</label>
+          <div className="control">
+            <input
+              type="text"
+              placeholder="longitude"
+              className="card"
+              value={location.lon}
+              onChange={handleLocationInput}
+              name="lon"
+            />
+          </div>
+        </div>
+
+        <input
+          type="submit"
+          value="Send Location"
+          className="button is-info is-rounded"
+        />
       </form>
       <div className="trails">
         <div className="trail-table">
