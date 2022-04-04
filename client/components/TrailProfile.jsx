@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import 'regenerator-runtime/runtime';
 import { Image } from 'cloudinary-react';
 import axios from 'axios';
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+
+import PhotoPost from './PhotoPost.jsx';
 
 const preset = 'hikeimages';
 const cloudName = 'dbwbxubwi';
@@ -31,7 +35,7 @@ const TrailProfile = ({ trailList }) => {
     if (displayTrail) {
       loadImages();
     }
-  }, [id, displayTrail]);
+  }, [id, displayTrail, trailList]);
 
   // temp variable to test tagging functionality with cloudinary upload widget
   // const trailName = 'Trail 2';
@@ -87,38 +91,87 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
 
   return (
-    // <section  class="section is-medium">
-    <figure className="profile-card">
-      <img src={`${displayTrail.thumbnail}`} />
-      <figcaption>
-      <h1>{displayTrail.name}</h1>
-        <div>
-          <h2>{displayTrail.city}</h2>
-          <h3>{displayTrail.region}</h3>
-          <p>{displayTrail.description}</p>
-          <p>Directions: {displayTrail.directions}</p>
-          <ul>
-            <li>Difficulty Level: {displayTrail.difficulty}</li>
-            <li>Features: {displayTrail.features}</li>
-            <li>Rating: {displayTrail.rating}</li>
-            <li>Length (miles): {displayTrail.length}</li>
-            <li>Latitude: {displayTrail.lat}</li>
-            <li>Longitude: {displayTrail.lon}</li>
-            <a href={`${displayTrail.url}`} target="blank">Trail Website</a>
-          </ul>
-        </div>
-      {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
-      <button className="icons"
+    <div className="trails">
+      {/* ////////////////////////// */}
+
+      {/* <button
+        className="post__button"
         onClick={(e) => {
           showWidget(e, widget);
         }}
       >
         UPLOAD PHOTOS
-      </button>
+      </button> */}
 
-      </figcaption>
-      <div className="profile-card">
-        {trailImageURLs ? (
+      <Fab
+        className="fab"
+        // style={{ marginTop: 200 }}
+        color="primary"
+        size="large"
+      >
+        <AddIcon
+          onClick={(e) => {
+            showWidget(e, widget);
+          }}
+        />
+      </Fab>
+      {/* ////////////////////////// */}
+      <figure className="profile-card">
+        <img src={`${displayTrail.thumbnail}`} />
+        {/* <figcaption> */}
+        {/* <div> */}
+        <div className="post__header">
+          <h1>{displayTrail.name}</h1>
+        </div>
+        <div className="post__header">
+          <h2 className="profile-card">
+            {displayTrail.city}, {displayTrail.region}
+          </h2>
+        </div>
+        <p className="post__header">{displayTrail.description}</p>
+        <p className="post__header">{displayTrail.directions}</p>
+        <div className="post__header__2">
+          <div>Difficulty Level: {displayTrail.difficulty}</div>
+          <div>Features: {displayTrail.features}</div>
+          <div>Rating: {displayTrail.rating}</div>
+          <div>Length (miles): {displayTrail.length}</div>
+          <div>Latitude: {displayTrail.lat}</div>
+          <div>Longitude: {displayTrail.lon}</div>
+          <a href={`${displayTrail.url}`} target="_blank">
+            Trail Website
+          </a>
+        </div>
+        {/* </div> */}
+        {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} /> */}
+        {/* </figcaption> */}
+      </figure>
+      <div className="trails">
+        <div className="trail-table">
+          {trailImageURLs ? (
+            // <div> div to house images for css styling
+            trailImageURLs.map((trailImageURL, index) => (
+              // profile-card classname creates space between cards
+              <div>
+                <PhotoPost
+                  // className="list-item-card"
+                  key={index}
+                  cloudName={cloudName}
+                  trailImageURL={trailImageURL}
+                  displayTrail={displayTrail}
+                  // width="300"
+                  // height="300"
+                  // crop="scale"
+                />
+
+                {/* <div className="info-group">
+                <p>Taken at: {displayTrail.name}</p>
+              </div> */}
+              </div>
+            )) // </div>
+          ) : (
+            <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
+          )}
+          {/* {trailImageURLs ? (
           // <div> div to house images for css styling
           trailImageURLs.map((trailImageURL, index) => (
             <Image
@@ -131,10 +184,11 @@ const TrailProfile = ({ trailList }) => {
           )) // </div>
         ) : (
           <p src="https://i.gifer.com/ZZ5H.gif">Getting images</p>
-        )}
+        )} */}
+        </div>
       </div>
-    </figure>
-    // </section>
+      {/* </figure> */}
+    </div>
   );
 };
 

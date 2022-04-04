@@ -1,10 +1,11 @@
 // Import Dependencies
-const axios = require("axios");
-const sequelize = require("sequelize");
-const { query } = require("express");
-const express = require("express");
-const path = require("path");
+const axios = require('axios');
+const sequelize = require('sequelize');
+const { query } = require('express');
+const express = require('express');
+const path = require('path');
 const passport = require('passport');
+
 const { BirdList } = require("./database/models/birdList.js")
 const { BirdSightings } = require("./database/models/birdSightings.js")
 const { PackingLists } = require("./database/models/packingLists");
@@ -15,7 +16,7 @@ const router = express.Router();
 const session = require('express-session');
 require('./middleware/auth.js');
 const { cloudinary } = require('./utils/coudinary');
-const { Users } = require("./database/models/users");
+const { Users } = require('./database/models/users');
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -46,37 +47,39 @@ app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
 
-const successLoginUrl = "http://localhost:5555/#/trailslist";
-const errorLoginUrl = "http://localhost:5555/login/error"
+const successLoginUrl = 'http://localhost:5555/#/trailslist';
+const errorLoginUrl = 'http://localhost:5555/login/error';
 
 //Auth Routes
-app.get("/login/google", passport.authenticate("google", { scope: ["profile", "email"]}))
+app.get(
+  '/login/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-app.get("/auth/google/callback", 
-  passport.authenticate("google", 
-    { 
-      failureMessage: "cannot login to Google",
-      failureRedirect: errorLoginUrl,
-      successRedirect: successLoginUrl
-    }),
-    (req, res) => {
-      // console.log("User: ", req.user)
-      res.send("thank you for signing in!");
-    }
-)
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    failureMessage: 'cannot login to Google',
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
+  }),
+  (req, res) => {
+    console.log('User: ', req.user);
+    res.send('thank you for signing in!');
+  }
+);
 
 app.get('/profile', (req, res) => {
   Users.findOne()
     .then((data) => {
-      // console.log("data", data)
-      res.send(data).status(200)
+      console.log('data', data);
+      res.send(data).status(200);
     })
     .catch((err) => {
-      console.error(err)
+      console.error(err);
       res.sendStatus(500);
-    })
-})
-
+    });
+});
 
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
@@ -113,7 +116,7 @@ app.post('/api/images', async (req, res) => {
   // Can create new folder with upload from TrailProfile component. Need to modify get request to filter based on folder param (which will be equal to the trail name)
   const resources = await cloudinary.search
     .expression(`resource_type:image AND folder:${req.body.trailFolderName}/*`)
-    .sort_by('created_at', 'asc')
+    .sort_by('created_at', 'desc')
     .max_results(30)
     .execute();
   // console.log(
@@ -149,24 +152,28 @@ app.post('/api/packingLists', (req, res) => {
 /**
  * post request to the packingListItems
  */
-app.post("/api/packingListItems", (req, res) => {
+app.post('/api/packingListItems', (req, res) => {
   console.log(
-    "Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n",
+    'Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n',
     req.body
   );
   PackingListItems.create({ listItem: req.body.listItem })
     .then((data) => {
-      console.log("from lINE 106 INDEX.js || DATA \n", data);
+      console.log('from lINE 106 INDEX.js || DATA \n', data);
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.error("Failed to create FROM 113", err);
+      console.error('Failed to create FROM 113', err);
       res.sendStatus(500);
     });
 });
 
 ///////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////Bird Sightings
+
 //////////////////////////////////////////////////////////////Bird List Routes
+
 
 //GET req for all birdList data
 app.get('/api/birdList/', (req, res) => {
@@ -184,7 +191,13 @@ app.get('/api/birdList/', (req, res) => {
 app.get('/api/birdList/birdSearch', (req, res) => {
   BirdList.findAll({
     where: {
-      scientificName: sequelize.where(sequelize.fn('LOWER', sequelize.col('scientificName')), 'LIKE', '%' + req.query.search.toLowerCase() + '%') }})
+      scientificName: sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('scientificName')),
+        'LIKE',
+        '%' + req.query.search.toLowerCase() + '%'
+      ),
+    },
+  })
     .then((birds) => {
       res.json(birds);
     })
