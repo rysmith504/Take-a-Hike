@@ -38,7 +38,7 @@ const TrailsList = ({ handleGetTrails, trailList }) => {
   };
 
   return (
-    <div className="profile-card">
+    <div className="trails-list">
       <h1 className="Header" alignment="center">
         Trails List
       </h1>
