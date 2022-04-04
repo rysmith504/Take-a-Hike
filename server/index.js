@@ -211,7 +211,7 @@ app.get('/api/birdsightings', (req, res) => {
 
 //POST req to birdSightings database
 app.post('/api/birdsightings', (req, res) => {
-  console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
+  // console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
   BirdSightings.create({
     bird_id: req.body.bird_id,
     user_id: req.body.user_id,
@@ -228,8 +228,8 @@ app.post('/api/birdsightings', (req, res) => {
 
 //Delete req to birdSightings database
 app.delete('/api/birdsightings', (req, res) => {
-  console.log('Line 231 - Back End Bird Sightings Delete Request: ', req.body);
-  BirdSightings.create({
+  // console.log('Line 231 - Back End Bird Sightings Delete Request: ', req.body);
+  BirdSightings.delete({
     bird_id: req.body.bird_id,
     user_id: req.body.user_id,
   })
