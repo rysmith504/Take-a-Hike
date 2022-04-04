@@ -25,13 +25,11 @@ const App = () => {
 
   // were in trail list
   const handleGetTrails = (location) => {
-    // e.preventDefault(); // don't need
     axios
       .get("/api/trailslist", {
         params: { lat: location.lat, lon: location.lon },
       })
       .then((response) => {
-        // console.log("Line 24 = ", response.data.data); - returns array of objects of trail data
         setTrailList(response.data.data);
         // add data to local storage
         localStorage.setItem("TrailList", JSON.stringify(response.data.data));
@@ -42,16 +40,23 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1 className="profile-card" alignment="center">
-        Trail Feathers
-      </h1>
-      <nav className='profile-card'
+    <div className="app">
+      <div className="app__header">
+        <img
+          className="app__logo"
+          src="https://res.cloudinary.com/dbwbxubwi/image/upload/v1649015216/Parc%20des%20Familles%20Trail%20by%20NOMAMBO/qoej8fkfe2og2gkdkpmn.png"
+        />
+        <h1 className="Header app__header" alignment="center">
+          Trail Feathers
+        </h1>
+      </div>
+      <nav
         style={{
           borderBottom: "solid 1px",
           paddingBottom: "1rem",
         }}
       >
+<<<<<<< HEAD
         <Link to="/login">Login</Link> |{" "}
         <Link to="/trailslist">Trails List</Link> |{" "}
         {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
@@ -59,6 +64,14 @@ const App = () => {
         {/* <Link to="/packinglist">Packing List</Link> |{" "} */}
         <Link to="/birdingchecklist">Birding Checklist</Link> |{" "}
         <Link to="/profile">User Profile</Link> |{" "}
+=======
+        <Link to="/login">Login</Link> |{' '}
+        <Link to="/trailslist">Trails List</Link> |{' '}
+        <Link to="/quartermaster">Quartermaster</Link> |{' '}
+        <Link to="/packinglist">Packing List</Link> |{' '}
+        <Link to="/birdingchecklist">Birding Checklist</Link> |{' '}
+        <Link to="/profile">User Profile</Link>
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
       </nav>
       {/* <Route path="login" element={<Login />} /> */}
       <Routes>
