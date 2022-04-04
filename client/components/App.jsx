@@ -42,10 +42,16 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1 className="Header" alignment="center">
-        Trail Feathers
-      </h1>
+    <div className="app">
+      <div className="app__header">
+        <img
+          className="app__logo"
+          src="https://res.cloudinary.com/dbwbxubwi/image/upload/v1649015216/Parc%20des%20Familles%20Trail%20by%20NOMAMBO/qoej8fkfe2og2gkdkpmn.png"
+        />
+        <h1 className="Header app__header" alignment="center">
+          Trail Feathers
+        </h1>
+      </div>
       <nav
         style={{
           borderBottom: 'solid 1px',
@@ -58,7 +64,7 @@ const App = () => {
         <Link to="/quartermaster">Quartermaster</Link> |{' '}
         <Link to="/packinglist">Packing List</Link> |{' '}
         <Link to="/birdingchecklist">Birding Checklist</Link> |{' '}
-        <Link to="/profile">User Profile</Link> |{' '}
+        <Link to="/profile">User Profile</Link>
       </nav>
       {/* <Route path="login" element={<Login />} /> */}
       <Routes>
