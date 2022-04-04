@@ -48,16 +48,17 @@ const BirdingCheckList = () => {
 
   // Return Component Template
   return (
-    <div className="birding-checklist">
-      <h1 className="profile-card" alignment="center">
+    <div className="section is-large">
+      <h1 className="title" alignment="center">
         {userName}'s Birding Checklist
       </h1>
-      <div>
-        A one stop shop to keep track of all your Louisiana bird sightings! Louisiana is one of the most diverse and extraordinary ecosystems in the entire world, and there is no better way to celebrate and take part in it's splendor than spotting all the wonderful birds of our state. So get to hiking!
-      </div>
-      <form>
+      <h2 className="subtitle">
+        Your one stop shop to keep track of all your Louisiana bird sightings. There is no better way to celebrate the great state of Louisiana than spotting all the wonderful birds that inhabit it. So get to hiking!
+      </h2>
+      <form >
         <label>
           <input
+            className="input is-info is-medium"
             type="text"
             placeholder="Enter Bird Name Here"
             value={birdSearch}
@@ -65,8 +66,9 @@ const BirdingCheckList = () => {
           />
         </label>
         <input
+          className="button is-info"
           type="submit"
-          value="Check for Bird"
+          value="Search for Bird"
           onClick={handelBirdSearchSubmit}
         />
       </form>
