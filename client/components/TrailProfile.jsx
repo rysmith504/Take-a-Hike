@@ -8,7 +8,7 @@ const preset = 'hikeimages';
 const cloudName = 'dbwbxubwi';
 
 const TrailProfile = ({ trailList }) => {
-  console.log(trailList)
+  // console.log(trailList)
   const { id } = useParams();
   const displayTrail = trailList.find((trail) => trail.id == id);
   // console.log(`TRAILPROFILE || LINE 11 || displayTrail`, displayTrail); // access params
@@ -87,6 +87,7 @@ const TrailProfile = ({ trailList }) => {
   ////////////////////////////////////////////////////////////////////////////
 
   return (
+    <section  class="section is-medium">
     <figure className="profile-card">
       <img src={`${displayTrail.thumbnail}`} />
       <figcaption>
@@ -133,6 +134,7 @@ const TrailProfile = ({ trailList }) => {
         )}
       </div>
     </figure>
+    </section>
   );
 };
 

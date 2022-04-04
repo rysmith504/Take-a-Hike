@@ -13,7 +13,7 @@ const BirdProfile = ({bird, userId}) => {
 
   // Create Checkbox Click Handler
   const handelCheckboxClick = () => {
-    console.log(bird._id, userId)
+    // console.log(bird._id, userId)
     // axios.post('api/birdSightings', {params: { bird_id: bird._id, user_id: userId}})
     //   .then(() => setChecked(true))
     //   .catch((err) => console.error('ERROR: ', err));

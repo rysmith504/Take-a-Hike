@@ -39,11 +39,11 @@
   background-image: -webkit-linear-gradient(top, transparent 0%, #ffffff 100%);
   background-image: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
 }
-.profile-card h2,h3,ul,li
+.profile-card h1,h2,h3,ul,li
 .profile-card p {
   margin: 0 0 10px;
 }
-.profile-card h2,h3 {
+.profile-card h1,h2,h3 {
   font-weight: 300;
   font-size: 1.5em;
   line-height: 1.2em;

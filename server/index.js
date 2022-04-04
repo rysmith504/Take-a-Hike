@@ -60,7 +60,7 @@ app.get("/auth/google/callback",
       successRedirect: successLoginUrl
     }),
     (req, res) => {
-      console.log("User: ", req.user)
+      // console.log("User: ", req.user)
       res.send("thank you for signing in!");
     }
 )
@@ -68,7 +68,7 @@ app.get("/auth/google/callback",
 app.get('/profile', (req, res) => {
   Users.findOne()
     .then((data) => {
-      console.log("data", data)
+      // console.log("data", data)
       res.send(data).status(200)
     })
     .catch((err) => {

@@ -11,7 +11,7 @@ birdSightingsRouter.route('/').get((req, res) => {
 
 // Create a new bird in the DB
 birdSightingsRouter.route('/add').post((req, res) => {
-  console.log(req);
+  // console.log(req);
   const name = req.body.name;
   const description = req.body.description;
   const img = req.body.img;
