@@ -16,6 +16,7 @@ const PackingLists = db.define("packingLists", {
   user_id: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: { model: 'users', key: '_id' }},
 });
 
+
 // Export Schema
 module.exports = {
   PackingLists,

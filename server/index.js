@@ -13,10 +13,17 @@ const { PackingListItems } = require("./database/models/packingListItems");
 
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
+<<<<<<< HEAD
+const session = require("express-session");
+require("./middleware/auth.js");
+const { cloudinary } = require("./utils/coudinary");
+const { Users } = require("./database/models/users");
+=======
 const session = require('express-session');
 require('./middleware/auth.js');
 const { cloudinary } = require('./utils/coudinary');
 const { Users } = require('./database/models/users');
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
 
 // // Import DB
 // const { db } = require('./database/index.js')
@@ -26,7 +33,7 @@ const { Users } = require('./database/models/users');
 
 // Set Distribution Path
 const PORT = 5555;
-const distPath = path.resolve(__dirname, '..', 'dist'); //serves the hmtl file of the application as default on load
+const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file of the application as default on load
 
 // Create backend API
 const app = express();
@@ -37,7 +44,7 @@ app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
@@ -47,6 +54,21 @@ app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
 
+<<<<<<< HEAD
+const successLoginUrl = "http://localhost:5555/#/trailslist";
+const errorLoginUrl = "http://localhost:5555/login/error";
+
+//Auth Routes
+app.get(
+  "/login/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureMessage: "cannot login to Google",
+=======
 const successLoginUrl = 'http://localhost:5555/#/trailslist';
 const errorLoginUrl = 'http://localhost:5555/login/error';
 
@@ -60,19 +82,29 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', {
     failureMessage: 'cannot login to Google',
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
     failureRedirect: errorLoginUrl,
     successRedirect: successLoginUrl,
   }),
   (req, res) => {
+<<<<<<< HEAD
+    console.log("User: ", req.user);
+    res.send("thank you for signing in!");
+=======
     console.log('User: ', req.user);
     res.send('thank you for signing in!');
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
   }
 );
 
-app.get('/profile', (req, res) => {
+app.get("/profile", (req, res) => {
   Users.findOne()
     .then((data) => {
+<<<<<<< HEAD
+      console.log("data", data);
+=======
       console.log('data', data);
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
       res.send(data).status(200);
     })
     .catch((err) => {
@@ -84,15 +116,15 @@ app.get('/profile', (req, res) => {
 ////////////////////////////////////////EXTERNAL TRAIL API ROUTE/////////////////////////////////////////
 
 //GET req for trail data by latitude/longitude
-app.get('/api/trailslist', (req, res) => {
+app.get("/api/trailslist", (req, res) => {
   axios
     .get(
       `https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=${req.query.lat}&lon=${req.query.lon}&radius=100`,
       {
         headers: {
-          'X-RapidAPI-Host': 'trailapi-trailapi.p.rapidapi.com',
-          'X-RapidAPI-Key':
-            'a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c',
+          "X-RapidAPI-Host": "trailapi-trailapi.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "a27adeb778msh22d13ed248d5359p1d95b8jsnb7239b396c5c",
         },
       }
     )
@@ -101,7 +133,7 @@ app.get('/api/trailslist', (req, res) => {
       res.json(response.data);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
@@ -109,14 +141,18 @@ app.get('/api/trailslist', (req, res) => {
 //////////////////////////////////////// Cloudinary routes //////////////////////////////////////
 
 // get request to get all images (this will later be trail specific)
-app.post('/api/images', async (req, res) => {
-  // console.log(`server index.js || LINE 70`, req.body);
+app.post("/api/images", async (req, res) => {
+  console.log(`server index.js || LINE 70`, req.body);
   // NEED TO CHANGE ENDPOINT TO INCLUDE TRAIL SPECIFIC PARAM SO PHOTOS CAN BE UPLOADED + RENDERED PROPERLY
 
   // Can create new folder with upload from TrailProfile component. Need to modify get request to filter based on folder param (which will be equal to the trail name)
   const resources = await cloudinary.search
     .expression(`resource_type:image AND folder:${req.body.trailFolderName}/*`)
+<<<<<<< HEAD
+    .sort_by("created_at", "asc")
+=======
     .sort_by('created_at', 'desc')
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
     .max_results(30)
     .execute();
   // console.log(
@@ -133,31 +169,54 @@ app.post('/api/images', async (req, res) => {
 /**
  * Routes for packing list
  */
-app.post('/api/packingLists', (req, res) => {
-  console.log(req.body, 'Server index.js LINE 55');
+app.post("/api/packingLists", (req, res) => {
+  console.log(req.body, "Server index.js LINE 55");
   PackingLists.create({
     listName: req.body.listName,
     packingListDescription: req.body.packingListDescription,
   })
     .then((data) => {
-      console.log('LINE 63', data.dataValues);
+      console.log("LINE 63", data.dataValues);
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.error(err, 'Something went wrong');
+      console.error(err, "Something went wrong");
       res.sendStatus(500);
+    });
+});
+/**
+ * Routes for packing list GET ALL LISTS
+ */
+app.get("/api/packingLists", (req, res) => {
+  console.log("Server index.js LINE 166", req.body);
+  PackingLists.findAll()
+    .then((data) => {
+      console.log("LINE 169", data);
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      console.error(err, "Something went wrong");
+      res.sendStatus(404);
     });
 });
 
 /**
  * post request to the packingListItems
  */
+<<<<<<< HEAD
+app.post("/api/packingListItems", (req, res) => {
+  const listItem = req.body;
+  console.log(
+    "Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n",
+    listItem
+=======
 app.post('/api/packingListItems', (req, res) => {
   console.log(
     'Is this being reached? LINE 103 SERVER.index.js || REQ.BODY \n',
     req.body
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
   );
-  PackingListItems.create({ listItem: req.body.listItem })
+  PackingListItems.create(listItem)
     .then((data) => {
       console.log('from lINE 106 INDEX.js || DATA \n', data);
       res.sendStatus(200);
@@ -176,13 +235,13 @@ app.post('/api/packingListItems', (req, res) => {
 
 
 //GET req for all birdList data
-app.get('/api/birdList/', (req, res) => {
+app.get("/api/birdList/", (req, res) => {
   BirdList.findAll()
     .then((birds) => {
       res.json(birds);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
@@ -192,9 +251,15 @@ app.get('/api/birdList/birdSearch', (req, res) => {
   BirdList.findAll({
     where: {
       scientificName: sequelize.where(
+<<<<<<< HEAD
+        sequelize.fn("LOWER", sequelize.col("scientificName")),
+        "LIKE",
+        "%" + req.query.search.toLowerCase() + "%"
+=======
         sequelize.fn('LOWER', sequelize.col('scientificName')),
         'LIKE',
         '%' + req.query.search.toLowerCase() + '%'
+>>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
       ),
     },
   })
@@ -202,7 +267,7 @@ app.get('/api/birdList/birdSearch', (req, res) => {
       res.json(birds);
     })
     .catch((err) => {
-      console.error('ERROR: ', err);
+      console.error("ERROR: ", err);
       res.sendStatus(404);
     });
 });
