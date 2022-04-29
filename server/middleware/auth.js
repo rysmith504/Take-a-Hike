@@ -26,8 +26,9 @@ passport.use(new GoogleStrategy({
   }
 
   const user = await Users.findOrCreate({ where: { googleId: profile.id }, defaults: defaultUser})
+    .then(() => console.log('User added to database'))
     .catch((err) => {
-      console.log("Error signing up", err)
+      console.log("Error logging on", err)
       done(err, null)
   });
 

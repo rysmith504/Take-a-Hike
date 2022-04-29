@@ -21,13 +21,6 @@ ReactDOM.render(
   <HashRouter>
     <Routes>
       <Route path="*" element={<App />}>
-        {/* <Route path="login" element={<Login />} />
-        <Route path="trailslist" element={<TrailsList />} />
-        <Route path="trailprofile/:id" element={<TrailProfile />} />
-        <Route path="quartermaster" element={<Quartermaster />} />
-        <Route path="packlinglist" element={<PackingList />} />
-        <Route path="birdingchecklist" element={<BirdingCheckList />} />
-        <Route path="userprofile" element={<UserProfile />} /> */}
       </Route>
     </Routes>
   </HashRouter>,
