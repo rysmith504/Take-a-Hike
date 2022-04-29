@@ -56,7 +56,6 @@ const App = () => {
           paddingBottom: "1rem",
         }}
       >
-<<<<<<< HEAD
         <Link to="/login">Login</Link> |{" "}
         <Link to="/trailslist">Trails List</Link> |{" "}
         {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
@@ -64,14 +63,6 @@ const App = () => {
         {/* <Link to="/packinglist">Packing List</Link> |{" "} */}
         <Link to="/birdingchecklist">Birding Checklist</Link> |{" "}
         <Link to="/profile">User Profile</Link> |{" "}
-=======
-        <Link to="/login">Login</Link> |{' '}
-        <Link to="/trailslist">Trails List</Link> |{' '}
-        <Link to="/quartermaster">Quartermaster</Link> |{' '}
-        <Link to="/packinglist">Packing List</Link> |{' '}
-        <Link to="/birdingchecklist">Birding Checklist</Link> |{' '}
-        <Link to="/profile">User Profile</Link>
->>>>>>> 47dd694cdc9f6b5e6d782686583a484545d66c12
       </nav>
       {/* <Route path="login" element={<Login />} /> */}
       <Routes>
