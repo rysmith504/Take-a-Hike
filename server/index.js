@@ -69,7 +69,7 @@ app.get(
   }
 );
 
-app.get("/profile", (req, res) => {
+app.get("/profile",(req, res) => {
   Users.findOne()
     .then((data) => {
       console.log('data', data);
