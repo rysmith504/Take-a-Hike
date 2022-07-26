@@ -25,7 +25,7 @@ const { Users } = require('./database/models/users');
 // const birdListRouter = require('./database/routes/birdListRouter.js')
 
 // Set Distribution Path
-const PORT = 5555;
+const PORT = 3000;
 const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file of the application as default on load
 
 // Create backend API
@@ -47,8 +47,8 @@ app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
 
-const successLoginUrl = 'http://localhost:5555/#/trailslist';
-const errorLoginUrl = 'http://localhost:5555/login/error';
+const successLoginUrl = 'http://localhost:3000/#/trailslist';
+const errorLoginUrl = 'http://localhost:3000/login/error';
 
 //Auth Routes
 app.get(
@@ -61,10 +61,10 @@ app.get(
   passport.authenticate('google', {
     failureMessage: 'cannot login to Google',
     failureRedirect: errorLoginUrl,
-    successRedirect: successLoginUrl,
   }),
   (req, res) => {
     console.log('User: ', req.user);
+    res.redirect('/');
     res.send('thank you for signing in!');
   }
 );
@@ -271,7 +271,7 @@ app.delete('/api/birdsightings', (req, res) => {
     });
 });
 
-// launches the server from localhost on port 5555
+// launches the server from localhost on port 3000
 app.listen(PORT, () => {
   console.log(`
   Listening at: http://localhost:${PORT}
