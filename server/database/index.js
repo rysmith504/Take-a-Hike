@@ -3,7 +3,7 @@
 const { Sequelize } = require("sequelize");
 
 // Initialized DB
-const db = new Sequelize("TakeAHike", "root", "", {
+const db = new Sequelize("TakeAHike", "root", "trailfeathers", {
   host: "localhost", // The `host` parameter is required for other databases
   dialect: "mysql",
 });
