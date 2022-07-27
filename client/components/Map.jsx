@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -31,7 +31,24 @@ export default function Map() {
     libraries,
   })
 
-  const [markers, setMarkers] = React.useState([]);
+  const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
+
+  const onMapClick = useCallback((event) => {
+    setMarkers((current) => [
+      ...current, 
+      {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        time: new Date()
+      },
+    ])
+  }, [])
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback(map => {
+    mapRef.current = map;
+  }, [])
 
   if(loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading Maps';
@@ -44,27 +61,31 @@ export default function Map() {
         zoom={8}
         center={center}
         options={options}
-        onClick={(event) => {
-          setMarkers((current) => [
-            ...current, 
-            {
-              lat: event.latLng.lat(),
-              lng: event.latLng.lng(),
-              time: new Date()
-            },
-          ])
-        }}
+        onClick={onMapClick}
       >
         {markers.map(marker => (
-        <Marker
-          key={marker.time.toISOString()}
-          position={{ lat: marker.lat, lng: marker.lng }}
-          icon={{
-            url: 'https://i.imgur.com/6Xmrxiq.png',
-            scaledSize: new window.google.maps.Size(45,45),
-          }}
-        />
+          <Marker
+            key={marker.time.toISOString()}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{
+              url: 'https://i.imgur.com/6Xmrxiq.png',
+              scaledSize: new window.google.maps.Size(45,45),
+            }}
+            onClick ={() => {
+              setSelected(marker)
+            }}
+          />
         ))}
+        {selected ? (
+          <InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => {
+            setSelected(null);
+          }}>
+            <div>
+              <h2>Bird Spotted</h2>
+              <p>Spotted {formatRelative(selected.time, new Date())}</p>
+            </div>
+          </InfoWindow>
+        ) : null}
       </GoogleMap>
     </div>
   )
