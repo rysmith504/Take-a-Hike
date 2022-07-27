@@ -15,7 +15,7 @@ db.options.logging = false;
 
 const seedSqlize = () => {
   mysql
-    .createConnection({ user: "root", password: "trailfeathers" })
+    .createConnection({ user: "root", password: "" })
     .then((db) =>
       db.query("CREATE DATABASE IF NOT EXISTS `TakeAHike`").then(() => db.end())
     )
