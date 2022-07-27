@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import moment from 'moment'
 
 // const sdk = require('api')('@climacell-docs/v4#bzqumkyn13ppf');
 
@@ -12,8 +13,8 @@ const Weather = () => {
   const [weatherId, setWeatherId] = useState(0);
   const [clouds, setClouds] = useState(0);
   const [forecast, setForecast] = useState([]);
-  const today = new Date();
-  console.log(today.getDay());
+  // const today = new Date();
+  // const tomorrow = new Date(today)
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   const getWeather = () => {
@@ -36,7 +37,7 @@ const Weather = () => {
   return (
     <div>
       <div id='day' class='weather'>
-        {weekdays[today.getDay()]} {today.getMonth() + 1}/{today.getDate()}
+        {`${ moment().format('MMMM Do YYYY')} `}
       </div>
       <div id='icon' class='weather' align='center'>
       {(weatherId >= 200 && weatherId < 300) ? <img src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/flash-cloud-256.png'/> : ''}
@@ -66,13 +67,35 @@ const Weather = () => {
         {(weatherId > 800 && weatherId < 900) ? `it is ${clouds} % cloudy` : ''}
       </div>
 
-      {forecast.map((day, i) => {
-        return (
-          <div key={i}>
-            
+
+          <div align='center'>
+            FORECAST
+          {forecast.map((day, i) =>
+          (
+          <div style={{marginBottom: '10px', backgroundColor: 'white', borderStyle: 'solid'}}>
+            <span>
+            {`${moment().add(i + 1, 'days').format('dddd MMMM Do')}`}
+            <div>
+            {(forecast[i].weather[0].id >= 200 && forecast[i].weather[0].id < 300) ? <img height='30' width='30' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/flash-cloud-256.png'/> : ''}
+            {(forecast[i].weather[0].id >= 300 && forecast[i].weather[0].id < 400) ? <img height='30' width='30' src='https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather05-256.png'/> : ''}
+            {(forecast[i].weather[0].id >= 500 && forecast[i].weather[0].id < 600) ? <img height='30' width='30' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/rain-512.png'/> : ''}
+            {(forecast[i].weather[0].id >= 600 && forecast[i].weather[0].id < 700) ? <img height='30' width='30' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/snow-cloud-512.png'/> : ''}
+            {(forecast[i].weather[0].id > 700 && forecast[i].weather[0].id < 800) ? 'it is not ideal for hiking' : ''}
+            {(forecast[i].weather[0].id === 800) ? <img height='30' width='30' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/sun-512.png'/> : ''}
+            {(forecast[i].weather[0].id > 800 && forecast[i].weather[0].id < 900) ? <img height='30' width='30' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/cloudy-256.png'/> : ''}
           </div>
-        )
-      })}
+          </span>
+
+          </div>
+
+
+          ))}
+
+
+
+          </div>
+        
+
 
 
 
