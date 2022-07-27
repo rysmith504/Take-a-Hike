@@ -7,6 +7,7 @@ import {
 } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
 import '@reach/combobox/styles.css';
+import mapStyles from '../styles/mapStyles.js'
 
 const libraries = ['places'];
 
@@ -20,11 +21,17 @@ const center = {
   lng: -90.0972
 }
 
+const options = {
+  styles: mapStyles
+}
+
 export default function Map() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   })
+
+  const [markers, setMarkers] = React.useState([]);
 
   if(loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading Maps';
@@ -36,7 +43,24 @@ export default function Map() {
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
-      ></GoogleMap>
+        options={options}
+        onClick={(event) => {
+          setMarkers((current) => [
+            ...current, 
+            {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng(),
+              time: new Date()
+            },
+          ])
+        }}
+      >
+        {markers.map(marker => (
+        <Marker key={marker.time.toISOString()}
+        position={{ lat: marker.lat, lng: marker.lng }}
+        />
+        ))}
+      </GoogleMap>
     </div>
   )
 }
