@@ -10,6 +10,7 @@ import Quartermaster from './Quartermaster.jsx';
 import TrailProfile from './TrailProfile.jsx';
 import UserProfile from './UserProfile.jsx';
 import BirdingCheckList from './BirdingCheckList.jsx';
+import Map from './Map.jsx'
 import PackingList from './PackingList.jsx';
 import Login from './Login.jsx';
 import Weather from './Weather.jsx';
@@ -66,6 +67,7 @@ const App = () => {
         <Link to='/quartermaster'>Quartermaster</Link> |{' '}
         {/* <Link to="/packinglist">Packing List</Link> |{" "} */}
         <Link to='/birdingchecklist'>Birding Checklist</Link> |{' '}
+        <Link to='/map'>Map</Link> |{' '}
         <Link to='/profile'>User Profile</Link> |{' '}
       </nav>
       {/* <Route path="login" element={<Login />} /> */}
@@ -89,6 +91,7 @@ const App = () => {
         <Route path='quartermaster' element={<Quartermaster />} />
         {/* <Route path="packinglist/:id" element={<PackingList />} /> */}
         <Route path='birdingchecklist' element={<BirdingCheckList />} />
+        <Route path='map' element={<Map />} />
         <Route path='profile' element={<UserProfile />} />
       </Routes>
       <Outlet />
