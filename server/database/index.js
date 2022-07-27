@@ -10,7 +10,6 @@ const db = new Sequelize("TakeAHike", process.env.RDS_USERNAME, process.env.RDS_
   dialect: "mysql",
 });
 
-
 // Use Sequelize Authenticate Method
 db.authenticate() // Runs a SELECT query and checks if the database responds correctly
   .then(() => {
