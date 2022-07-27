@@ -1,11 +1,11 @@
 // Import Dependencies
 const axios = require('axios');
-const sequelize = require('sequelize');
+const {sequelize, Op} = require('sequelize');
 const { query } = require('express');
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const ENV = require('../map.env') ;
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 const { Trips } = require("./database/models/trips.js")
 const { BirdList } = require("./database/models/birdList.js")
 const { BirdSightings } = require("./database/models/birdSightings.js")
@@ -246,7 +246,6 @@ app.post('/api/birdsightings', (req, res) => {
     user_id: req.body.user_id,
   })
     .then((data) => {
-      console.log('LINE 220', data);
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -263,7 +262,6 @@ app.delete('/api/birdsightings', (req, res) => {
     user_id: req.body.user_id,
   })
     .then((data) => {
-      console.log('LINE 220', data);
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -274,10 +272,38 @@ app.delete('/api/birdsightings', (req, res) => {
 
 //////////////////////TRIPS//////////////////////
 //GET req for all trips data
+app.get('/api/pastTrips', (req, res) => {
+  console.log('get trips-----');
+
+  Trips.findAll({
+    where: {
+      tripDate: {
+        [Op.lt]: new Date(),
+      },
+    },
+  })
+    .then((trips) => {
+      console.log(trips);
+      res.json(trips);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
+
 app.get('/api/trips', (req, res) => {
   console.log('get trips-----');
-  Trips.findAll()
+
+  Trips.findAll({
+    where: {
+      tripDate: {
+        [Op.gte]: new Date(),
+      },
+    },
+  })
     .then((trips) => {
+      console.log(trips);
       res.json(trips);
     })
     .catch((err) => {
@@ -304,11 +330,12 @@ app.get('/api/trips', (req, res) => {
 // });
 
 //////////////////////WEATHER//////////////////////
+
 app.get('/api/weather', (req, res) => {
   const lat = 29.9430
   const lon = -90.3517
-  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${ENV.WEATHER}`)
-  .then((data) => res.json(data.data))
+  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
+  .then(({ data } ) => res.json(data))
   .catch((err) => res.sendStatus(500));
 })
 
@@ -317,4 +344,5 @@ app.listen(PORT, () => {
   console.log(`
   Listening at: http://localhost:${PORT}
   `);
+  console.log(process.env.WEATHER);
 });
