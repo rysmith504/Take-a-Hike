@@ -1,11 +1,13 @@
 const mysql = require("mysql2/promise");
 const { db } = require("./index.js");
 const { Trails } = require("./models/trails.js");
+const { dummyTripsData } = require("../../copyAPIparkData/dummyTripsData.js");
 const { dummyParkData } = require("../../copyAPIparkData/dummyDataCopy.js");
 const { dummyUserData } = require("../../copyAPIparkData/dummyUserData.js");
 const { PackingLists } = require("./models/packingLists.js");
 const { PackingListItems } = require("./models/packingListItems.js");
 const { Users } = require("./models/users.js");
+const { Trips } = require("./models/trips.js");
 const { async } = require("regenerator-runtime");
 const birdsOfLA = require("./data/eBirdData.js")
 const { BirdList } = require("./models/birdList.js")
@@ -70,6 +72,13 @@ const seedSqlize = () => {
         "\nDatabase (MySQL): 'Trails' table successfully created!"
       )
     )
+    .then(() => Trips.sync())
+    .then(() =>
+      console.log(
+        "\x1b[36m",
+        "\nDatabase (MySQL): 'Trails' table successfully created!"
+      )
+    )
 
     .then(() => Promise.all(dummyParkData.map((txn) => Trails.create(txn))))
     .then((arr) =>
@@ -84,6 +93,14 @@ const seedSqlize = () => {
       console.log(
         "\x1b[32m",
         `\nDatabase (MySQL): Successfully seeded birdList with ${arr.length} entries!\n`,
+        "\x1b[37m"
+      )
+    )
+    .then(() => Promise.all(dummyTripsData.map((trip) => Trips.create(trip))))
+    .then((arr) =>
+      console.log(
+        "\x1b[32m",
+        `\nDatabase (MySQL): Successfully seeded trips with ${arr.length} entries!\n`,
         "\x1b[37m"
       )
     )

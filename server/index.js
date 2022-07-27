@@ -6,7 +6,7 @@ const express = require('express');
 const path = require('path');
 const passport = require('passport');
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
-
+const { Trips } = require("./database/models/trips.js")
 const { BirdList } = require("./database/models/birdList.js")
 const { BirdSightings } = require("./database/models/birdSightings.js")
 const { PackingLists } = require("./database/models/packingLists");
@@ -272,6 +272,36 @@ app.delete('/api/birdsightings', (req, res) => {
     });
 });
 
+//////////////////////TRIPS//////////////////////
+//GET req for all trips data
+app.get('/api/trips', (req, res) => {
+  console.log('get trips-----');
+  Trips.findAll()
+    .then((trips) => {
+      res.json(trips);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
+
+//POST req to trip database
+// app.post('/api/trips', (req, res) => {
+//   // console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
+//   BirdSightings.create({
+//     bird_id: req.body.bird_id,
+//     user_id: req.body.user_id,
+//   })
+//     .then((data) => {
+//       console.log('LINE 220', data);
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.error(err, 'Something went wrong');
+//       res.sendStatus(500);
+//     });
+// });
 
 //////////////////////WEATHER//////////////////////
 
