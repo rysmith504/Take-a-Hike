@@ -5,7 +5,7 @@ const { query } = require('express');
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const ENV = require('../map.env') ;
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 
 const { BirdList } = require("./database/models/birdList.js")
 const { BirdSightings } = require("./database/models/birdSightings.js")
@@ -274,11 +274,12 @@ app.delete('/api/birdsightings', (req, res) => {
 
 
 //////////////////////WEATHER//////////////////////
+
 app.get('/api/weather', (req, res) => {
   const lat = 29.9430
   const lon = -90.3517
-  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${ENV.WEATHER}`)
-  .then((data) => res.json(data.data))
+  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
+  .then(({ data } ) => res.json(data))
   .catch((err) => res.sendStatus(500));
 })
 
@@ -287,4 +288,5 @@ app.listen(PORT, () => {
   console.log(`
   Listening at: http://localhost:${PORT}
   `);
+  console.log(process.env.WEATHER);
 });
