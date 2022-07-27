@@ -268,3 +268,10 @@ body {
   right: 0;
   bottom: 0;
 }
+
+/* Styling for weather icons */
+
+.weather-icons {
+  width: 30px;
+  height: 30px;
+}

@@ -2,11 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import WeatherIcons from "./WeatherIcons.jsx";
+
 const moment = require('moment');
 const TripsListEntry = ({ trip }) => {
     let current = moment();
     let sevenDays = moment().add(7, 'days');
-
+    const [coordinates, setCoordinates] = useState([]);
+    const [weather, setWeather] = useState([]);
+    useEffect(() => {
     // if a trip is within seven days from now
     if(moment(trip.tripDate).isBetween(current, sevenDays)){
       // get the coordinates from Google API
@@ -16,13 +20,20 @@ const TripsListEntry = ({ trip }) => {
         'city': trip.tripLocation,
       }})
       .then((response) => {
+        setCoordinates(response.data);
         console.log(response.data);
-        app.get('/api/weather'
+        axios.get('/api/weather', coordinates)
+        .then((results) => {
+          console.log(results.data);
+          setWeather(results.data)
+        })
+        .catch((err) => console.error(err));
       })
-      .catch(()=>{
-
+      .catch((err)=>{
+        console.error(err);
       })
    }
+  }, []);
   return (
     <div>
       <div className="trip-card">
@@ -47,8 +58,8 @@ const TripsListEntry = ({ trip }) => {
             : <p><em>Your trip was {moment(trip.tripDate, "YYYYMMDD").fromNow()}.
             </em></p> 
             }
-
           </div>
+          <WeatherIcons />
         </div>
       </div>
     </div>

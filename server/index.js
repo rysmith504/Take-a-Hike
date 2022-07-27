@@ -323,9 +323,15 @@ app.get('/api/latLng', (req, res) => {
 //////////////////////WEATHER//////////////////////
 
 app.get('/api/weather', (req, res) => {
-  const lat = 29.9430
-  const lon = -90.3517
-  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
+  let lat = 29.9430
+  let lng = -90.3517
+  if(req.query.coordinates){
+    const { coordinates } = req.query.coordinates;
+    console.log(coordinates);
+    lat = coordinates.lat;
+    lng = coordinates.lng
+  }
+  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
   .then(({ data } ) => res.json(data))
   .catch((err) => res.sendStatus(500));
 })
