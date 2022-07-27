@@ -1,5 +1,4 @@
 import React from 'react';
-import { REACT_APP_GOOGLE_MAPS_API_KEY } from '../../map.env'
 import {
   GoogleMap,
   useLoadScript,
@@ -23,7 +22,7 @@ const center = {
 
 export default function Map() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   })
 
