@@ -28,13 +28,15 @@ const Weather = () => {
 
   return (
     <div>
-      <div id='temp'>
+      <div id='temp' class='weather'>
       The current temperature is {temp} degrees fahrenheit 
       </div>
 
-      <div id='humidity'>
-        Humidity is at {}
+      <div id='humidity' class='weather'>
+        Humidity is at {humidity} %
       </div>
+
+    
 
     </div>
   )
