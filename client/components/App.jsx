@@ -14,7 +14,7 @@ import Map from './Map.jsx'
 import PackingList from './PackingList.jsx';
 import Login from './Login.jsx';
 import Weather from './Weather.jsx';
-import Trips from './Trips.jsx';
+import TripsList from './TripsList.jsx';
 
 const App = () => {
   const [trailList, setTrailList] = useState([]);
@@ -23,6 +23,10 @@ const App = () => {
     if (localStorage.getItem('TrailList')) {
       const trails = JSON.parse(localStorage.getItem('TrailList'));
       setTrailList(trails);
+    }
+    if (localStorage.getItem('TripsList')) {
+      const trips = JSON.parse(localStorage.getItem('TripsList'));
+      setTripsList(trips);
     }
   }, []);
 
@@ -83,7 +87,8 @@ const App = () => {
         />
         <Route path='login' element={<Login />} />
         <Route path='weather' element={<Weather />}/>
-        <Route path='trips' element={<Trips />}/>
+        <Route path='trips' 
+        element={ <TripsList/> }/>
         <Route
           path='trailprofile/:id'
           element={<TrailProfile trailList={trailList} />}

@@ -18,7 +18,10 @@ const BirdingCheckList = () => {
   // Call useEffect on Page Load
   useEffect(() => {
     axios.get("/api/birdList")
-      .then((response) => setBirdList(response.data))
+      .then((response) => { 
+        console.log('got birds');
+        setBirdList(response.data) 
+      })
       .catch((err) => console.error("ERROR:", err));
     axios.get("/api/birdSightings")
       .then((response) => setBirdSightings(response.data))
