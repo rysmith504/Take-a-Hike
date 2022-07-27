@@ -8,18 +8,36 @@ import { useEffect, useState } from "react";
 
 const Weather = () => {
   const [temp, setTemp] = useState(0);
+  const [humidity, setHumidity] = useState(0);
 
   const getWeather = () => {
     axios.get('/api/weather')
-      .then((data) => console.log(data))
+      .then((weatherObj) => {
+        console.log(weatherObj);
+        setTemp(weatherObj.data.current.temp)
+        setHumidity(weatherObj.data.current.humidity);
+      })
       .catch((err) => console.error(err))
   }
   
-  getWeather()
+  useEffect(() => {
+    getWeather();
+  })
+
+  console.log(temp);
 
   return (
     <div>
-      HELLOOOOOO
+      <div id='temp' class='weather'>
+      The current temperature is {temp} degrees fahrenheit 
+      </div>
+
+      <div id='humidity' class='weather'>
+        Humidity is at {humidity} %
+      </div>
+
+    
+
     </div>
   )
 }
