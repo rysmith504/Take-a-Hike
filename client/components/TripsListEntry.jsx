@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+const moment = require('moment');
 const TripsListEntry = ({ trip }) => {
   return (
     <div>
@@ -15,7 +15,16 @@ const TripsListEntry = ({ trip }) => {
             <p>Location: {trip.tripLocation}</p>
           </div>
           <div className="info-group">
-            <p>tripDate: {trip.tripDate}</p>
+            <p>Date: {moment(trip.tripDate).format('ll')}</p>
+          </div>
+          <div className="info-group">
+            { moment(trip.tripDate).format('L') > moment().format('L') 
+            ? <p><em>Your next trip is {moment(trip.tripDate, "YYYYMMDD").fromNow()}.
+            </em></p> 
+            : <p><em>Your trip was {moment(trip.tripDate, "YYYYMMDD").fromNow()}.
+            </em></p> 
+            }
+
           </div>
         </div>
       </div>

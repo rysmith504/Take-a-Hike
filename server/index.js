@@ -1,6 +1,6 @@
 // Import Dependencies
 const axios = require('axios');
-const sequelize = require('sequelize');
+const {sequelize, Op} = require('sequelize');
 const { query } = require('express');
 const express = require('express');
 const path = require('path');
@@ -246,7 +246,6 @@ app.post('/api/birdsightings', (req, res) => {
     user_id: req.body.user_id,
   })
     .then((data) => {
-      console.log('LINE 220', data);
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -263,7 +262,6 @@ app.delete('/api/birdsightings', (req, res) => {
     user_id: req.body.user_id,
   })
     .then((data) => {
-      console.log('LINE 220', data);
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -274,10 +272,38 @@ app.delete('/api/birdsightings', (req, res) => {
 
 //////////////////////TRIPS//////////////////////
 //GET req for all trips data
+app.get('/api/pastTrips', (req, res) => {
+  console.log('get trips-----');
+
+  Trips.findAll({
+    where: {
+      tripDate: {
+        [Op.lt]: new Date(),
+      },
+    },
+  })
+    .then((trips) => {
+      console.log(trips);
+      res.json(trips);
+    })
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
+});
+
 app.get('/api/trips', (req, res) => {
   console.log('get trips-----');
-  Trips.findAll()
+
+  Trips.findAll({
+    where: {
+      tripDate: {
+        [Op.gte]: new Date(),
+      },
+    },
+  })
     .then((trips) => {
+      console.log(trips);
       res.json(trips);
     })
     .catch((err) => {
