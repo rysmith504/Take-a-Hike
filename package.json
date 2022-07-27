@@ -29,12 +29,9 @@
     "@material/fab": "^13.0.0",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.3",
-<<<<<<< HEAD
     "ajv-dist": "^8.11.0",
-=======
     "@reach/combobox": "^0.17.0",
     "@react-google-maps/api": "^2.12.1",
->>>>>>> b673632cbd518914b9aec29025de3ea2a6edcc58
     "axios": "^0.26.1",
     "babel-loader": "^8.2.4",
     "bulma": "^0.9.3",
