@@ -11,6 +11,10 @@ const Weather = () => {
   const [humidity, setHumidity] = useState(0);
   const [weatherId, setWeatherId] = useState(0);
   const [clouds, setClouds] = useState(0);
+  const [forecast, setForecast] = useState([]);
+  const today = new Date();
+  console.log(today.getDay());
+  const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   const getWeather = () => {
     axios.get('/api/weather')
@@ -20,6 +24,7 @@ const Weather = () => {
         setTemp(weatherObj.data.current.temp)
         setHumidity(weatherObj.data.current.humidity);
         setWeatherId(weatherObj.data.current.weather[0].id)
+        setForecast(weatherObj.data.daily)
       })
       .catch((err) => console.error(err))
   }
@@ -30,9 +35,12 @@ const Weather = () => {
 
   return (
     <div>
+      <div id='day' class='weather'>
+        {weekdays[today.getDay()]} {today.getMonth() + 1}/{today.getDate()}
+      </div>
       <div id='icon' class='weather' align='center'>
-      {(weatherId >= 300 && weatherId < 400) ? <img src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/flash-cloud-256.png'/> : ''}
-        {(weatherId >= 400 && weatherId < 500) ? <img src='https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather05-256.png'/> : ''}
+      {(weatherId >= 200 && weatherId < 300) ? <img src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/flash-cloud-256.png'/> : ''}
+        {(weatherId >= 300 && weatherId < 400) ? <img src='https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather05-256.png'/> : ''}
         {(weatherId >= 500 && weatherId < 600) ? <img src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/rain-512.png'/> : ''}
         {(weatherId >= 600 && weatherId < 700) ? <img src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/snow-cloud-512.png'/> : ''}
         {(weatherId > 700 && weatherId < 800) ? 'it is not ideal for hiking' : ''}
@@ -49,14 +57,22 @@ const Weather = () => {
       </div>
 
       <div id='sky' class='weather'>
-        {(weatherId >= 300 && weatherId < 400) ? 'there is a thunderstorm' : ''}
-        {(weatherId >= 400 && weatherId < 500) ? 'it is drizzling' : ''}
+        {(weatherId >= 200 && weatherId < 300) ? 'there is a thunderstorm' : ''}
+        {(weatherId >= 300 && weatherId < 400) ? 'it is drizzling' : ''}
         {(weatherId >= 500 && weatherId < 600) ? 'it is raining' : ''}
         {(weatherId >= 600 && weatherId < 700) ? 'it is snowy' : ''}
         {(weatherId > 700 && weatherId < 800) ? 'it is not ideal for hiking' : ''}
         {(weatherId === 800) ? 'the sky is clear' : ''}
         {(weatherId > 800 && weatherId < 900) ? `it is ${clouds} % cloudy` : ''}
       </div>
+
+      {forecast.map((day, i) => {
+        return (
+          <div key={i}>
+            
+          </div>
+        )
+      })}
 
 
 
