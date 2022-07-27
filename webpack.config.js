@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const WebpackBar = require('webpackbar');
 const srcDir = path.resolve(__dirname, "client");
 const distDir = path.resolve(__dirname, "dist");
 
@@ -43,6 +44,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new WebpackBar(),
     new HtmlWebpackPlugin({
       template: path.resolve(srcDir, "index.html"),
       inject: "body",
