@@ -303,7 +303,6 @@ app.get('/api/trips', (req, res) => {
     },
   })
     .then((trips) => {
-      console.log(trips);
       res.json(trips);
     })
     .catch((err) => {
@@ -312,22 +311,14 @@ app.get('/api/trips', (req, res) => {
     });
 });
 
-//POST req to trip database
-// app.post('/api/trips', (req, res) => {
-//   // console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
-//   BirdSightings.create({
-//     bird_id: req.body.bird_id,
-//     user_id: req.body.user_id,
-//   })
-//     .then((data) => {
-//       console.log('LINE 220', data);
-//       res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.error(err, 'Something went wrong');
-//       res.sendStatus(500);
-//     });
-// });
+// use city to get coordinates from Google
+app.get('/api/latLng', (req, res) => {
+  const { city } = req.query;
+  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
+  .then(( response ) => {
+  res.json(response.data.results[0].geometry.location)})
+  .catch((err) => res.sendStatus(500));
+});
 
 //////////////////////WEATHER//////////////////////
 
