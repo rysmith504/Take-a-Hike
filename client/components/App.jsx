@@ -13,6 +13,7 @@ import BirdingCheckList from './BirdingCheckList.jsx';
 import PackingList from './PackingList.jsx';
 import Login from './Login.jsx';
 import Weather from './Weather.jsx';
+import Trips from './Trips.jsx';
 
 const App = () => {
   const [trailList, setTrailList] = useState([]);
@@ -59,6 +60,7 @@ const App = () => {
       >
         <Link to='/login'>Login</Link> |{' '}
         <Link to='/weather'>Weather</Link> | {' '}
+        <Link to='/trips'>Trips</Link> | {' '}
         <Link to='/trailslist'>Trails List</Link> |{' '}
         {/* <Link to="/trailprofile/1">Trail Profile</Link> |{' '} */}
         <Link to='/quartermaster'>Quartermaster</Link> |{' '}
@@ -79,6 +81,7 @@ const App = () => {
         />
         <Route path='login' element={<Login />} />
         <Route path='weather' element={<Weather />}/>
+        <Route path='trips' element={<Trips />}/>
         <Route
           path='trailprofile/:id'
           element={<TrailProfile trailList={trailList} />}
