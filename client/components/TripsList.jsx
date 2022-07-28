@@ -10,7 +10,7 @@ const TripsList = () => {
   useEffect(() => {
     setToday(new Date());
 // GET trips list
-    axios.get('/api/pastTrips')
+    axios.get('/api/trips/pastTrips')
       .then((response) => {
         console.log('got trips');
         setPastTrips(response.data);

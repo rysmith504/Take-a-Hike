@@ -40,7 +40,7 @@ const Weather = () => {
   }
 
   const handleLocation = () => {
-    axios.get('/api/latLng', {
+    axios.get('/api/map/latLng', {
       params: {
         city: `${city}, ${state}`
       }
