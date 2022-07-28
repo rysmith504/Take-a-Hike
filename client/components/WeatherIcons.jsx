@@ -42,7 +42,7 @@ const dayCode = weatherData.map((day, index) => {
 })
 
   return (
-  <div className="columns">
+  <div className="columns is-mobile">
     {dayCode}
   </div>
   );
