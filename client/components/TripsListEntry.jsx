@@ -15,7 +15,7 @@ const TripsListEntry = ({ trip }) => {
     if(moment(trip.tripDate).isBetween(current, sevenDays)){
       // get the coordinates from Google API
       // use those coordinates to get the weather forecast
-      axios.get('/api/latLng', {
+      axios.get('/api/map/latLng', {
         params: {
         'city': trip.tripLocation,
       }})
