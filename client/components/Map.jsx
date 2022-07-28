@@ -20,6 +20,7 @@ import {
 } from "@reach/combobox"
 import '@reach/combobox/styles.css';
 import mapStyles from '../styles/mapStyles.js'
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 // import Search from './Search.jsx'
 
@@ -27,7 +28,7 @@ const libraries = ['places'];
 
 const mapContainerStyle = {
   width: '100vw',
-  height: '100vh'
+  height: '70vh'
 }
 
 const center = {
@@ -75,6 +76,7 @@ export default function Map() {
 
     <div>
       <Search panTo={ panTo } />
+      <Locate panTo={ panTo } />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
@@ -112,7 +114,23 @@ export default function Map() {
 
 }
 
-function Search({panTo}){
+function Locate({ panTo }) {
+  return (
+  <button className='locate' onClick={() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        panTo({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        })
+      }, () => null);
+  }}>
+    <img src='https://i.imgur.com/zjTteEV.png' alt="compass - locate me"/>
+  </button>
+  );
+}
+
+function Search({ panTo }){
   let {
     ready,
     value,
@@ -156,10 +174,12 @@ function Search({panTo}){
           placeholder='Enter a location'
         />
         <ComboboxPopover>
+          <ComboboxList>
           {status === 'OK' &&
             data.map(({id, description}) => (
               <ComboboxOption key={id} value={description} />
           ))}
+          </ComboboxList>
         </ComboboxPopover>
       </Combobox>
     </div>

@@ -12,7 +12,7 @@ import UserProfile from './UserProfile.jsx';
 import BirdingCheckList from './BirdingCheckList.jsx';
 import Map from './Map.jsx'
 import PackingList from './PackingList.jsx';
-import Login from './Login.jsx';
+// import Login from './Login.jsx';
 import Weather from './Weather.jsx';
 import TripsList from './TripsList.jsx';
 
@@ -63,7 +63,7 @@ const App = () => {
           paddingBottom: '1rem',
         }}
       >
-        <Link to='/login'>Login</Link> |{' '}
+        {/* <Link to='/login'>Login</Link> |{' '} */}
         <Link to='/weather'>Weather</Link> | {' '}
         <Link to='/trips'>Trips</Link> | {' '}
         <Link to='/trailslist'>Trails List</Link> |{' '}
@@ -73,6 +73,7 @@ const App = () => {
         <Link to='/birdingchecklist'>Birding Checklist</Link> |{' '}
         <Link to='/map'>Map</Link> |{' '}
         <Link to='/profile'>User Profile</Link> |{' '}
+
       </nav>
       {/* <Route path="login" element={<Login />} /> */}
       <Routes>
@@ -85,7 +86,7 @@ const App = () => {
             />
           }
         />
-        <Route path='login' element={<Login />} />
+        {/* <Route path='login' element={<Login />} /> */}
         <Route path='weather' element={<Weather />}/>
         <Route path='trips' 
         element={ <TripsList/> }/>
