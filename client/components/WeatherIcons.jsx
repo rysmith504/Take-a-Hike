@@ -3,11 +3,6 @@ import React, { useState, useEffect } from "react";
 // import { Link, Outlet } from "react-router-dom";
 const moment = require('moment');
 const WeatherIcons = ({weatherData}) => {
-    // const [temp, setTemp] = useState(0);
-    // const [humidity, setHumidity] = useState(0);
-    // const [weatherId, setWeatherId] = useState(0);
-    // const [clouds, setClouds] = useState(0);
-    // const [forecast, setForecast] = useState([]);
     
 const icons = {
     thunderstorm: 'https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/flash-cloud-256.png',
