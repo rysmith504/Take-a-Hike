@@ -277,4 +277,16 @@ body {
   width:100%;
   max-width:400px;
   z-index:10;
+  
+/* Styling for weather icons */
+
+.weather-icons {
+  width: 30px;
+  height: 30px;
+}
+
+.today-icon {
+  width: 30px;
+  height: 30px;
+  background-color: lavenderblush;
 }

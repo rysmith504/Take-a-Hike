@@ -63,7 +63,6 @@ export default function Map() {
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
   }, [])
-
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);

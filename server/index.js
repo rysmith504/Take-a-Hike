@@ -281,9 +281,9 @@ app.get('/api/pastTrips', (req, res) => {
         [Op.lt]: new Date(),
       },
     },
+    order: [['tripDate', 'DESC']]
   })
     .then((trips) => {
-      console.log(trips);
       res.json(trips);
     })
     .catch((err) => {
@@ -301,40 +301,37 @@ app.get('/api/trips', (req, res) => {
         [Op.gte]: new Date(),
       },
     },
+    order: [['tripDate', 'ASC']]
   })
-    .then((trips) => {
-      console.log(trips);
-      res.json(trips);
-    })
+    .then((trips) => {res.json(trips)})
     .catch((err) => {
       console.error('ERROR: ', err);
       res.sendStatus(404);
     });
 });
 
-//POST req to trip database
-// app.post('/api/trips', (req, res) => {
-//   // console.log('Line 231 - Back End Bird Sightings Post Request: ', req.body);
-//   BirdSightings.create({
-//     bird_id: req.body.bird_id,
-//     user_id: req.body.user_id,
-//   })
-//     .then((data) => {
-//       console.log('LINE 220', data);
-//       res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.error(err, 'Something went wrong');
-//       res.sendStatus(500);
-//     });
-// });
+// use city to get coordinates from Google
+app.get('/api/latLng', (req, res) => {
+  const { city } = req.query;
+  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
+  .then(( response ) => {
+  res.send(response.data.results[0].geometry.location)})
+  .catch((err) => res.sendStatus(500));
+});
 
 //////////////////////WEATHER//////////////////////
 
 app.get('/api/weather', (req, res) => {
-  const lat = 29.9430
-  const lon = -90.3517
-  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
+  let lat = 29.9430
+  let lng = -90.3517
+
+  if(req.query.coordinates){
+    const { coordinates } = req.query;
+    const coords = JSON.parse(coordinates);
+    lat = coords.lat;
+    lng = coords.lng
+  }
+  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
   .then(({ data } ) => res.json(data))
   .catch((err) => res.sendStatus(500));
 })
