@@ -6,12 +6,13 @@ const express = require('express');
 const path = require('path');
 const passport = require('passport');
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
-const { Trips } = require("./database/models/trips.js")
 const { BirdList } = require("./database/models/birdList.js")
 const { BirdSightings } = require("./database/models/birdSightings.js")
 const { PackingLists } = require("./database/models/packingLists");
 const { PackingListItems } = require("./database/models/packingListItems");
-
+const { tripsRouter } = require("./database/routes/tripsRouter.js")
+const { mapRouter } = require("./database/routes/mapRouter.js")
+const { weatherRouter } = require("./database/routes/weatherRouter.js")
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
 const session = require('express-session');
@@ -47,6 +48,11 @@ app.use(
 app.use(passport.initialize());
 // Create API Routes
 app.use(passport.session());
+
+//////ROUTERS////////
+app.use('/api/trips', tripsRouter);
+app.use('/api/map', mapRouter);
+app.use('/api/weather', weatherRouter);
 
 const successLoginUrl = 'http://localhost:3000/#/trailslist';
 const errorLoginUrl = 'http://localhost:3000/login/error';
@@ -269,72 +275,6 @@ app.delete('/api/birdsightings', (req, res) => {
       res.sendStatus(500);
     });
 });
-
-//////////////////////TRIPS//////////////////////
-//GET req for all trips data
-app.get('/api/pastTrips', (req, res) => {
-  console.log('get trips-----');
-
-  Trips.findAll({
-    where: {
-      tripDate: {
-        [Op.lt]: new Date(),
-      },
-    },
-    order: [['tripDate', 'DESC']]
-  })
-    .then((trips) => {
-      res.json(trips);
-    })
-    .catch((err) => {
-      console.error('ERROR: ', err);
-      res.sendStatus(404);
-    });
-});
-
-app.get('/api/trips', (req, res) => {
-  console.log('get trips-----');
-
-  Trips.findAll({
-    where: {
-      tripDate: {
-        [Op.gte]: new Date(),
-      },
-    },
-    order: [['tripDate', 'ASC']]
-  })
-    .then((trips) => {res.json(trips)})
-    .catch((err) => {
-      console.error('ERROR: ', err);
-      res.sendStatus(404);
-    });
-});
-
-// use city to get coordinates from Google
-app.get('/api/latLng', (req, res) => {
-  const { city } = req.query;
-  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
-  .then(( response ) => {
-  res.send(response.data.results[0].geometry.location)})
-  .catch((err) => res.sendStatus(500));
-});
-
-//////////////////////WEATHER//////////////////////
-
-app.get('/api/weather', (req, res) => {
-  let lat = 29.9430
-  let lng = -90.3517
-
-  if(req.query.coordinates){
-    const { coordinates } = req.query;
-    const coords = JSON.parse(coordinates);
-    lat = coords.lat;
-    lng = coords.lng
-  }
-  axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
-  .then(({ data } ) => res.json(data))
-  .catch((err) => res.sendStatus(500));
-})
 
 // launches the server from localhost on port 3000
 app.listen(PORT, () => {
