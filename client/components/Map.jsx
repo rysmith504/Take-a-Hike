@@ -6,8 +6,22 @@ import {
   InfoWindow
 } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
+import usePlacesAutoComplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
+import { useId } from "@reach/auto-id";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox"
 import '@reach/combobox/styles.css';
 import mapStyles from '../styles/mapStyles.js'
+
+// import Search from './Search.jsx'
 
 const libraries = ['places'];
 
@@ -49,6 +63,10 @@ export default function Map() {
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
   }, [])
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, [])
 
   if(loadError) return 'Error Loading Maps';
   if (!isLoaded) return 'Loading Maps';
@@ -56,12 +74,14 @@ export default function Map() {
   return (
 
     <div>
+      <Search panTo={ panTo } />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
         options={options}
         onClick={onMapClick}
+        onLoad={onMapLoad}
       >
         {markers.map(marker => (
           <Marker
@@ -87,6 +107,61 @@ export default function Map() {
           </InfoWindow>
         ) : null}
       </GoogleMap>
+    </div>
+  )
+
+}
+
+function Search({panTo}){
+  let {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions
+  } = usePlacesAutoComplete({
+    requestOptions: {
+      location: {
+        lat: () => 30.0038,
+        lng: () => -90.0972
+      },
+      radius: 200 * 1000,
+    },
+  });
+
+  return (
+    <div className='search'>
+      <Combobox
+      // when a user selects a suggestion, call set value to update state and place whatever they chose in there without going to google to fetch the data
+      // , we will clear out all the other suggestions on selection,
+      // take address and call getgeocode to get latlng, and pan map to the latlng of selection
+        onSelect={async (address) => {
+          setValue=(address);
+          clearSuggestions();
+          try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            panTo({ lat, lng });
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
+        <ComboboxInput
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          // disabled={!ready}
+          placeholder='Enter a location'
+        />
+        <ComboboxPopover>
+          {status === 'OK' &&
+            data.map(({id, description}) => (
+              <ComboboxOption key={id} value={description} />
+          ))}
+        </ComboboxPopover>
+      </Combobox>
     </div>
   )
 }

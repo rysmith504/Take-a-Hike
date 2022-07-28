@@ -269,6 +269,15 @@ body {
   bottom: 0;
 }
 
+.search {
+  position:absolute;
+  top:14rem;
+  left:65%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:400px;
+  z-index:10;
+  
 /* Styling for weather icons */
 
 .weather-icons {
