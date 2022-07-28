@@ -281,9 +281,9 @@ app.get('/api/pastTrips', (req, res) => {
         [Op.lt]: new Date(),
       },
     },
+    order: [['tripDate', 'DESC']]
   })
     .then((trips) => {
-      console.log(trips);
       res.json(trips);
     })
     .catch((err) => {
@@ -301,10 +301,9 @@ app.get('/api/trips', (req, res) => {
         [Op.gte]: new Date(),
       },
     },
+    order: [['tripDate', 'ASC']]
   })
-    .then((trips) => {
-      res.json(trips);
-    })
+    .then((trips) => {res.json(trips)})
     .catch((err) => {
       console.error('ERROR: ', err);
       res.sendStatus(404);
@@ -316,7 +315,7 @@ app.get('/api/latLng', (req, res) => {
   const { city } = req.query;
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
   .then(( response ) => {
-  res.json(response.data.results[0].geometry.location)})
+  res.send(response.data.results[0].geometry.location)})
   .catch((err) => res.sendStatus(500));
 });
 
@@ -325,11 +324,12 @@ app.get('/api/latLng', (req, res) => {
 app.get('/api/weather', (req, res) => {
   let lat = 29.9430
   let lng = -90.3517
+
   if(req.query.coordinates){
-    const { coordinates } = req.query.coordinates;
-    console.log(coordinates);
-    lat = coordinates.lat;
-    lng = coordinates.lng
+    const { coordinates } = req.query;
+    const coords = JSON.parse(coordinates);
+    lat = coords.lat;
+    lng = coords.lng
   }
   axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&lang=en&exclude=minutely,hourly,alerts&appid=${process.env.WEATHER}`)
   .then(({ data } ) => res.json(data))
