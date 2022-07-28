@@ -275,3 +275,9 @@ body {
   width: 30px;
   height: 30px;
 }
+
+.today-icon {
+  width: 30px;
+  height: 30px;
+  background-color: lavenderblush;
+}

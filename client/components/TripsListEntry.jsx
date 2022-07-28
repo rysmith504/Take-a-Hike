@@ -9,7 +9,7 @@ const TripsListEntry = ({ trip }) => {
     let current = moment();
     let sevenDays = moment().add(7, 'days');
     const [coordinates, setCoordinates] = useState([]);
-    const [weather, setWeather] = useState([]);
+    const [weatherData, setWeatherData] = useState([0]);
     useEffect(() => {
     // if a trip is within seven days from now
     if(moment(trip.tripDate).isBetween(current, sevenDays)){
@@ -21,11 +21,12 @@ const TripsListEntry = ({ trip }) => {
       }})
       .then((response) => {
         setCoordinates(response.data);
-        console.log(response.data);
-        axios.get('/api/weather', coordinates)
-        .then((results) => {
-          console.log(results.data);
-          setWeather(results.data)
+        axios.get('/api/weather', { 
+          params: {
+            'coordinates': response.data,
+          }})
+        .then((weather) => {
+          setWeatherData(weather.data.daily);
         })
         .catch((err) => console.error(err));
       })
@@ -59,7 +60,7 @@ const TripsListEntry = ({ trip }) => {
             </em></p> 
             }
           </div>
-          <WeatherIcons />
+          {weatherData.length > 1 ? <WeatherIcons weatherData={weatherData}/> : ''}
         </div>
       </div>
     </div>
