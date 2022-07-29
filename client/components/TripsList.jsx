@@ -6,21 +6,19 @@ const TripsList = () => {
   const [pastTrips, setPastTrips] = useState([]);
   const [tripsList, setTripsList] = useState([]);
   const [today, setToday] = useState([]);
-  const [userId, setUserId] = useState({userId: null});
+  const [user_id, setUserId] = useState({user_id: null});
   useEffect(() => {
     setToday(new Date());
-    axios
-    .get("/profile")
+    axios.get("/profile")
     .then((profile) => {
-      const user = profile.data;
-      setUserId((state) => {
-        return { ...state, userId: user._id };
-      });
-    })
-    .then(() => {
+      const userId = profile.data._id;
+      // console.log(userId);
+      // setUserId((state) => {
+      //   return { ...state, _id: userId };
+      // });
       // GET trips list based on logged in user id
       axios.get('/api/trips/pastTrips', {
-        params: { userId }
+        params: { user_id: userId }
       })
         .then((response) => {
           console.log('got trips');
@@ -30,7 +28,7 @@ const TripsList = () => {
           console.error('ERROR: ', err);
         });
         axios.get('/api/trips', {
-          params: { userId }
+          params: { user_id: userId }
         })
         .then((response) => {
           console.log('got trips');

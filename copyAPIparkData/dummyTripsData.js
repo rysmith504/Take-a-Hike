@@ -5,7 +5,7 @@ const dummyTripsData = [
     tripLocation: 'Dauphin Island, AL',
     tripAddress: 'somewhere',
     tripDate: '7/29/2022',
-    user_id: 1,
+    user_id: 2,
   },
   {
     tripName: 'Gatlinburg Trip',
@@ -53,7 +53,7 @@ const dummyTripsData = [
     tripLocation: 'Houston, TX',
     tripAddress: 'somewhere',
     tripDate: '6/14/2016',
-    user_id: 1,
+    user_id: 2,
   },
 
 ];
