@@ -11,6 +11,7 @@ process.env.RDS_PASSWORD,
   host: process.env.RDS_HOSTNAME, // The `host` parameter is required for other databases
   port: process.env.RDS_PORT,
   dialect: "mysql",
+  logging: false,
 });
 
 // Use Sequelize Authenticate Method
