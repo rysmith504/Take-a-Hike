@@ -12,10 +12,10 @@ const preset = 'hikeimages';
 const cloudName = 'dbwbxubwi';
 
 const TrailProfile = ({ trailList }) => {
-  // console.log(trailList)
+
   const { id } = useParams();
   const displayTrail = trailList.find((trail) => trail.id == id);
-  // console.log(`TRAILPROFILE || LINE 11 || displayTrail`, displayTrail); // access params
+
 
   const [image, setImage] = useState('');
   const [trailImageURLs, setTrailImageURLs] = useState();

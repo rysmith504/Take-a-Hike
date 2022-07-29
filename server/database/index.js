@@ -4,7 +4,10 @@ const { Sequelize } = require("sequelize");
 require('dotenv').config();
 
 // Initialized DB
-const db = new Sequelize("TakeAHike", process.env.RDS_USERNAME, process.env.RDS_PASSWORD, {
+const db = new Sequelize("TakeAHike", 
+process.env.RDS_USERNAME, 
+process.env.RDS_PASSWORD, 
+{
   host: process.env.RDS_HOSTNAME, // The `host` parameter is required for other databases
   port: process.env.RDS_PORT,
   dialect: "mysql",
@@ -19,11 +22,6 @@ db.authenticate() // Runs a SELECT query and checks if the database responds cor
     console.error("Unable to connect to the database:", err);
   });
 db.query("set foreign_key_checks = 0");
-
-// Export DB
-module.exports = {
-  db,
-};
 
 // Export DB
 module.exports = {

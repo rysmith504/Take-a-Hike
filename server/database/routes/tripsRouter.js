@@ -42,6 +42,34 @@ tripsRouter.get('/pastTrips', (req, res) => {
       });
   });
 
+  tripsRouter.post('/', (req, res) => {
+    console.log('NEW TRIP-----');
+    
+    const {
+      tripName,
+      tripDescription,
+      tripLocation,
+      tripAddress,
+      tripDate,
+      user_id 
+    } = req.body;
+      console.log(req.body);
+    Trips.create({
+      tripName,
+      tripDescription,
+      tripLocation,
+      tripAddress,
+      tripDate,
+      user_id: user_id.userId
+    })
+      .then((trips) => {res.json(trips)})
+      .catch((err) => {
+        console.error('ERROR: ', err);
+        res.sendStatus(404);
+      });
+  });
+
+
   module.exports = {
     tripsRouter,
   }

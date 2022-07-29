@@ -21,7 +21,7 @@ const Trails = db.define("trails", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  name: { type: DataTypes.STRING(255), allowNull: false },
+  name: { type: DataTypes.STRING(255), allowNull: false},
   rating: { type: DataTypes.INTEGER, allowNull: false },
   description: { type: DataTypes.STRING(2000), allowNull: false },
   city: {

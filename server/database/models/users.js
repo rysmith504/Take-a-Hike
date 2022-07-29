@@ -7,6 +7,7 @@ const Users = db.define("users", {
   googleId: {
     type: DataTypes.STRING,
     allowNull: true,
+    unique: true,
   },
   fullName: { 
     type: DataTypes.STRING(80), 

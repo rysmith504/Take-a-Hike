@@ -89,33 +89,33 @@ const App = () => {
 <div id="navMenu" class="navbar-menu">
   <div class="navbar-start">
   <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link">
+      <a class="navbar-link" onClick={handleMenu}>
         <Link to='/trips'>Trips</Link>
       </a>
 
       <div class="navbar-dropdown">
-        <a class="navbar-item">
+        <a class="navbar-item" onClick={handleMenu}>
           <Link to='/quartermaster'>Quartermaster</Link>
         </a>
-        <a class="navbar-item">
+        <a class="navbar-item" onClick={handleMenu}>
           <Link to='/birdingchecklist'>Birding Checklist</Link>
         </a>
-        <a class="navbar-item">
+        <a class="navbar-item" onClick={handleMenu}>
           <Link to='/form'>Add a Trip</Link>
         </a>
       </div>
     </div>
-    <a class="navbar-item">
+    <a class="navbar-item" onClick={handleMenu}>
       <Link to='/trailslist'>Trails List</Link>
     </a>
-    <a class="navbar-item">
+    <a class="navbar-item" onClick={handleMenu}>
       <Link to='/weather'>Weather</Link>
     </a>
-    <a class="navbar-item">
+    <a class="navbar-item" onClick={handleMenu}>
       <Link to='/map'>Map</Link>
     </a>
 
-    <a class="navbar-item">
+    <a class="navbar-item" onClick={handleMenu}>
       <Link to='/profile'>User Profile</Link>
     </a>
   </div>
@@ -123,7 +123,7 @@ const App = () => {
   <div class="navbar-end">
     <div class="navbar-item">
       <div class="buttons">
-        <a class="button is-light">
+        <a class="button is-light" onClick={handleMenu}>
           <Link to='/login'>Login</Link>
         </a>
       </div>
