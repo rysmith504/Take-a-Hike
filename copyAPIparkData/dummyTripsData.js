@@ -5,7 +5,7 @@ const dummyTripsData = [
     tripLocation: 'Dauphin Island, AL',
     tripAddress: 'somewhere',
     tripDate: '7/29/2022',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Gatlinburg Trip',
@@ -13,7 +13,7 @@ const dummyTripsData = [
     tripLocation: 'Gatlinburg, TN',
     tripAddress: 'somewhere',
     tripDate: '12/5/2022',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Visiting J in CO',
@@ -21,7 +21,7 @@ const dummyTripsData = [
     tripLocation: 'Denver, CO',
     tripAddress: 'somewhere',
     tripDate: '11/1/2022',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Europe Baby!',
@@ -29,7 +29,7 @@ const dummyTripsData = [
     tripLocation: 'Paris, France',
     tripAddress: 'somewhere',
     tripDate: '1/24/2020',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Japan',
@@ -37,7 +37,7 @@ const dummyTripsData = [
     tripLocation: 'Kyoto, Japan',
     tripAddress: 'somewhere',
     tripDate: '3/29/2019',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Thanksgiving in Texas',
@@ -45,7 +45,7 @@ const dummyTripsData = [
     tripLocation: 'Houston, TX',
     tripAddress: 'somewhere',
     tripDate: '11/25/2022',
-    user_id: null,
+    user_id: 1,
   },
   {
     tripName: 'Christmas in Texas',
@@ -53,7 +53,7 @@ const dummyTripsData = [
     tripLocation: 'Houston, TX',
     tripAddress: 'somewhere',
     tripDate: '6/14/2016',
-    user_id: null,
+    user_id: 1,
   },
 
 ];

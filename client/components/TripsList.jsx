@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TripsListEntry from "./TripsListEntry.jsx";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 const TripsList = () => {
   const [pastTrips, setPastTrips] = useState([]);
   const [tripsList, setTripsList] = useState([]);
   const [today, setToday] = useState([]);
+  const [userId, setUserId] = useState('');
   useEffect(() => {
     setToday(new Date());
+    axios
+    .get("/profile")
+    .then((profile) => {
+      const user = profile.data;
+      setUserId(user._id);
+    })
+    .catch((err) => {
+      console.error("ERROR:", err);
+    });
 // GET trips list
     axios.get('/api/trips/pastTrips')
       .then((response) => {
