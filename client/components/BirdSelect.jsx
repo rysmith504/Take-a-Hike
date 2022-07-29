@@ -20,7 +20,7 @@ export default function BirdSelect() {
     <div>
       <Autocomplete
         freeSolo
-        id="free-solo-2-demo"
+        id="birdSelectDropdown"
         disableClearable
         options={birdList.map((index) => index.commonName)}
         renderInput={(params) => (
