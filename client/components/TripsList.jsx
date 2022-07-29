@@ -6,36 +6,45 @@ const TripsList = () => {
   const [pastTrips, setPastTrips] = useState([]);
   const [tripsList, setTripsList] = useState([]);
   const [today, setToday] = useState([]);
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState({userId: null});
   useEffect(() => {
     setToday(new Date());
     axios
     .get("/profile")
     .then((profile) => {
       const user = profile.data;
-      setUserId(user._id);
+      setUserId((state) => {
+        return { ...state, userId: user._id };
+      });
+    })
+    .then(() => {
+      // GET trips list based on logged in user id
+      axios.get('/api/trips/pastTrips', {
+        params: { userId }
+      })
+        .then((response) => {
+          console.log('got trips');
+          setPastTrips(response.data);
+        })
+        .catch((err) => {
+          console.error('ERROR: ', err);
+        });
+        axios.get('/api/trips', {
+          params: { userId }
+        })
+        .then((response) => {
+          console.log('got trips');
+          setTripsList(response.data);
+        })
+        .catch((err) => {
+          console.error('ERROR: ', err);
+        });
     })
     .catch((err) => {
       console.error("ERROR:", err);
     });
-// GET trips list
-    axios.get('/api/trips/pastTrips')
-      .then((response) => {
-        console.log('got trips');
-        setPastTrips(response.data);
-      })
-      .catch((err) => {
-        console.error('ERROR: ', err);
-      });
 
-      axios.get('/api/trips')
-      .then((response) => {
-        console.log('got trips');
-        setTripsList(response.data);
-      })
-      .catch((err) => {
-        console.error('ERROR: ', err);
-      });
+
   }, []);
 
   return (

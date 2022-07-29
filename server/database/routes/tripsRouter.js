@@ -6,7 +6,7 @@ const {sequelize, Op} = require('sequelize');
 //GET req for all trips data
 tripsRouter.get('/pastTrips', (req, res) => {
     console.log('get trips-----');
-  
+    
     Trips.findAll({
       where: {
         tripDate: {
@@ -26,7 +26,7 @@ tripsRouter.get('/pastTrips', (req, res) => {
   
   tripsRouter.get('/', (req, res) => {
     console.log('get trips-----');
-  
+    
     Trips.findAll({
       where: {
         tripDate: {
