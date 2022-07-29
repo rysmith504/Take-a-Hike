@@ -12,14 +12,18 @@ const { async } = require("regenerator-runtime");
 const birdsOfLA = require("./data/eBirdData.js")
 const { BirdList } = require("./models/birdList.js")
 const { BirdSightings } = require("./models/birdSightings.js")
-
+require('dotenv').config();
 db.options.logging = false;
 
 const seedSqlize = () => {
   mysql
-    .createConnection({ user: "root", password: "" })
+    .createConnection({
+       host: process.env.RDS_HOSTNAME,
+       user: process.env.RDS_USERNAME, 
+       password: process.env.RDS_PASSWORD,
+      })
     .then((db) =>
-      db.query("CREATE DATABASE IF NOT EXISTS `TakeAHike`").then(() => db.end())
+      db.query(`CREATE DATABASE IF NOT EXISTS 'TakeAHike'`).then(() => db.end())
     )
     .catch(err => console.log(22, 'error', err))
     .then(() =>

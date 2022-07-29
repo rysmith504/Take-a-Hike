@@ -10,7 +10,7 @@ const Trips = db.define("trips", {
     primaryKey: true,
     autoIncrement: true,
   },
-  tripName: { type: DataTypes.STRING, allowNull: false },
+  tripName: { type: DataTypes.STRING, allowNull: false, unique: true },
   tripDescription: { type: DataTypes.STRING, allowNull: false },
   tripLocation: { type: DataTypes.STRING, allowNull: false },
   tripAddress: { type: DataTypes.STRING, allowNull: false },
