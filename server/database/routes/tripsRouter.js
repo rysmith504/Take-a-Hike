@@ -70,6 +70,18 @@ tripsRouter.get('/pastTrips', (req, res) => {
       });
   });
 
+  tripsRouter.delete('/', (req, res) => {
+    console.log('DELETE TRIP-----');
+    
+    const {_id} = req.query;
+      console.log(req.query);
+    Trips.destroy({where: { _id }})
+      .then(() => console.log('trip deleted'))
+      .catch((err) => {
+        console.error('ERROR: ', err);
+        res.sendStatus(404);
+      });
+  });
 
   module.exports = {
     tripsRouter,

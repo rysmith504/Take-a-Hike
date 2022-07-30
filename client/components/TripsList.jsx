@@ -7,11 +7,9 @@ const TripsList = () => {
   const [tripsList, setTripsList] = useState([]);
   const [today, setToday] = useState([]);
   const [user_id, setUserId] = useState({user_id: null});
+  const [deleteMsg, setDeleteMsg] = useState(false);
   useEffect(() => {
-    setToday(new Date());
-    axios.get("/profile")
-    .then((profile) => {
-      const userId = profile.data._id;
+    function getTrips(userId){
       // GET trips list based on logged in user id
       axios.get('/api/trips/pastTrips', {
         params: { user_id: userId }
@@ -33,13 +31,37 @@ const TripsList = () => {
         .catch((err) => {
           console.error('ERROR: ', err);
         });
+    }
+
+    setToday(new Date());
+    axios.get("/profile")
+    .then((profile) => {
+      const userId = profile.data._id;
+      getTrips(userId);
     })
     .catch((err) => {
       console.error("ERROR:", err);
     });
 
-
   }, []);
+
+  const deleteTrip = (eventId) => {
+    console.log('delete this trip');
+    axios.delete('/api/trips', {
+      params: { _id: eventId }
+    })
+    .then(() => getTrips(1))
+    .catch((err) => {
+      console.error('ERROR: ', err);
+    });
+    setDeleteMsg(!deleteMsg);
+  };
+  
+  // FUTURE FEATURE: editing trips
+  // const updateTrip = (e) => {
+  //   const value = e.target.getAttribute('id');
+  //   console.log(value);
+  // };
 
   return (
     <div>
@@ -50,7 +72,7 @@ const TripsList = () => {
       <div>
         <div>
           {tripsList.map((trip) => {
-            return <TripsListEntry trip={trip} key={trip._id} />;
+            return <TripsListEntry trip={trip} key={trip._id} deleteTrip={deleteTrip}/>;
           })}
         </div>
       </div>
@@ -61,7 +83,7 @@ const TripsList = () => {
       <div>
         <div>
           {pastTrips.map((trip) => {
-            return <TripsListEntry trip={trip} key={trip._id} />;
+            return <TripsListEntry trip={trip} key={trip._id} deleteTrip={deleteTrip}/>;
           })}
         </div>
       </div>
