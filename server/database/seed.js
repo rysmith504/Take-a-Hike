@@ -96,6 +96,12 @@ const seedSqlize = async () => {
     `\nDatabase (MySQL): Successfully seeded trips with ${tripArray.length} entries!\n`,
     "\x1b[37m"
   )
+  const userArray = await Promise.all(dummyUserData.map((trip) => Trips.create(trip)))
+  console.log(
+    "\x1b[32m",
+    `\nDatabase (MySQL): Successfully seeded users with ${userArray.length} entries!\n`,
+    "\x1b[37m"
+  )
   } catch (err) { 
     console.error('Error Seeding DB\n', err)
     process.exit(1);

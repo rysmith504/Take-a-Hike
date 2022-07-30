@@ -32,7 +32,7 @@ const Users = db.define("users", {
     autoIncrement: true,
   },
   // name: { type: DataTypes.STRING(80), allowNull: false },
-  // password: {Type: DataTypes.STRING, allowNull: false}, (SANTO!!!!!!)
+  // password: {Type: DataTypes.STRING, allowNull: false}, 
 });
 
 // Export Schema
