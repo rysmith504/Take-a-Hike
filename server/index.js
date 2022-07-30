@@ -39,14 +39,13 @@ app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.EXPRESS_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
   })
 );
 app.use(passport.initialize());
-// Create API Routes
 app.use(passport.session());
 
 //////ROUTERS////////
@@ -54,12 +53,12 @@ app.use('/api/trips', tripsRouter);
 app.use('/api/map', mapRouter);
 app.use('/api/weather', weatherRouter);
 
-const successLoginUrl = 'http://localhost:3000/#/trailslist';
-const errorLoginUrl = 'http://localhost:3000/login/error';
+const successLoginUrl = 'http://localhost:3000';
+const errorLoginUrl = 'http://localhost:3000/login';
 
 //Auth Routes
 app.get(
-  '/login/google',
+  '/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 

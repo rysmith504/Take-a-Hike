@@ -12,10 +12,6 @@ const TripsList = () => {
     axios.get("/profile")
     .then((profile) => {
       const userId = profile.data._id;
-      // console.log(userId);
-      // setUserId((state) => {
-      //   return { ...state, _id: userId };
-      // });
       // GET trips list based on logged in user id
       axios.get('/api/trips/pastTrips', {
         params: { user_id: userId }
