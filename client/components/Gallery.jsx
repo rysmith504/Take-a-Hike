@@ -31,13 +31,13 @@ const Gallery = () => {
       })
         .then((data) => {
           setPhoto(null)
-          handleGallery();
         })
         .catch((err) => console.error(err));
 
     } else {
       alert('no photo selected');
     }
+    handleGallery();
   }
 
   const fileData = () => {
@@ -56,7 +56,7 @@ const Gallery = () => {
           <p> File Name: {photo.name} </p>
           <p> File Type: {photo.type} </p>
           <p> Last Modified: '{photo.lastModifiedDate.toDateString()}</p>
-          <img src={previewSource} alt='chosen'/>
+          <img style={{height: '200px', width: 'auto' }} src={previewSource} alt='chosen'/>
         </div>
       )
     } else {
