@@ -40,14 +40,13 @@ app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
   })
 );
 app.use(passport.initialize());
-// Create API Routes
 app.use(passport.session());
 
 //////ROUTERS////////
@@ -70,13 +69,14 @@ app.get(
   passport.authenticate('google', {
     failureMessage: 'cannot login to Google',
     failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
   }),
   (req, res) => {
     console.log('User: ', req.user);
-    res.redirect('/');
     res.send('thank you for signing in!');
   }
 );
+
 
 app.get("/profile",(req, res) => {
   Users.findOne()

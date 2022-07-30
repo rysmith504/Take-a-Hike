@@ -1,19 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherIcons from "./WeatherIcons.jsx";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 const moment = require('moment');
-const TripsListEntry = ({ trip }) => {
+const TripsListEntry = ({ trip, deleteTrip }) => {
 let current = moment();
 let sevenDays = moment().add(7, 'days');
 const [coordinates, setCoordinates] = useState([]);
 const [weatherData, setWeatherData] = useState([0]);
+
 useEffect(() => {
 // if a trip is within seven days from now
 if(moment(trip.tripDate).isBetween(current, sevenDays)){
@@ -34,24 +32,31 @@ params: {'coordinates': response.data}})
 }
 }, []);
 
+const handleDelete = (e) => {
+  console.log('delete this trip');
+  const value  = e.target.getAttribute('id');
+  console.log(value);
+  deleteTrip(value);
+};
+
 return (
 <div className="trip-card">
   <div className="list-item-card">
     <div className="info-group">
-      <div className="column is-three-quarters">
+      <div className="column is-four-fifths">
         <h3>{trip.tripName}</h3>
       </div>
-      <div className="column">
+      {/* <div className="column" id={trip._id}>
         <Tooltip title="Edit Trip">
-          <IconButton>
-            <EditIcon/>
+        <IconButton onClick={updateTrip} id={trip._id}>
+          <i id={trip._id} class="fa fa-pencil"></i>
           </IconButton>
         </Tooltip>
-      </div>
-      <div className="column">
+      </div> */}
+      <div className="column" id={trip._id}>
       <Tooltip title="Delete Trip">
-          <IconButton>
-            <DeleteIcon />
+          <IconButton onClick={handleDelete} id={trip._id}>
+          <i id={trip._id} class="fa fa-trash"></i>
           </IconButton>
         </Tooltip>
       </div>

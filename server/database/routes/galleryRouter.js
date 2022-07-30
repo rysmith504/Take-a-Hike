@@ -2,6 +2,7 @@ const { Router } = require('express');
 const galleryRouter = Router();
 const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, '../../../.env')});
+
 const axios = require('axios');
 const { cloudinary } = require('../../utils/coudinary');
 
