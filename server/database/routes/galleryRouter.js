@@ -42,7 +42,9 @@ galleryRouter.get('/', async (req, res) => {
       .catch(() => {});
   })
 
-  res.send(secureImageUrls);
+  Gallery.findAll()
+    .then((data) => res.status(200).send(data))
+    .catch((err) => res.sendStatus(500));
 
 
 })
