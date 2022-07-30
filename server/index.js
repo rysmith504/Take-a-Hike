@@ -13,6 +13,7 @@ const { PackingListItems } = require("./database/models/packingListItems");
 const { tripsRouter } = require("./database/routes/tripsRouter.js")
 const { mapRouter } = require("./database/routes/mapRouter.js")
 const { weatherRouter } = require("./database/routes/weatherRouter.js")
+const { galleryRouter } = require('./database/routes/galleryRouter.js')
 // const { default: PackingList } = require("../client/components/PackingList");
 const router = express.Router();
 const session = require('express-session');
@@ -34,7 +35,7 @@ const distPath = path.resolve(__dirname, "..", "dist"); //serves the hmtl file o
 const app = express();
 
 // Use Middleware
-app.use(express.json()); // handles parsing content in the req.body from post/update requests
+app.use(express.json({limit: '50mb'})); // handles parsing content in the req.body from post/update requests
 app.use(express.static(distPath)); // Statically serves up client directory
 app.use(express.urlencoded({ extended: true })); // Parses url (allows arrays and objects)
 app.use(
@@ -53,6 +54,7 @@ app.use(passport.session());
 app.use('/api/trips', tripsRouter);
 app.use('/api/map', mapRouter);
 app.use('/api/weather', weatherRouter);
+app.use('/api/gallery', galleryRouter);
 
 const successLoginUrl = 'http://localhost:3000/#/trailslist';
 const errorLoginUrl = 'http://localhost:3000/login/error';
