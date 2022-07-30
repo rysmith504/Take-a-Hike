@@ -29,15 +29,16 @@ const Gallery = () => {
       await axios.post('/api/gallery', {
         data: previewSource
       })
-        .then((data) => {
-          setPhoto(null)
+        .then(() => {
         })
         .catch((err) => console.error(err));
+        setPhoto(null)
+        handleGallery();
 
     } else {
       alert('no photo selected');
     }
-    handleGallery();
+
   }
 
   const fileData = () => {
