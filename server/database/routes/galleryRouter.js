@@ -2,6 +2,7 @@ const { Router } = require('express');
 const galleryRouter = Router();
 const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, '../../../.env')});
+const { Gallery } = require("../models/gallery.js")
 
 const axios = require('axios');
 const { cloudinary } = require('../../utils/coudinary');
@@ -32,7 +33,16 @@ galleryRouter.get('/', async (req, res) => {
   const secureImageUrls = resources.resources
     .filter((imageObj) => imageObj.folder === 'trailfeathers')
     .map((image) => image.secure_url);
-  res.json(secureImageUrls);
+
+  await secureImageUrls.forEach((url) => {
+    Gallery.create({
+      url,
+    })
+      .then(() => {})
+      .catch(() => {});
+  })
+
+  res.send(secureImageUrls);
 
 
 })

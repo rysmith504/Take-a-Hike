@@ -72,8 +72,9 @@ const Gallery = () => {
 
   const handleGallery = () => {
     axios.get('/api/gallery')
-      .then((images) => {
-        setGallery(images.data)
+      .then((urls) => {
+        console.log(urls.data);
+        setGallery(urls.data)
       })
       .catch((err) => console.error(err));
   }
