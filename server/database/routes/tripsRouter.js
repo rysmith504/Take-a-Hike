@@ -11,8 +11,7 @@ tripsRouter.get('/', (req, res) => {
     where: {
       tripDate: {
         [Op.gte]: new Date(),
-      },
-      user_id,
+      }
     },
     order: [['tripDate', 'ASC']]
   })
@@ -30,8 +29,7 @@ tripsRouter.get('/pastTrips', (req, res) => {
       where: {
         tripDate: {
           [Op.lt]: new Date(),
-        },
-        user_id,
+        }
       },
       order: [['tripDate', 'DESC']]
     })

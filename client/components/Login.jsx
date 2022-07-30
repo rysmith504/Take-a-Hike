@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <div className='profile-card'>
       <h1>Welcome to Trail Feathers</h1>
-      <form action="/auth/google">
+      <form action="/login/google">
         <button type="submit">Sign In With Google</button>
       </form>
     </div>
