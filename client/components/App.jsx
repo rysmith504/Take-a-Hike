@@ -14,6 +14,7 @@ import Map from './Map.jsx'
 import PackingList from './PackingList.jsx';
 import Login from './Login.jsx';
 import Weather from './Weather.jsx';
+import Gallery from './Gallery.jsx';
 import TripsList from './TripsList.jsx';
 import Form from './Form.jsx';
 
@@ -114,6 +115,9 @@ const App = () => {
     <a class="navbar-item" onClick={handleMenu}>
       <Link to='/map'>Map</Link>
     </a>
+    <a class="navbar-item" onClick={handleMenu}>
+      <Link to='/gallery'>Gallery</Link>
+    </a>
 
     <a class="navbar-item" onClick={handleMenu}>
       <Link to='/profile'>User Profile</Link>
@@ -147,6 +151,7 @@ const App = () => {
   {/* <Route path="packinglist/:id" element={<PackingList />} /> */}
   <Route path='birdingchecklist' element={<BirdingCheckList />} />
   <Route path='map' element={<Map />} />
+  <Route path='gallery' element={<Gallery />} />
   <Route path='profile' element={<UserProfile />} />
   <Route path='form' element={<Form />} />
 </Routes><Outlet />
