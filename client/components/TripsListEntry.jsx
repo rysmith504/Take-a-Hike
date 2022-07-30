@@ -11,6 +11,7 @@ let current = moment();
 let sevenDays = moment().add(7, 'days');
 const [coordinates, setCoordinates] = useState([]);
 const [weatherData, setWeatherData] = useState([0]);
+const [deletedTrip, setDeletedTrip] = useState(false);
 
 useEffect(() => {
 // if a trip is within seven days from now
@@ -37,10 +38,12 @@ const handleDelete = (e) => {
   const value  = e.target.getAttribute('id');
   console.log(value);
   deleteTrip(value);
+  setDeletedTrip(!deletedTrip);
+  document.getElementById(value).remove();
 };
 
 return (
-<div className="trip-card">
+<div className="trip-card" id={trip._id}>
   <div className="list-item-card">
     <div className="info-group">
       <div className="column is-four-fifths">

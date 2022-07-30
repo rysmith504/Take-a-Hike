@@ -8,31 +8,33 @@ const TripsList = () => {
   const [today, setToday] = useState([]);
   const [user_id, setUserId] = useState({user_id: null});
   const [deleteMsg, setDeleteMsg] = useState(false);
-  useEffect(() => {
-    function getTrips(userId){
-      // GET trips list based on logged in user id
-      axios.get('/api/trips/pastTrips', {
+  
+  function getTrips(userId){
+    // GET trips list based on logged in user id
+    axios.get('/api/trips/pastTrips', {
+      params: { user_id: userId }
+    })
+      .then((response) => {
+        console.log('got trips');
+        setPastTrips(response.data);
+      })
+      .catch((err) => {
+        console.error('ERROR: ', err);
+      });
+      axios.get('/api/trips', {
         params: { user_id: userId }
       })
-        .then((response) => {
-          console.log('got trips');
-          setPastTrips(response.data);
-        })
-        .catch((err) => {
-          console.error('ERROR: ', err);
-        });
-        axios.get('/api/trips', {
-          params: { user_id: userId }
-        })
-        .then((response) => {
-          console.log('got trips');
-          setTripsList(response.data);
-        })
-        .catch((err) => {
-          console.error('ERROR: ', err);
-        });
-    }
+      .then((response) => {
+        console.log('got trips');
+        setTripsList(response.data);
+      })
+      .catch((err) => {
+        console.error('ERROR: ', err);
+      });
+  }
 
+  useEffect(() => {
+    getTrips(1);
     setToday(new Date());
     axios.get("/profile")
     .then((profile) => {
@@ -45,16 +47,17 @@ const TripsList = () => {
 
   }, []);
 
-  const deleteTrip = (eventId) => {
+  const deleteTrip = async (eventId) => {
     console.log('delete this trip');
-    axios.delete('/api/trips', {
+    await axios.delete('/api/trips', {
       params: { _id: eventId }
     })
-    .then(() => getTrips(1))
+    .then(() => console.log('success'))
     .catch((err) => {
       console.error('ERROR: ', err);
     });
     setDeleteMsg(!deleteMsg);
+    getTrips(1);
   };
   
   // FUTURE FEATURE: editing trips
