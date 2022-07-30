@@ -9,6 +9,9 @@ const {
 const {
   dummyUserData
 } = require("../../copyAPIparkData/dummyUserData.js");
+const {
+  dummyGalleryData
+} = require("../../copyAPIparkData/dummyGalleryData.js");
 
 const seedSqlize = async () => {
   const rootDB = await mysql.createConnection({
@@ -38,6 +41,7 @@ const seedSqlize = async () => {
   const {Trips } = require("./models/trips.js");
   const { BirdList } = require("./models/birdList.js")
   const { BirdSightings } = require("./models/birdSightings.js")
+  const { Gallery } = require("./models/gallery.js");
 
   try {
   await Users.sync()
@@ -71,6 +75,12 @@ const seedSqlize = async () => {
     "\x1b[36m",
     "\nDatabase (MySQL): 'Trails' table successfully created!"
   )
+  await Gallery.sync()
+
+  console.log(
+    "\x1b[36m",
+    "\nDatabase (MySQL): 'Gallery' table successfully created!"
+  )
 
   Trips.sync()
   console.log(
@@ -100,6 +110,12 @@ const seedSqlize = async () => {
   console.log(
     "\x1b[32m",
     `\nDatabase (MySQL): Successfully seeded users with ${userArray.length} entries!\n`,
+    "\x1b[37m"
+  )
+  const galleryArray = await Promise.all(dummyGalleryData.map((image) => Gallery.create({url: image.url})))
+  console.log(
+    "\x1b[32m",
+    `\nDatabase (MySQL): Successfully seeded users with ${galleryArray.length} entries!\n`,
     "\x1b[37m"
   )
   } catch (err) { 

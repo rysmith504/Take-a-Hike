@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import { OutlinedInput, ThemeProvider, createTheme, Fab, Typography, Grid, Paper, Box} from '@mui/material'
 
 
 const Gallery = () => {
@@ -29,15 +30,16 @@ const Gallery = () => {
       await axios.post('/api/gallery', {
         data: previewSource
       })
-        .then((data) => {
-          setPhoto(null)
+        .then(() => {
         })
         .catch((err) => console.error(err));
+        setPhoto(null)
+        handleGallery();
 
     } else {
       alert('no photo selected');
     }
-    handleGallery();
+
   }
 
   const fileData = () => {
@@ -71,8 +73,9 @@ const Gallery = () => {
 
   const handleGallery = () => {
     axios.get('/api/gallery')
-      .then((images) => {
-        setGallery(images.data)
+      .then((urls) => {
+        console.log(urls.data);
+        setGallery(urls.data)
       })
       .catch((err) => console.error(err));
   }
@@ -83,25 +86,38 @@ const Gallery = () => {
 
   return (
     <div>
-      <h1>
-        GALLERY PAGE
-      </h1>
+      <Grid container>
+        <Grid item align='center' xs={12}>
+          <h1>
+            GALLERY PAGE
+          </h1>
 
-      <div>
-        <input type='file' name='image' value={fileInputState} onChange={handleFileChange} multiple accept='image/*'/>
-        <button onClick={handleFileUpload}>
-          Upload
-        </button>
-      </div>
-      {photo && fileData()}
 
+        <div>
+          <input type='file' name='image' value={fileInputState} onChange={handleFileChange} multiple accept='image/*'/>
+          <button onClick={handleFileUpload}>
+            Upload
+          </button>
+        </div>
+        {photo && fileData()}
+        </Grid>
+      </Grid>
       <div id='gallery'>
-        {gallery.map((image) => {
-          return (
-            <img style={{height:'100px', width: 'auto'}} src={image}/>
-          )
-        })}
+        <Grid rowSpacing={3} container>
+
+          {gallery.map((image) => {
+            return (
+              <Grid item xs={3}>
+                <Paper>
+                  <img style={{height:'100px', width: 'auto'}} src={image.url}/>
+                </Paper>
+              </Grid>
+            )
+          })}
+
+        </Grid>
       </div>
+
     </div>
   )
 }
