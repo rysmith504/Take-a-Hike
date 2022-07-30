@@ -22,7 +22,7 @@ const { cloudinary } = require('./utils/coudinary');
 const { Users } = require('./database/models/users');
 
 // // Import DB
-const { db } = require('./database/index.js')
+// const { db } = require('./database/index.js')
 
 // // Import Routes
 // const birdListRouter = require('./database/routes/birdListRouter.js')

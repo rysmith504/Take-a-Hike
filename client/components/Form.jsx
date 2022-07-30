@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import { Link, Outlet } from "react-router-dom";
 
 const Form = () => {
   const [userId, setUserId] = useState('');
@@ -14,11 +13,6 @@ const Form = () => {
       user_id: userId
     }
   )
-  // const [tripName, setTripName] = useState('');
-  // const [tripDescription, setTripDescription] = useState('');
-  // const [tripLocation, setTripLocation] = useState('');
-  // const [tripAddress, setTripAddress] = useState('');
-  // const [tripDate, setTripDate] = useState('');
 
   useEffect(() => {
     axios
