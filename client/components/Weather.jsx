@@ -49,12 +49,12 @@ const Weather = () => {
 
 
   const handleCity = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCity(e.target.value);
   }
 
   const handleState = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setState(e.target.value);
   }
 
@@ -68,7 +68,7 @@ const Weather = () => {
         }
       })
       .then((location) => {
-        console.log(location.data);
+        // console.log(location.data);
         setCoordinates(location.data);
         axios.get('/api/weather', {
           params: {
@@ -76,7 +76,7 @@ const Weather = () => {
           }
         })
           .then((weatherObj) => {
-            console.log(weatherObj);
+            // console.log(weatherObj);
             setClouds(weatherObj.data.current.clouds);
             setTemp(weatherObj.data.current.temp)
             setHumidity(weatherObj.data.current.humidity);

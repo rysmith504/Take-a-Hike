@@ -2,29 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   GoogleMap,
   useLoadScript,
-  Marker,
   InfoWindow
 } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import usePlacesAutoComplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
-import { useId } from "@reach/auto-id";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox"
 import '@reach/combobox/styles.css';
 import mapStyles from '../styles/mapStyles.js'
-import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 import BirdSelect from './BirdSelect.jsx'
-
-// import Search from './Search.jsx'
+import Markers from './Markers.jsx'
 
 const libraries = ['places'];
 
@@ -47,28 +32,57 @@ export default function Map() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   })
-
+  const [markerArr, setMarkerArr] = useState([])
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [species, setSpecies] = useState(null);
+
+  useEffect(() => {
+
+  })
+
+  useEffect(() => {
+    setMarkerArr(current => [
+      ...current, markers
+    ])
+  },[markers])
+
+  const speciesRef = useRef(species);
 
   const onMapClick = useCallback((event) => {
+    speciesRef.current = document.getElementById('birdSelectDropdown').value;
+    if (speciesRef.current.length) {
     setMarkers((current) => [
       //axios post
       ...current,
       {
+        species: speciesRef.current,
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
         time: new Date()
       },
     ])
+    setMarkerArr(current => [
+      ...current, markers
+    ])
+    document.getElementById('birdSelectDropdown').value = null;
+  } else {
+    return alert('please select species')
+  }
+
     console.log(event)
-    console.log(markers);
+    console.log('SELECTED', selected)
+    console.log('MARKERS', markers);
+    console.log('BIRDSELECTDROPDOWN', document.getElementById('birdSelectDropdown').value)
   }, [])
 
+  const selectedRef = useRef(selected)
   const mapRef = useRef();
+
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
   }, [])
+
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
@@ -80,9 +94,10 @@ export default function Map() {
   return (
 
     <div>
-      <BirdSelect />
-      <Search panTo={ panTo } />
-      <input placeholder='enter species here'></input>
+      <BirdSelect
+        panTo={ panTo }
+        setSpecies={setSpecies}
+        />
       <Locate panTo={ panTo } />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -92,26 +107,22 @@ export default function Map() {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map(marker => (
-          <Marker
-            key={marker.time.toISOString()}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={{
-              url: 'https://i.imgur.com/6Xmrxiq.png',
-              scaledSize: new window.google.maps.Size(45,45),
-            }}
-            onClick ={() => {
-              setSelected(marker)
-            }}
-          />
-        ))}
+        <Markers
+          setMarkers={setMarkers}
+          markers={markers}
+          setSelected={setSelected}
+          selected={selected}
+        />
         {selected ? (
           <InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => {
+            console.log('SELECTED LINE 195', selected)
             setSelected(null);
           }}>
             <div>
-              <h2>Bird Spotted</h2>
-              <p>Spotted {formatRelative(selected.time, new Date())}</p>
+              <h2>{selected.species}</h2>
+              <p>Spotted {formatRelative(selected.time, new Date())}<br/>
+                location: lat: { selected.lat }, lng: { selected.lng }
+              </p>
             </div>
           </InfoWindow>
         ) : null}
@@ -136,60 +147,3 @@ function Locate({ panTo }) {
   </button>
   );
 }
-
-function Search({ panTo }){
-  let {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions
-  } = usePlacesAutoComplete({
-    requestOptions: {
-      location: {
-        lat: () => 30.0038,
-        lng: () => -90.0972
-      },
-      radius: 200 * 1000,
-    },
-  });
-
-  return (
-    <div className='search'>
-      <Combobox
-      // when a user selects a suggestion, call set value to update state and place whatever they chose in there without going to google to fetch the data
-      // , we will clear out all the other suggestions on selection,
-      // take address and call getgeocode to get latlng, and pan map to the latlng of selection
-        onSelect={async (address) => {
-          setValue=(address);
-          clearSuggestions();
-          try {
-            const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
-          } catch (err) {
-            console.error(err);
-          }
-        }}
-      >
-        <ComboboxInput
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          // disabled={!ready}
-          placeholder='Enter a location'
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-          {status === 'OK' &&
-            data.map(({id, description}) => (
-              <ComboboxOption key={id} value={description} />
-          ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  )
-}
-

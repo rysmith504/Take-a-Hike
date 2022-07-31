@@ -52,7 +52,7 @@ const Gallery = () => {
   });
 
   const handleFileChange = (e) => {
-    console.log("photo changed");
+    // console.log("photo changed");
     setPhoto(e.target.files[0]);
   };
 
@@ -73,30 +73,31 @@ const Gallery = () => {
         .catch((err) => console.error(err));
       setPhoto(null);
       handleGallery();
+      setLocation('');
+      setCategory('choose a category');
     } else {
       if (!photo) {
         alert("please select a photo to upload")
       }
-      else if (location || category === 'choose a category') {
+      else if (!location || category === 'choose a category') {
         alert ("please fill out the required info");
       }
     }
-    setLocation('');
-    setCategory('choose a category');
+
   };
 
   const handleLocation = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setLocation(e.target.value);
   }
 
   const handleCategory = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCategory(e.target.value);
   }
 
   const fileData = () => {
-    console.log("test");
+    // console.log("test");
 
     if (photo) {
       const reader = new FileReader();
@@ -132,7 +133,7 @@ const Gallery = () => {
     axios
       .get("/api/gallery")
       .then((urls) => {
-        console.log(urls.data);
+        // console.log(urls.data);
         setGallery(urls.data);
       })
       .catch((err) => console.error(err));
@@ -175,7 +176,7 @@ const Gallery = () => {
             <div>
               <OutlinedInput onChange={(e) => handleLocation(e)} value={location} type='text' placeholder='where was this taken?'/>
               <Select native onChange={(e) => handleCategory(e)}>
-                <option>{category}</option>
+                <option>choose a category</option>
                 <option>scenery</option>
                 <option>wildlife</option>
               </Select>
@@ -189,7 +190,7 @@ const Gallery = () => {
         </Grid>
       </Grid>
       <div align='center' id="gallery">
-        <ImageList variant='quilted' align='center' sx={{ borderRadius: '25px', padding: '10px', backgroundColor: '#272727', width: 600, height: 450, boxShadow: 3}} cols={3} rowHeight={220}>
+        <ImageList variant='quilted' align='center' sx={{ borderRadius: '25px', padding: '10px', backgroundColor: 'lavenderblush', width: 600, height: 450, boxShadow: 3}} cols={3} rowHeight={220}>
           {gallery.map((image, i) => (
             <ImageListItem sx={{boxShadow: 3, borderRadius: '25px', backgroundColor: 'white'}} key={i} onClick={() => handleClick(image.url)}>
               <a href={image.url} target="_blank">
