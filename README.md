@@ -175,6 +175,3 @@ Google Oauth requires a google cloud account. First create your account and then
 ![Weather](mockups/takeahike-weather.png)
 ![Map](mockups/takeahike-map.png)
 ![Gallery](mockups/takeahike-gallery.png)
-
-***Note: You may use only the npm modules listed in available resources to complete this task.***
-> As a user, I expect to see a list of categories to help me plan my budget.
