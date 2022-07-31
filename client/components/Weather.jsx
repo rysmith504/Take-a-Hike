@@ -125,7 +125,7 @@ const Weather = () => {
                 {(weatherId >= 300 && weatherId < 400) ? <img width='100' height ='100' src='https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather05-256.png'/> : ''}
                 {(weatherId >= 500 && weatherId < 600) ? <img width='100' height ='100' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/rain-512.png'/> : ''}
                 {(weatherId >= 600 && weatherId < 700) ? <img width='100' height ='100' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/snow-cloud-512.png'/> : ''}
-                {(weatherId > 700 && weatherId < 800) ? 'it is not ideal for hiking' : ''}
+                {/* {(weatherId > 700 && weatherId < 800) ? 'it is not ideal for hiking' : ''} */}
                 {(weatherId === 800) ? <img width='100' height ='100' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/sun-512.png'/> : ''}
                 {(weatherId > 800 && weatherId < 900) ? <img width='100' height ='100' src='https://cdn3.iconfinder.com/data/icons/tiny-weather-1/512/cloudy-256.png'/> : ''}
               </div>

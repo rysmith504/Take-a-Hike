@@ -13,7 +13,7 @@ galleryRouter.post('/', async (req, res) => {
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
     upload_preset: 'trailfeathers'
   })
-  console.log(uploadedResponse);
+  // console.log(uploadedResponse);
   Gallery.create({
     url: uploadedResponse.secure_url,
     location: req.body.location,
