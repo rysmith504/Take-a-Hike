@@ -108,7 +108,15 @@ const Form = () => {
 
   return (
     <div className='profile-card'>
-      
+            <br></br>
+      <h3
+        className="content has-text-centered"
+        padding="20px 40px"
+        margin-left="40px"
+      >
+        Add Your Trip
+      </h3>
+      <br></br>
       <div class="field">
         <label class="label">Trip Name</label>
         <div class="control">

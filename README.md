@@ -149,6 +149,7 @@ Google Oauth requires a google cloud account. First create your account and then
 - Update your .env with the Endpoint(HostName), Username, Password, and Port. 
 - Once your mysql connection works and your .env is completed, seed the database from your VScode terminal. You can then refresh your Schemas in the Workbench and see the TakeAHike Schema with the seeded tables. To view the data in that table, hover over it and click the far right spreadsheet icon.
 ![RDS Setup](mockups/RDS-setup-workbench2.png)
+
 ## Installation/Start-up
 
 - First fork the repo and clone it to your local machine.
