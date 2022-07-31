@@ -177,7 +177,6 @@ const App = () => {
   <Route path='gallery' element={<Gallery />} />
   <Route path='profile' element={<UserProfile />} />
   <Route path='form' element={<Form />} />
-  <Route path='addtrip' element={<TripAdd />} />
   <Route path='auth/google/callback' element={<UserProfile />} />
 </Routes><Outlet />
     </div>
