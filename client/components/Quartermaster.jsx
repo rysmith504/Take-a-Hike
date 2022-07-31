@@ -77,7 +77,6 @@ const Quartermaster = () => {
     setPackingListsNames(packingListsNames);
     console.log("76, packinglists", packingListsNames);
   };
-
   return (
     <>
       <h3
