@@ -17,7 +17,6 @@ import Weather from './Weather.jsx';
 import Gallery from './Gallery.jsx';
 import TripsList from './TripsList.jsx';
 import Form from './Form.jsx';
-import TripAdd from './TripAdd.jsx';
 
 const App = () => {
   const [trailList, setTrailList] = useState([]);
@@ -116,9 +115,6 @@ const App = () => {
         <a class="navbar-item" onClick={handleMenu}>
           <Link to='/form'>Add a Trip</Link>
         </a>
-        <a class="navbar-item" onClick={handleMenu}>
-          <Link to='/addtrip'>TripAdd</Link>
-        </a>
       </div>
     </div>
     <a class="navbar-item" onClick={handleMenu}>
@@ -177,7 +173,6 @@ const App = () => {
   <Route path='gallery' element={<Gallery />} />
   <Route path='profile' element={<UserProfile />} />
   <Route path='form' element={<Form />} />
-  <Route path='addtrip' element={<TripAdd />} />
   <Route path='auth/google/callback' element={<UserProfile />} />
 </Routes><Outlet />
     </div>
