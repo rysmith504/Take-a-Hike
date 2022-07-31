@@ -55,7 +55,7 @@ const seedSqlize = async () => {
     "\nDatabase (MySQL): 'Users' table successfully created!"
   )
   
-  await Markers.sync()
+  await Markers.sync({force: true})
   console.log(
     "\x1b[36m",
     "\nDatabase (MySQL): 'Markers' table successfully created!"
