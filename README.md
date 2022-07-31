@@ -113,8 +113,8 @@ The styling is found in main.css and mapStyles.js.
 - CLOUDINARY_URL=
 
 #### Trail API
-- X-RapidApi-Key=2d8ea84d38msh3d15d68f2486f87p1f6cb5jsn33d451b5a65d
-- X-RapidAPI-Host=trailapi-trailapi.p.rapidapi.com
+- X-RapidApi-Key=
+- X-RapidAPI-Host=
 
 #### AWS RDS Database (online DB)
 - RDS_HOSTNAME=
