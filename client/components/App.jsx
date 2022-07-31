@@ -17,6 +17,7 @@ import Weather from './Weather.jsx';
 import Gallery from './Gallery.jsx';
 import TripsList from './TripsList.jsx';
 import Form from './Form.jsx';
+import TripAdd from './TripAdd.jsx';
 
 const App = () => {
   const [trailList, setTrailList] = useState([]);
@@ -30,6 +31,17 @@ const App = () => {
       document.getElementById('navMenu').classList.remove('is-active');
     }
     setNavOpen(!navOpen);
+  };
+
+    const logout = () => {
+    axios.get('/logout').then((res) => {
+      if (res.data) {
+        alert('logout successful');
+        window.location.href = '/';
+        history.push('/');
+        history.push('/profile');
+      }
+    }).catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -104,6 +116,9 @@ const App = () => {
         <a class="navbar-item" onClick={handleMenu}>
           <Link to='/form'>Add a Trip</Link>
         </a>
+        <a class="navbar-item" onClick={handleMenu}>
+          <Link to='/addtrip'>TripAdd</Link>
+        </a>
       </div>
     </div>
     <a class="navbar-item" onClick={handleMenu}>
@@ -118,10 +133,10 @@ const App = () => {
     <a class="navbar-item" onClick={handleMenu}>
       <Link to='/gallery'>Gallery</Link>
     </a>
-
     <a class="navbar-item" onClick={handleMenu}>
       <Link to='/profile'>User Profile</Link>
     </a>
+    <Link to='/auth/google/callback'></Link>
   </div>
 
   <div class="navbar-end">
@@ -129,6 +144,13 @@ const App = () => {
       <div class="buttons">
         <a class="button is-light" onClick={handleMenu}>
           <Link to='/login'>Login</Link>
+        </a>
+      </div>
+    </div>
+    <div class="navbar-item">
+      <div class="buttons">
+        <a class="button is-light" onClick={handleMenu}>
+          <Link to='/logout'>Logout</Link>
         </a>
       </div>
     </div>
@@ -141,6 +163,7 @@ const App = () => {
       handleGetTrails={handleGetTrails}
       trailList={trailList} />} />
   <Route path='login' element={<Login />} />
+  <Route path='logout' element={<Login />} />
   <Route path='weather' element={<Weather />} />
   <Route path='trips'
     element={<TripsList />} />
@@ -154,6 +177,8 @@ const App = () => {
   <Route path='gallery' element={<Gallery />} />
   <Route path='profile' element={<UserProfile />} />
   <Route path='form' element={<Form />} />
+  <Route path='addtrip' element={<TripAdd />} />
+  <Route path='auth/google/callback' element={<UserProfile />} />
 </Routes><Outlet />
     </div>
   );

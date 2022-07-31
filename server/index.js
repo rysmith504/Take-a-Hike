@@ -55,7 +55,7 @@ app.use('/api/map', mapRouter);
 app.use('/api/weather', weatherRouter);
 app.use('/api/gallery', galleryRouter);
 
-const successLoginUrl = 'http://localhost:3000/';
+const successLoginUrl = 'http://localhost:3000';
 const errorLoginUrl = 'http://localhost:3000/login/error';
 
 //Auth Routes
@@ -65,16 +65,15 @@ app.get(
 );
 
 app.get(
-  '/',
+  '/auth/google/callback',
   passport.authenticate('google', {
     failureMessage: 'cannot login to Google',
     failureRedirect: errorLoginUrl,
     successRedirect: successLoginUrl,
   }),
   (req, res) => {
-    res.redirect('/');
     console.log('User: ', req.user);
-    res.send('thank you for signing in!');
+    res.redirect('http://localhost:3000');
   }
 );
 
