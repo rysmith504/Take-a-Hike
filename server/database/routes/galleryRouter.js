@@ -13,7 +13,14 @@ galleryRouter.post('/', async (req, res) => {
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
     upload_preset: 'trailfeathers'
   })
-  res.json({msg: "YOOOO"})
+  console.log(uploadedResponse);
+  Gallery.create({
+    url: uploadedResponse.secure_url,
+    location: req.body.location,
+    category: req.body.category
+  })
+    .then(() => res.sendStatus(200))
+    .catch(() => res.sendStatus(500));
 } catch (error) {
   console.error(error)
   res.status(500).json({err: 'OOPS'})
@@ -24,23 +31,20 @@ galleryRouter.post('/', async (req, res) => {
 
 galleryRouter.get('/', async (req, res) => {
 
-  const resources = await cloudinary.search
-  .expression(`resource_type:image AND folder:trailfeathers/*`)
-  .sort_by('created_at', 'desc')
-  .max_results(30)
-  .execute();
+  // const resources = await cloudinary.search
+  // .expression(`resource_type:image AND folder:trailfeathers/*`)
+  // .sort_by('created_at', 'desc')
+  // .max_results(30)
+  // .execute();
 
-  const secureImageUrls = resources.resources
-    .filter((imageObj) => imageObj.folder === 'trailfeathers')
-    .map((image) => image.secure_url);
+  // const secureImageUrls = resources.resources
+  //   .filter((imageObj) => imageObj.folder === 'trailfeathers')
+  //   .map((image) => {
+  //     return image.secure_url
+  //   });
 
-  await secureImageUrls.forEach((url) => {
-    Gallery.create({
-      url,
-    })
-      .then(() => {})
-      .catch(() => {});
-  })
+  // await secureImageUrls.reverse().forEach((url) => {
+
 
   Gallery.findAll()
     .then((data) => res.status(200).send(data))
