@@ -33,27 +33,26 @@ export default function Map() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   })
+
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [species, setSpecies] = useState(null);
 
-  useEffect(() => {
-    console.log(markers)
-    console.log(new Date())
-  }, [markers])
-
+  const didMount = useRef(false);
 
   useEffect(() => {
-    getMarkers()
-  }, [])
+      if (didMount.current) postMarkers();
+      else didMount.current = true;
+  }, [markers.length]);
 
   const getMarkers = () => {
     axios.get('api/map/markers')
       .then(response => {
-      console.log('RESPONSE', response);
+        console.log(response)
         const markerArr = response.data.map((i) => {
           return(
             {
+              _id: i._id,
               species: i.commonName,
               time: i.time,
               lat: parseFloat(i.lat),
@@ -61,10 +60,19 @@ export default function Map() {
             }
           );
         })
-        console.log('MARKERARR', markerArr);
         setMarkers(markerArr);
       })
       .catch(err => console.error('AXIOS MARKER GET ERROR', err))
+  }
+
+  const postMarkers = () => {
+    axios.post('/api/map/markers', {
+      commonName: markers[markers.length - 1].species,
+      time: new Date(markers[markers.length - 1].time).toISOString(),
+      lat: markers[markers.length - 1].lat,
+      lng: markers[markers.length - 1].lng,
+    })
+      .catch(err => console.error(err));
   }
 
   const speciesRef = useRef(species);
@@ -82,17 +90,12 @@ export default function Map() {
         time: new Date()
       },
     ])
-
+    console.log(document.getElementById('birdSelectDropdown'))
     document.getElementById('birdSelectDropdown').value = null;
-  } else {
-    return alert('please select species')
-  }
-
-    console.log(event)
-    console.log('SELECTED', selected)
-    console.log('MARKERS', markers);
-    console.log('BIRDSELECTDROPDOWN', document.getElementById('birdSelectDropdown').value)
-  }, [])
+    }  else {
+      return alert('please select species');
+    }
+  }, []);
 
 
 
@@ -101,7 +104,6 @@ export default function Map() {
 
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
-    getMarkers()
   }, [])
 
   const panTo = useCallback(({ lat, lng }) => {
@@ -129,15 +131,12 @@ export default function Map() {
       >
         <Locate panTo={ panTo } />
         <Markers
-          getMarkers={getMarkers}
-          setMarkers={setMarkers}
           markers={markers}
+          getMarkers={getMarkers}
           setSelected={setSelected}
-          selected={selected}
         />
         {selected ? (
           <InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => {
-            console.log('SELECTED LINE 195', selected)
             setSelected(null);
           }}>
             <div>

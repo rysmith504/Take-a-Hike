@@ -11,14 +11,12 @@ export default function BirdSelect({ panTo, setSpecies }) {
   useEffect(() => {
     axios.get('api/map/mapBirds')
       .then((response) => {
-        console.log((response.data.map((i) => i.commonName)));
         setBirdList(response.data.map((i) => i.commonName));
       })
       .catch(err => console.error('AXIOS ERROR', err));
   }, []);
 
   const handleChange = (e) => {
-    // console.log('HANDLECHANGE', e)
     setSpecies(() => [e.target.firstChild.data])
   };
 
@@ -30,7 +28,7 @@ export default function BirdSelect({ panTo, setSpecies }) {
           freeSolo
           id="birdSelectDropdown"
           onChange={(e) => handleChange(e)}
-          onInputChange={(e) => handleChange(e)}
+          // onInputChange={(e) => handleChange(e)}
           disableClearable
           options={birdList.map((i) => i)}
           renderInput={(params) => (
@@ -44,8 +42,8 @@ export default function BirdSelect({ panTo, setSpecies }) {
             />
           )}
         />
-        <Search panTo={ panTo } />
       </Stack>
+      <Search panTo={ panTo } />
     </div>
   );
 }

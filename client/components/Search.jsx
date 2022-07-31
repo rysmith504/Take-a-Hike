@@ -52,7 +52,7 @@ export default function Search({ panTo }){
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder='Enter a location'
+          placeholder='View feathers worldwide!'
         />
         <ComboboxPopover>
           <ComboboxList>
