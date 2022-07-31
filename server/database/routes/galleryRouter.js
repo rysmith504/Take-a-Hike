@@ -47,7 +47,7 @@ galleryRouter.get('/', async (req, res) => {
 
 
   Gallery.findAll()
-    .then((data) => res.status(200).send(data))
+    .then((data) => res.status(200).send(data.reverse()))
     .catch((err) => res.sendStatus(500));
 
 

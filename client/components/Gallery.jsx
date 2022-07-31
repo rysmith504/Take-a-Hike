@@ -81,6 +81,8 @@ const Gallery = () => {
         alert ("please fill out the required info");
       }
     }
+    setLocation('');
+    setCategory('choose a category');
   };
 
   const handleLocation = (e) => {
@@ -173,7 +175,7 @@ const Gallery = () => {
             <div>
               <OutlinedInput onChange={(e) => handleLocation(e)} value={location} type='text' placeholder='where was this taken?'/>
               <Select native onChange={(e) => handleCategory(e)}>
-                <option selected>choose a category</option>
+                <option>{category}</option>
                 <option>scenery</option>
                 <option>wildlife</option>
               </Select>
