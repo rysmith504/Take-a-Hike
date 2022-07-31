@@ -51,13 +51,22 @@ const BirdingCheckList = () => {
 
   // Return Component Template
   return (
-    <div className="section is-large">
-      <h1 className="title" alignment="center">
+    <div>
+      <br></br>
+      <h3
+        className="content has-text-centered"
+        padding="20px 40px"
+        margin-left="40px"
+      >
         {userName}'s Birding Checklist
-      </h1>
-      <h2 className="subtitle">
-        Your one stop shop to keep track of all your Louisiana bird sightings. There is no better way to celebrate the great state of Louisiana than spotting all the wonderful birds that inhabit it. So get to hiking!
-      </h2>
+      </h3>
+      <br></br>
+      <div className="content has-text-centered">
+        <p>Your one stop shop to keep track of all your Louisiana bird sightings.<br></br> 
+          There is no better way to celebrate the great state of Louisiana than <br></br> 
+          spotting all the wonderful birds that inhabit it. So get to hiking!</p>
+      </div>
+      <br></br>
       <form >
         <label>
           <input
@@ -76,8 +85,8 @@ const BirdingCheckList = () => {
         />
       </form>
       <div className="birds">
-        <div className="profile-card">
-          {birdList.map((bird) => {
+        <div>
+        {birdList.map((bird) => {
             return <BirdProfile 
               bird={bird} 
               key={bird._id} 

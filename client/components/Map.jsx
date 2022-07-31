@@ -14,7 +14,7 @@ import Markers from './Markers.jsx'
 const libraries = ['places'];
 
 const mapContainerStyle = {
-  width: '100vw',
+  width: 'auto',
   height: '70vh'
 }
 
@@ -93,12 +93,11 @@ export default function Map() {
 
   return (
 
-    <div>
+    <div >
       <BirdSelect
         panTo={ panTo }
         setSpecies={setSpecies}
         />
-      <Locate panTo={ panTo } />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
@@ -107,6 +106,7 @@ export default function Map() {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
+        <Locate panTo={ panTo } />
         <Markers
           setMarkers={setMarkers}
           markers={markers}

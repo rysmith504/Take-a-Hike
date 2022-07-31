@@ -8,19 +8,31 @@ Product Owner:
 Scrum Master: Caity Opelka
 Development Team: Rodolfo Machirica, Rene Mercadel, John Dyer, Santo Lococo, Murphy Fleenor
 
-## Application Walk Through
+# Team Work4ce
+
+Product Owner:
+Scrum Master: Caity Opelka
+Development Team: Vincent Tong, Bethany Jones, Ryan Smith
+
+# Application Walk Through
 
 The idea is to have one stop shop for all your hiking needs, with a focus on Louisiana.
 
 When a user opens the application they will be brought to the login page where they will be redirected to google to login.
 
-Located at the top left of every page is a navigation burger menu which contains {x} options that will quickly navigate the user to various features of the application. From left to right are the ...
+Located at the top right of every page is a navigation burger menu which contains {x} options that will quickly navigate the user to various features of the application. From left to right are the ...
 
-Quartermaster
+## Trips
+Allows the user to view their upcoming and past trips 
+
+### Quartermaster
 Allows user to create packing lists with just a name of the list and a description, after which the list is displayed on the page.
 User can click on a given list which will open a new view; and there, the user can add items that they want for that trip/packing list.
 
-Trail Feathers
+### Birding Check List
+A searchable checklist of all the bird in Louisiana (according to eBird a Cornell run Bird Data API). This includes the bird's common name, scientific name, common family name, and common scientific name. Users can check any bird they have spotted along there journey to keep along the trail.
+
+## Trail Feathers
 Trail Feathers is an app for hiking and bird watching anywhere in the world! Use it to explore hiking and biking trails, organize lists of items
 to bring with you, and search for any North American bird.
 
@@ -30,32 +42,29 @@ Setup Photo upload - using cloudinary a user can take and upload photos on to th
 
 Packing List
 
-Birding Check List
-A searchable checklist of all the bird in Louisiana (according to eBird a Cornell run Bird Data API). This includes the bird's common name, scientific name, common family name, and common scientific name. Users can check any bird they have spotted along there journey to keep along the trail.
-
 ## Tech
 
-1. Cloudinary - Image hosting library
-2. React-Router - Router library
-3. Mysql - Database
-4. Sequelize - ORM
-5. React - Framework
-6. Axios - http Client
-7. Javascript
-8. Node.js - Runtime Environment
-9. Express - Server
-10. Bulma - CSS Library
-11. eslint - Linter
-12. Webpack - Module Bundler
-13. Passport/Google OAuth - Authentication
-14. AWS EC2 - Deployment
-15. Ebird - Bird data API
-16. TrailApi - hiking trail data
-17. MaterialUI - styling
+- Cloudinary - Image hosting library
+- React-Router - Router library
+- Mysql - Database
+- Sequelize - ORM
+- React - Framework
+- Axios - http Client
+- Javascript
+- Node.js - Runtime Environment
+- Express - Server
+- Bulma - CSS Library
+- eslint - Linter
+- Webpack - Module Bundler
+- Passport/Google OAuth - Authentication
+- AWS EC2 - Deployment
+- Ebird - Bird data API
+- TrailApi - hiking trail data
+- MaterialUI - styling
 
 ### database:
 
-We have a mySQL/Sequelize database. We have all of our models located in database/models.
+We have a mySQL/Sequelize database. We have all of our models located in database/models. The database 
 
 ### server:
 
@@ -86,22 +95,43 @@ The HashRouter can be found in client/index.jsx
 
 The styling is found in login.css and main.css.
 
-Dev Setup:
 
-## Environment Variables Needed
+# Dev Setup:
 
-(for oauth)
+### Environment Variables Needed
 
-1. GOOGLE_CLIENT_ID=
-2. GOOGLE_CLIENT_SECRET=
+- GOOGLE_CLIENT_ID=
+- GOOGLE_CLIENT_SECRET=
 
-(for photo upload) 3. CLOUDINARY_URL= 4. CLOUDINARY_NAME= 5. CLOUDINARY_API_KEY= 6. CLOUDINARY_API_SECRET=
+- CLOUDINARY_NAME=
+- CLOUDINARY_API_KEY=
+- CLOUDINARY_API_SECRET=
+- CLOUDINARY_URL=
 
-(for hiking trail data) 8. X-RapidApi Key= 9. X-RapidAPI-Host=
+- X-RapidApi-Key=2d8ea84d38msh3d15d68f2486f87p1f6cb5jsn33d451b5a65d
+- X-RapidAPI-Host=trailapi-trailapi.p.rapidapi.com
+
+- RDS_HOSTNAME=
+- RDS_USERNAME=
+- RDS_PASSWORD=
+- RDS_PORT=
+
+- WEATHER=
+- REACT_APP_GOOGLE_MAPS_API_KEY=
 
 ## Google OAuth
 
 Google Oauth requires a google cloud account. First create your account and then navigate to the developer console. Go to google API and create a clientID and clientSecret. This goes inside the .env file.
+
+## WEATHER API SETUP
+- create an account @ https://home.openweathermap.org/users/sign_in
+- look at their availble API options at https://openweathermap.org/api
+	- Subscribing to their One Call API "Pay as you call" option is nice for testing purposes. There are 2000 free calls to the api per day and we never had to exceed more than 500.
+	- Instructions on how to set the parameters on their API call can be found here: https://openweathermap.org/api/one-call-3
+	- You can find/generate your API key by going to your profile > My Api kEY
+	- From there you can see your daily API call usage by going to Billing Plans > View Usage Statistics
+
+
 
 ## Installation/Start-up
 
@@ -115,3 +145,14 @@ Google Oauth requires a google cloud account. First create your account and then
 ### Known Bugs
 
 If you input a non-land based coordinate when searching for trails, it will return an error.
+
+
+***Note: You may use only the npm modules listed in available resources to complete this task.***
+> As a user, I expect to see a list of categories to help me plan my budget.
+
+## App Mockups
+![Trips](mockups/takeahike-trips.png)
+![Trips](mockups/takeahike-quartermaster.png)
+![Trips](mockups/takeahike-checklist.png)
+![Trips](mockups/takeahike-trails.png)
+![Trips](mockups/takeahike-weather.png)

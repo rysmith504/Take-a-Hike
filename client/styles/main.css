@@ -293,9 +293,9 @@ body {
 
 .locate {
   position:absolute;
-  top: 15rem;
-  right: 3rem;
-  background: none;
+  bottom: 12rem;
+  right: .5rem;
+  background: #FFFFFF;
   border: none;
   z-index: 10;
 }

@@ -63,7 +63,9 @@ tripsRouter.get('/pastTrips', (req, res) => {
       tripDate,
       user_id: user_id.userId
     })
-      .then((trips) => {res.json(trips)})
+      .then((trips) => {
+        res.json(trips);
+      })
       .catch((err) => {
         console.error('ERROR: ', err);
         res.sendStatus(404);
