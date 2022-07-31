@@ -4,7 +4,10 @@ import axios from 'axios';
 import WeatherIcons from "./WeatherIcons.jsx";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-
+import NotesIcon from '@mui/icons-material/Notes';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MapIcon from '@mui/icons-material/Map';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const moment = require('moment');
 const TripsListEntry = ({ trip, deleteTrip }) => {
 let current = moment();
@@ -42,6 +45,8 @@ const handleDelete = (e) => {
   document.getElementById(value).remove();
 };
 
+const img = `https://source.unsplash.com/random/400x200?${trip.tripLocation}`
+
 return (
 <div className="trip-card" id={trip._id}>
   <div className="list-item-card">
@@ -64,17 +69,18 @@ return (
         </Tooltip>
       </div>
     </div>
+    <img src={img} height="200px" width="600px"/>
     <div className="info-group">
-      <p>Description: {trip.tripDescription}</p>
+      <NotesIcon/><p><strong>Description:</strong> {trip.tripDescription}</p>
     </div>
     <div className="info-group">
-      <p>Location: {trip.tripLocation}</p>
+    <LocationOnIcon/><p><strong>Location:</strong> {trip.tripLocation}</p>
     </div>
     <div className="info-group">
-      <p>Address: {trip.tripAddress}</p>
+      <MapIcon/><p><strong>Address:</strong> {trip.tripAddress}</p>
     </div>
     <div className="info-group">
-      <p>Date: {moment(trip.tripDate).format('ll')}</p>
+      <CalendarMonthIcon/><p><strong>Date:</strong> {moment(trip.tripDate).format('ll')}</p>
     </div>
     <div className="info-group">
       { moment(trip.tripDate).format('L') > moment().format('L')

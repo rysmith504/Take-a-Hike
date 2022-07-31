@@ -69,9 +69,14 @@ const TripsList = () => {
   return (
     <div>
       <br></br>
-      <h1 className="Header" alignment="center">
+      <h3
+        className="content has-text-centered"
+        padding="20px 40px"
+        margin-left="40px"
+      >
         Your Upcoming Trips
-      </h1>
+      </h3>
+      <br></br>
       <div>
         <div>
           {tripsList.map((trip) => {
@@ -80,9 +85,14 @@ const TripsList = () => {
         </div>
       </div>
       <br></br>
-      <h1 className="Header" alignment="center">
+      <h3
+        className="content has-text-centered"
+        padding="20px 40px"
+        margin-left="40px"
+      >
         Your Past Trips
-      </h1>
+      </h3>
+      <br></br>
       <div>
         <div>
           {pastTrips.map((trip) => {
