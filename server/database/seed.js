@@ -12,6 +12,10 @@ const {
 const {
   dummyGalleryData
 } = require("../../copyAPIparkData/dummyGalleryData.js");
+const {
+  dummyMarkerData
+} = require("../../copyAPIparkData/dummyMarkerData.js");
+
 
 const seedSqlize = async () => {
   const rootDB = await mysql.createConnection({
@@ -39,6 +43,7 @@ const seedSqlize = async () => {
   const { PackingListItems } = require("./models/packingListItems.js");
   const { Users } = require("./models/users.js");
   const {Trips } = require("./models/trips.js");
+  const {Markers } = require("./models/markers.js");
   const { BirdList } = require("./models/birdList.js")
   const { BirdSightings } = require("./models/birdSightings.js")
   const { Gallery } = require("./models/gallery.js");
@@ -49,6 +54,13 @@ const seedSqlize = async () => {
     "\x1b[36m",
     "\nDatabase (MySQL): 'Users' table successfully created!"
   )
+  
+  await Markers.sync({force: true})
+  console.log(
+    "\x1b[36m",
+    "\nDatabase (MySQL): 'Markers' table successfully created!"
+  )
+
   await PackingLists.sync()
   console.log(
     "\x1b[36m",
@@ -94,6 +106,14 @@ const seedSqlize = async () => {
     `\nDatabase (MySQL): Successfully seeded trails with ${parksArray.length} entries!\n`,
     "\x1b[37m"
   )
+
+  const markersArray = await Promise.all(dummyMarkerData.map((txn) => Markers.create(txn)))
+  console.log(
+    "\x1b[32m",
+    `\nDatabase (MySQL): Successfully seeded trails with ${markersArray.length} entries!\n`,
+    "\x1b[37m"
+  )
+
   const birdArray = await Promise.all(birdsOfLA.map((bird) => BirdList.create(bird)))
   console.log(
     "\x1b[32m",

@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Marker,
 } from '@react-google-maps/api';
 
-export default function Markers ({markers, setSelected})  {
-
+export default function Markers ({getMarkers, markers, setSelected})  {
+  useEffect(() => {
+    getMarkers()
+  }, [])
   return (
     markers.map((marker) => (
         <Marker
-        key={marker.time.toISOString()}
+        key={marker.time}
         position={{ lat: marker.lat, lng: marker.lng }}
         icon={{
           url: 'https://i.imgur.com/6Xmrxiq.png',

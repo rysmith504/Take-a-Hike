@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, '../../../.env')});
 const axios = require('axios');
 const { BirdList } = require("../models/birdList.js")
+const { Markers } = require("../models/markers.js")
 
 
 //////////////////////MAP//////////////////////
@@ -25,6 +26,37 @@ mapRouter.get('/mapBirds', (req, res) => {
       res.json(data)
     })
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+mapRouter.get('/markers', (req, res) => {
+  Markers.findAll()
+    .then(data => {
+      console.log(data)
+      res.json(data)
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+mapRouter.post('/markers', (req, res) => {
+  const {
+    commonName,
+    time,
+    lat,
+    lng,
+  } = req.body;
+    console.log(req.body);
+  Markers.create({
+    commonName,
+    time,
+    lat,
+    lng,
+  })
+    .then((markers) => {res.json(markers)})
+    .catch((err) => {
+      console.error('ERROR: ', err);
+      res.sendStatus(404);
+    });
 });
 
 module.exports = {

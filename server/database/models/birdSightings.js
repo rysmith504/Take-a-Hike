@@ -13,3 +13,4 @@ const BirdSightings = db.define('birdSightings', {
  module.exports = {
   BirdSightings,
  }
+

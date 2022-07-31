@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import Axios from 'axios';
+import axios from 'axios';
 import Search from './Search.jsx'
 
 export default function BirdSelect({ panTo, setSpecies }) {
   const [birdList, setBirdList] = useState([])
 
   useEffect(() => {
-    Axios.get('api/map/mapBirds')
+    axios.get('api/map/mapBirds')
       .then((response) => {
         console.log((response.data.map((i) => i.commonName)));
         setBirdList(response.data.map((i) => i.commonName));

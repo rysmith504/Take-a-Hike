@@ -10,6 +10,7 @@ import mapStyles from '../styles/mapStyles.js'
 
 import BirdSelect from './BirdSelect.jsx'
 import Markers from './Markers.jsx'
+import axios from 'axios';
 
 const libraries = ['places'];
 
@@ -32,20 +33,39 @@ export default function Map() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   })
-  const [markerArr, setMarkerArr] = useState([])
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [species, setSpecies] = useState(null);
 
   useEffect(() => {
+    console.log(markers)
+    console.log(new Date())
+  }, [markers])
 
-  })
 
   useEffect(() => {
-    setMarkerArr(current => [
-      ...current, markers
-    ])
-  },[markers])
+    getMarkers()
+  }, [])
+
+  const getMarkers = () => {
+    axios.get('api/map/markers')
+      .then(response => {
+      console.log('RESPONSE', response);
+        const markerArr = response.data.map((i) => {
+          return(
+            {
+              species: i.commonName,
+              time: i.time,
+              lat: parseFloat(i.lat),
+              lng: parseFloat(i.lng)
+            }
+          );
+        })
+        console.log('MARKERARR', markerArr);
+        setMarkers(markerArr);
+      })
+      .catch(err => console.error('AXIOS MARKER GET ERROR', err))
+  }
 
   const speciesRef = useRef(species);
 
@@ -62,9 +82,7 @@ export default function Map() {
         time: new Date()
       },
     ])
-    setMarkerArr(current => [
-      ...current, markers
-    ])
+
     document.getElementById('birdSelectDropdown').value = null;
   } else {
     return alert('please select species')
@@ -76,11 +94,14 @@ export default function Map() {
     console.log('BIRDSELECTDROPDOWN', document.getElementById('birdSelectDropdown').value)
   }, [])
 
+
+
   const selectedRef = useRef(selected)
   const mapRef = useRef();
 
   const onMapLoad = useCallback(map => {
     mapRef.current = map;
+    getMarkers()
   }, [])
 
   const panTo = useCallback(({ lat, lng }) => {
@@ -108,6 +129,7 @@ export default function Map() {
       >
         <Locate panTo={ panTo } />
         <Markers
+          getMarkers={getMarkers}
           setMarkers={setMarkers}
           markers={markers}
           setSelected={setSelected}
@@ -120,7 +142,8 @@ export default function Map() {
           }}>
             <div>
               <h2>{selected.species}</h2>
-              <p>Spotted {formatRelative(selected.time, new Date())}<br/>
+              <p>Spotted {formatRelative(new Date(selected.time), new Date())}
+                <br/>
                 location: lat: { selected.lat }, lng: { selected.lng }
               </p>
             </div>
