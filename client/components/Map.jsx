@@ -28,7 +28,7 @@ const options = {
   styles: mapStyles
 }
 
-export default function Map() {
+const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -46,7 +46,7 @@ export default function Map() {
   }, [markers.length]);
 
   const getMarkers = () => {
-    axios.get('api/map/markers')
+    axios.get('/api/map/markers')
       .then(response => {
         console.log(response)
         const markerArr = response.data.map((i) => {
@@ -154,7 +154,7 @@ export default function Map() {
 
 }
 
-function Locate({ panTo }) {
+const Locate = ({ panTo }) => {
   return (
   <button className='locate' onClick={() => {
     navigator.geolocation.getCurrentPosition(
@@ -169,3 +169,5 @@ function Locate({ panTo }) {
   </button>
   );
 }
+
+export default Map;

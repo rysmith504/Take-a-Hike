@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import Search from './Search.jsx'
 
-export default function BirdSelect({ panTo, setSpecies }) {
+const BirdSelect = ({ panTo, setSpecies }) => {
   const [birdList, setBirdList] = useState([])
 
   useEffect(() => {
@@ -47,3 +47,5 @@ export default function BirdSelect({ panTo, setSpecies }) {
     </div>
   );
 }
+
+export default BirdSelect;

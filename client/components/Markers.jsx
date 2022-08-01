@@ -3,14 +3,12 @@ import {
   Marker,
 } from '@react-google-maps/api';
 
-export default function Markers ({getMarkers, markers, setSelected})  {
+const Markers = ({getMarkers, markers, setSelected}) => {
 
   useEffect(() => {
-    if(!markers.length){
       getMarkers();
-    }
   }, [])
-  
+
   return (
     markers.map((marker) => (
         <Marker
@@ -27,3 +25,5 @@ export default function Markers ({getMarkers, markers, setSelected})  {
     ))
   );
 }
+
+export default Markers;
