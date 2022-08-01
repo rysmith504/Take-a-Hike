@@ -46,7 +46,7 @@ export default function Map() {
   }, [markers.length]);
 
   const getMarkers = () => {
-    axios.get('api/map/markers')
+    axios.get('/api/map/markers')
       .then(response => {
         console.log(response)
         const markerArr = response.data.map((i) => {
