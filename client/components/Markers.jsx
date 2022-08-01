@@ -6,9 +6,7 @@ import {
 export default function Markers ({getMarkers, markers, setSelected})  {
 
   useEffect(() => {
-    if(!markers.length){
-      getMarkers();
-    }
+    getMarkers();
   }, [])
   
   return (
