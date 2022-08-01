@@ -6,7 +6,7 @@ import {
 const Markers = ({getMarkers, markers, setSelected}) => {
 
   useEffect(() => {
-      getMarkers();
+    getMarkers();
   }, [])
 
   return (
